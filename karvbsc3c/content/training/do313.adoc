@@ -1,0 +1,38 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Single Sign-On Administration (DO313)
+
+*Introduction to configuring and managing Red Hat Single Sign-On for authenticating and authorizing applications*
+
+[.big]#*Course description*#
+
+_Red Hat Single Sign-On Administration (DO313)_ is designed for system administrators who want to install, configure and manage Red Hat Single Sign-On servers for securing applications. Learn about the different ways to authenticate and authorize applications using single sign-on standards like OAuth and OpenID Connect (OIDC). You will also learn how to install and configure Red Hat SIngle Sign-On on the OpenShift Container Platform.+
+This course is based on Red Hat Single Sign-On version 7.6.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is self paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Installing Red Hat Single Sign-On on virtual machines and on OpenShift Container Platform
+* Authenticating and authorizing applications using OAuth and OIDC
+* Configuring Identity Brokering and user identity federation from external systems
+* Configuring password policies
+
+[.big]#*Audience for this course*#
+
+* System Administrators responsible for administering Red Hat Single Sign-On servers.
+
+[.big]#*Recommended training*#
+
+* https://www.redhat.com/rhtapps/assessment/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+https://www.redhat.com/en/services/training/ad248-red-hat-jboss-application-administration-i[Red Hat JBoss Application Administration I] is recommended but not required
+* Experience with writing web based applications using Node.js, HTML5, Quarkus, or Java EE/Jakarta EE is recommended but not required. 
+
+[.big]#*Technology considerations*#
+
+* Internet access is required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do313-red-hat-single-sign-on-administration

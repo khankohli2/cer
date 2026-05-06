@@ -1,0 +1,51 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat OpenShift Development I: Introduction to Containers with Podman (DO188)
+
+[.big]#*Course description*#
+
+*A developer introduction to building and managing containers with Podman for deploying applications on Red Hat OpenShift.*
+
+Red Hat OpenShift Development I: Introduction to Containers with Podman (DO188) introduces students to building, running, and managing containers with Podman and Red Hat OpenShift. This course helps students build the core skills for developing containerized applications through hands-on experience. These skills can be applied using all versions of OpenShift, including Red Hat OpenShift on AWS (ROSA), Azure Red Hat OpenShift, and OpenShift Container Platform.
+
+This course is based on Red Hat® Enterprise Linux® 9, Podman 4.4 and Red Hat OpenShift® 4.14.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a three day in classroom, a four day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Introduction to https://www.redhat.com/en/topics/containers[containers]
+* Run containers with Podman CLI and Podman Desktop
+* Build custom container images
+* Manage container images
+* Remote debugging with containers
+* Basic container networking
+* Persist data with containers
+* Run multi-container applications
+* Troubleshoot Container Deployments
+* Orchestrate containers with OpenShift and https://www.redhat.com/en/topics/containers/what-is-kubernetes[Kubernetes]
+
+[.big]#*Audience for this course*#
+
+* Developers and https://www.redhat.com/en/topics/cloud-computing/sre[Site Reliability Engineers] that are new to container technology
+* System administrators and platform operators who are interested in managing OpenShift clusters and containerized applications should enroll in https://www.redhat.com/en/services/training/red-hat-openshift-administration-i-operating-a-production-cluster[Red Hat OpenShift Administration I: Containers & Kubernetes (DO180)]
+
+[.big]#*Prerequisites for this course*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills
+* Some experience with web application architectures and their corresponding technologies
+* Experience in the use of a https://www.redhat.com/en/topics/linux[Linux ]terminal session, issuing operating system commands, and familiarity with shell scripting is recommended
+
+[.big]#*Technology considerations*#
+
+* For virtual or self-paced learners:
+** Internet access is required
+** BYOD/BYDW is not supported
+* For classroom learners:
+** Initially, no ILT classroom will be available. It will be available post-release but without a defined timeline yet
+** BYOD/BYDW is not supported
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do188-red-hat-open-shift-development-introduction-containers-with-podman

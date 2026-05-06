@@ -1,0 +1,41 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Enterprise Linux Automation with Ansible (RH294)
+
+[.big]#*Course description*#
+
+*Learn how to automate Linux system administration tasks with Red Hat Ansible Automation Platform*
+
+Red Hat Enterprise Linux Automation with Ansible (RH294)  is designed for Linux administrators and developers who need to automate repeatable and error-prone steps for system provisioning, configuration, application deployment, and orchestration.
+
+This course is based on Red Hat® Enterprise Linux® 9 and Red Hat Ansible Automation Platform 2.2.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a four day in person class, a five day virtual class or is self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Install Red Hat Ansible Automation Platform on control nodes.
+* Create and update inventories of managed hosts and manage connections to them.
+* Automate administration tasks with Ansible Playbooks and ad hoc commands.
+* Write effective playbooks at scale.
+* Protect sensitive data used by Ansible Automation Platform with Ansible Vault.
+* Reuse code and simplify playbook development with Ansible Roles and Ansible Content Collections.
+
+[.big]#*Audience for this course*#
+
+This course is geared toward Linux system administrators, DevOps engineers, infrastructure automation engineers, and systems design engineers who are responsible for these tasks:
+
+* Automating configuration management
+* Ensuring consistent and repeatable application deployment
+* Provisioning and deployment of development, testing, and production servers
+* Integrating with DevOps continuous integration/continuous delivery workflows
+
+[.big]#*Prerequisites for this course*#
+
+* Pass the https://www.redhat.com/en/services/training/ex200-red-hat-certified-system-administrator-rhcsa-exam[Red Hat Certified System Administrator (RHCSA) exam (EX200)], or demonstrate equivalent Red Hat Enterprise Linux knowledge and experience.
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/rh294-red-hat-linux-automation-with-ansible

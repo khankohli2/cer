@@ -1,0 +1,39 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Creating and Configuring Production ROSA Clusters (CS220)
+
+*Create and configure production-grade ROSA clusters as part of a larger AWS customer’s footprint.*
+
+[.big]#*Course Description*#
+
+Creating and Configuring Production ROSA Clusters (CS220) teaches how to configure ROSA clusters as part of pre-existing AWS environments and how to integrate ROSA with AWS services commonly used by IT operations teams, such as Amazon CloudWatch.
+
+*Note:* This course is offered as a two day in person class, a three day virtual class or is self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course Content Summary*#
+
+* Create ROSA STS PrivateLink clusters
+* Connect PrivateLink ROSA clusters to existing VPCs and enable administrators and developers to access those clusters
+* Configure dedicated machine pools and node/pod autoscaling
+* Configure node, cluster, and audit log forwarding to Amazon CloudWatch
+* Configure authentication and group sync with Amazon Cognito
+
+[.big]#*Target Audience*#
+
+* Platform Engineers, Cloud Administrators, System Administrators and other infrastructure-related IT roles who are responsible for providing and supporting infrastructure for applications deployed on AWS.
+* Enterprise Architects, Site Reliability Engineers, DevOps Engineers, and other application-related IT roles who are responsible for designing infrastructure for applications deployed on AWS
+
+[.big]#*Recommended training*#
+
+* https://www.redhat.com/en/services/training/DO120-introduction-to-red-hat-openshift-service-on-aws[DO120 - Introduction to Red Hat OpenShift on AWS (ROSA)] or equivalent experience: “I know how to create and access a public ROSA cluster.”
+* AWS administration at the level of either *AWS Certified SysOps Administrator - Associate* or *AWS Certified Solutions Architect - Associate*, or equivalent experience: “I know how to manage AWS infrastructure services.”
+* Basic knowledge of OpenShift from https://www.redhat.com/en/services/training/do080-deploying-containerized-applications-technical-overview[DO080 Technical Overview:] “I know basic concepts of OpenShift and containers.”
+
+[.big]#*Technology considerations*#
+
+* AWS environments are not currently provided for hands-on labs. Students must provide their own cloud accounts with sufficient AWS quotas and also be able to enable new services from the marketplace.
+* Internet access is required to access AWS services by using the AWS console and the AWS CLI. It is also required to access the Red Hat Hybrid Cloud Console and associated Red Hat cloud services.
+* Students must possess an active Red Hat customer portal account or a free Red Hat Developer program membership.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/creating-and-configuring-production-rosa-clusters-cs220

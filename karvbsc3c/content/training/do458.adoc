@@ -1,0 +1,47 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Network Automation with Red Hat Ansible Automation Platform and Exam (DO458)
+
+*Configure and manage network infrastructure using Red Hat Ansible Automation Platform.*
+
+[.big]#*Course Description*#
+
+Network Automation with Red Hat Ansible Automation Platform and Exam (DO458) is designed for network administrators or infrastructure automation engineers who want to use network automation to centrally manage the switches, routers, and other devices in the organization's network infrastructure. Learn how to use Red Hat Ansible Automation Platform to remotely automate the configuration of network devices, test and validate the current network state, and perform compliance checks to detect and correct configuration drift.
+
+This course is based on Red Hat^®^ Ansible Automation Platform 2.3. The https://www.redhat.com/en/services/training/ex457-red-hat-certified-specialist-in-ansible-network-automation-exam[Red Hat Certified Specialist in Ansible Network Automation exam (EX457)] is also included in this offering.
+
+*Note:* This course is five days. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course summary*#
+
+* Prepare a development environment for Ansible network automation
+* Write and troubleshoot effective Ansible Playbooks for network automation
+* Gather information about network infrastructure configuration for infrastructure awareness and configuration backup
+* Automate specific network administration use cases, including configuration of routers and switches, ports, VLANs, SNMP monitoring, and routing protocols
+* Use Ansible Playbooks to manage devices from various hardware vendors, including Cisco, Juniper, and Arista
+* Centrally manage Ansible content in Git and run it centrally with automation controller
+* Reuse existing, tested network automation code with Ansible Roles, Ansible Content Collections, and Ansible validated content
+
+[.big]#*Target Audience*#
+
+This course is designed for network administrators, network automation engineers, and infrastructure automation engineers who are responsible for deploying, managing, and automating the network infrastructure of their organization or enterprise.
+
+[.big]#*Recommended Training*#
+
+* https://skills.ole.redhat.com/en/catalog[Take our free assessment] to gauge whether this offering is the best fit for your skills
+* Experience with network administration, including a solid understanding of TCP/IP, routers, and managed switches
+* Familiarity with managing network devices from the command line, preferably with one or more of Cisco IOS, IOS XR, or NX-OS; Juniper Junos; or Arista EOS
+* Knowledge equivalent to Red Hat https://www.redhat.com/en/services/training/rh124-red-hat-system-administration-i[System Administration I (RH124)] or better is recommended
+* Prior Ansible knowledge is not required
+
+[.big]#*Technology Considerations*#
+
+* For virtual or self-paced learners:
+** Internet access is required to run the exercises and labs
+** BYOD/BYDW is not supported
+* For classroom learners:
+** Internet access is not required
+** BYOD/BYDW is not supported
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do458-network-automation-with-red-hat-ansible-automation-platform-and-exam

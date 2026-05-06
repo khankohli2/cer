@@ -1,0 +1,35 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Performance Tuning: Linux in Physical, Virtual, and Cloud (RH442)
+
+[.big]#*Course description*#
+
+*Performance tuning and capacity planning for Red Hat Enterprise Linux*
+
+Red Hat Performance Tuning: Linux in Physical, Virtual, and Cloud (RH442) teaches senior Linux(R) system administrators the methodology of performance tuning. This course discusses system architecture with an emphasis on understanding its implications on system performance, performance adjustments, open source benchmarking utilities, networking performance, and tuning configurations for specific server use cases and workloads.
+
+This course is based on Red Hat(R) Enterprise Linux 8.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Analyze and tune for resource-specific scenarios
+* Applying tuning profiles with the tuned tool
+* Tune in virtual environments (hosts and guests)
+* Trace and profile system events and activities
+* Tune resource limits and utilization using systemd-integrated cgroups
+* Gather performance metrics and benchmarking data
+
+[.big]#*Audience for this course*#
+
+* Senior Linux system administrators responsible for maximizing resource utilization through performance tuning
+
+[.big]#*Prerequisites for this course*#
+
+* Become a https://www.redhat.com/en/services/certification/rhce[Red Hat Certified Engineer (RHCE®),] or demonstrate equivalent experience
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/rh442-red-hat-enterprise-performance-tuning

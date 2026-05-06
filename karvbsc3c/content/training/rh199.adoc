@@ -1,0 +1,44 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Certified System Administrator Rapid Track course (RH199)
+
+[.big]#*Course description*#
+
+*Learn essential Red Hat Enterprise Linux configuration, administration, and maintenance in a condensed format designed for experienced Linux system administrators*
+
+The RHCSA Rapid Track course (RH199) features Red Hat® Enterprise Linux® 9 and is designed for those who already have significant experience with Linux administration. This course combines the significant content of https://www.redhat.com/en/services/training/rh124-red-hat-system-administration-i[Red Hat System Administration I (RH124)] and https://www.redhat.com/en/services/training/rh134-red-hat-system-administration-ii[Red Hat System Administration II (RH134)], reviewing the tasks at an accelerated pace.
+
+This course is based on Red Hat® Enterprise Linux 9.0.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day in person class, a five day virtual class or is self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Package management with new repository structure and appstream modules
+* Create storage devices, volumes, and file systems, including Stratis storage management
+* Configure network services and security
+* Manage processes, scheduling, and tuning
+* Manage users, groups, and authentication
+* Perform server management with the Cockpit web management utility
+* Troubleshoot and obtain support
+* Run containers 
+
+[.big]#*Audience for this course*#
+
+This course is geared toward Windows system administrators, network administrators, and other system administrators who are interested in supplementing current skills or backstopping other team members, in addition to Linux system administrators who are responsible for these tasks:
+
+* Configuring, installing, upgrading, and maintaining Linux systems using established standards and procedures
+* Providing operational support
+* Managing systems for monitoring system performance and availability
+* Writing and deploying scripts for task automation and system administration
+
+[.big]#*Prerequisites for this course*#
+
+* You will be expected to already understand fundamental Linux computing concepts and be ready to practice the Red Hat Enterprise Linux methods for performing system administration tasks. Significant field experience working with Linux as a system administrator is recommended.
+* If you do not have experience with fundamental Linux computer concepts, we advise you to start with the https://www.redhat.com/en/services/training/rh124-red-hat-system-administration-i[Red Hat System Administration I (RH124)] course instead.
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/rh199-red-hat-certified-system-administrator-rapid-track-course

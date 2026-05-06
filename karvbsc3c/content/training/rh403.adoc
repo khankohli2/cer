@@ -1,0 +1,40 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Satellite 6 Administration (RH403)
+
+[.big]#*Course description*#
+
+*Learn how to configure Red Hat Satellite 6 to deploy and manage Red Hat Enterprise Linux systems and software*
+
+Red Hat Satellite 6 Administration (RH403) is a lab-based course that explores the concepts and methods necessary for successful large-scale management of Red Hat® Enterprise Linux® systems. You will learn how to configure Red Hat Satellite 6 on a server and populate it with software packages. You will use Red Hat Satellite to manage the software development life cycle of a subscribed host and its configuration, and learn how to provision hosts integrated with software and Ansible® configuration management upon deployment.
+
+This course is based on Red Hat Enterprise Linux 8 and Red Hat Satellite 6.11.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Verify a Red Hat Satellite 6.11 installation.
+* Regulate Red Hat Satellite with organizations, locations, users, and roles.
+* Manage software with Red Hat Satellite environments and content views.
+* Use Red Hat Satellite to configure hosts with Ansible playbooks and roles.
+* Provision hosts with integrated software and configuration management.
+* Implement Metal-as-a-Service (MaaS) with Satellite discovery and provisioning of unprovisioned hosts.
+
+[.big]#*Audience for this course*#
+
+* Senior Red Hat Enterprise Linux system administrators responsible for the management of multiple servers and hybrid cloud enterprises up to a very large scale
+
+[.big]#*Recommended for this course*#
+
+* Achieve https://www.redhat.com/en/services/certification/rhce[Red Hat Certified Engineer (RHCE)] certification, or equivalent experience.
+* Candidates are recommended but not required to have familiarity with Red Hat Satellite 6.
+
+[.big]#*Technology considerations*#
+
+* Internet access is not required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/rh403-red-hat-satellite-6-administration

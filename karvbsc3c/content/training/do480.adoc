@@ -1,0 +1,47 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Multicluster Management with Red Hat OpenShift Platform Plus (DO480)
+
+[.big]#*Course description*#
+
+*Enhance container management capabilities with automation, governance, and security across clusters.*
+
+Multicluster Management with https://www.redhat.com/en/technologies/cloud-computing/openshift/platform-plus[Red Hat OpenShift Platform Plus] teaches the skills required to maintain a diverse portfolio of applications, running across a fleet of OpenShift clusters. Applications follow placement rules determined by capacity and criticality; cluster configurations comply with governance and security policies; all automated according to https://www.redhat.com/en/topics/devops[DevOps] principles.
+
+This course is based on Red Hat OpenShift Container Platform 4.10 and Red Hat Advanced Cluster Management 2.4.
+
+*Note:* This course is five days. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Deploy https://www.redhat.com/en/technologies/management/advanced-cluster-management[Red Hat Advanced Cluster Management for Kubernetes (RHACM)] in a hub cluster
+* Add a managed cluster to RHACM (configure a cluster to be managed by RHACM)
+* Define and apply cluster configuration policies
+* Detect and correct non-conformance to cluster configuration policies
+* Visualize and compare cluster settings between different clusters
+* Define and apply application placement policies
+* Identify and compare application resources from multiple clusters
+* Deploy https://www.redhat.com/en/technologies/cloud-computing/quay[Red Hat Quay] in the hub cluster
+* Deploy Red Hat Advanced Cluster Security for Kubernetes (RHACS) in the hub cluster
+* Integrate Red Hat Quay and RHACS with RHACM.
+
+[.big]#*Audience for this course*#
+
+* System Administrators, Developers, Site Reliability Engineers, and IT Architects interested in managing and automating the management of a fleet of OpenShift clusters, possibly in different data centers and cloud providers.
+
+[.big]#*Prerequisites for this course*#
+
+* Take our https://skills.ole.redhat.com/[free assessment] to gauge whether this offering is the best fit for your skills. +
+Required:
+** Completing https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster[Red Hat OpenShift Administration II: Operating a Production Kubernetes Cluster (DO280)] and https://www.redhat.com/en/services/training/red-hat-certified-openshift-administrator-exam[Red Hat Certified OpenShift Administrator Certification (EX280)] are strongly encouraged, or possessing equivalent basic Kubernetes and OpenShift administration skills
+* Recommended and optional
+** https://www.redhat.com/en/services/training/do380-red-hat-openshift-administration-iii-scaling-deployments-in-the-enterprise[Red Hat OpenShift Administration III: Scaling Kubernetes Deployments in the Enterprise (DO380)] is a course teaching cluster-wide configuration, logging, and monitoring, Ansible automation with OpenShift
+** https://www.redhat.com/en/services/training/do322-red-hat-openshift-installation-lab/en/services/training/do322-red-hat-openshift-installation-lab[Red Hat OpenShift Installation Lab (DO322)] teaches you how to install OpenShift using IPI and UPI
+** Understand https://www.redhat.com/en/technologies/management/ansible[Ansible] basics, including, writing and running simple playbooks or equivalent experience
+
+[.big]#*Technology considerations*#
+
+* BYOD and Internet access is required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do480-multicluster-management-red-hat-openshift-platform-plus

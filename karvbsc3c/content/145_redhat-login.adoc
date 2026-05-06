@@ -1,0 +1,316 @@
+////
+Purpose
+-------
+In the "Base" directory, this section is a placeholder which is to be
+overwritten by implementation details specific to the product or products being
+delivered.
+
+If "TODO" appears in your document after the init script has been run, then
+your product directory is missing a corresponding "implementation.adoc" which
+should be created to provide a basic implementation framework for that product.
+////
+
+== Create loki configuration folder
+ 
+[source, bash]
+----
+mkdir -p ~/ocp4.18/operator/loki
+cd ~/ocp4.18/operator/loki
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm odf]$ mkdir -p ~/ocp4.18/operator/loki
+cd ~/ocp4.18/operator/loki
+----
+== Deploy loki Operator
+*Create Configuration File*
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/loki/1_deploy-loki-operator.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: openshift-operators-redhat
+    openshift.io/cluster-monitoring: "true"
+  name: openshift-operators-redhat
+
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-operators-redhat
+  namespace: openshift-operators-redhat
+---
+
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/loki-operator.openshift-operators-redhat: ""
+  name: loki-operator
+  namespace: openshift-operators-redhat
+spec:
+  channel: stable-6.2
+  name: loki-operator
+  source: cs-redhat-operator-index-1
+  sourceNamespace: openshift-marketplace
+EOF
+----
+*Apply the Configuration file*
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/loki/1_deploy-loki-operator.yaml
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm loki]$ oc apply -f ~/ocp4.18/operator/loki/1_deploy-loki-operator.yaml
+namespace/openshift-operators-redhat created
+operatorgroup.operators.coreos.com/openshift-operators-redhat created
+subscription.operators.coreos.com/loki-operator created
+----
+
+*Check the Installation Status*
+
+[source, bash]
+----
+oc get csv -n openshift-operators-redhat
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm loki]$ oc get csv -n openshift-operators-redhat
+NAME                   DISPLAY         VERSION   REPLACES               PHASE
+loki-operator.v6.2.6   Loki Operator   6.2.6     loki-operator.v6.2.5   Succeeded
+----
+
+== Deploy Cluster Login Operator
+*Create Configuration file*
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/loki/2_deploy-cluster-login-operator.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-logging
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: cluster-logging
+  namespace: openshift-logging
+spec:
+  targetNamespaces:
+  - openshift-logging
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: cluster-logging
+  namespace: openshift-logging
+spec:
+  channel: "stable-6.2"
+  name: cluster-logging
+  source: cs-redhat-operator-index-1
+  sourceNamespace: openshift-marketplace
+EOF
+----
+*Apply the Configuration File*
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/loki/2_deploy-cluster-login-operator.yaml
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm loki]$ oc apply -f ~/ocp4.18/operator/loki/2_deploy-cluster-login-operator.yaml
+namespace/openshift-logging created
+operatorgroup.operators.coreos.com/cluster-logging created
+subscription.operators.coreos.com/cluster-logging created
+----
+
+*Check the status*
+[source, bash]
+----
+oc get csv -n openshift-logging
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm loki]$ oc get csv -n openshift-logging
+NAME                     DISPLAY                     VERSION   REPLACES                 PHASE
+cluster-logging.v6.2.6   Red Hat OpenShift Logging   6.2.6     cluster-logging.v6.2.5   Succeeded
+loki-operator.v6.2.6     Loki Operator               6.2.6     loki-operator.v6.2.5     Succeeded
+----
+
+== Configure Loki Operator
+*Create Configuration file*
+
+[source, bash]
+----
+cat << 'EOF' > ~/ocp4.18/operator/loki/1_bucketname.yaml
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: loki-s3
+  namespace: openshift-logging
+spec:
+  generateBucketName: loki-s3
+  storageClassName: ocs-storagecluster-ceph-rgw
+EOF
+
+
+cat << 'EOF' > ~/ocp4.18/operator/loki/2_secret.sh
+#!/bin/bash
+BUCKET_HOST=$(oc get -n openshift-logging configmap loki-s3 -o jsonpath='{.data.BUCKET_HOST}')
+BUCKET_NAME=$(oc get -n openshift-logging configmap loki-s3 -o jsonpath='{.data.BUCKET_NAME}')
+BUCKET_PORT=$(oc get -n openshift-logging configmap loki-s3 -o jsonpath='{.data.BUCKET_PORT}')
+ACCESS_KEY_ID=$(oc get -n openshift-logging secret loki-s3 -o jsonpath='{.data.AWS_ACCESS_KEY_ID}' | base64 -d)
+SECRET_ACCESS_KEY=$(oc get -n openshift-logging secret loki-s3 -o jsonpath='{.data.AWS_SECRET_ACCESS_KEY}' | base64 -d)
+
+echo "BUCKET_HOST=$BUCKET_HOST"
+echo "BUCKET_NAME=$BUCKET_NAME"
+echo "BUCKET_PORT=$BUCKET_PORT"
+echo "ACCESS_KEY_ID=$ACCESS_KEY_ID"
+echo "SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY"
+
+oc create -n openshift-logging secret generic logging-loki-s3 --from-literal=access_key_id=$ACCESS_KEY_ID --from-literal=access_key_secret=$SECRET_ACCESS_KEY --from-literal=bucketnames=$BUCKET_NAME --from-literal=endpoint="https://$BUCKET_HOST:$BUCKET_PORT"
+EOF
+
+
+cat << 'EOF' > ~/ocp4.18/operator/loki/3_loki-stack.yaml
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: logging-loki
+  namespace: openshift-logging
+spec:
+  managementState: Managed
+  size: 1x.extra-small
+  hashRing:
+    type: memberlist
+    memberlist:
+      instanceAddrType: podIP
+  storage:
+    schemas:
+      - version: v13
+        effectiveDate: "2020-10-24"
+    secret:
+      name: logging-loki-s3
+      type: s3
+    tls:
+      caName: openshift-service-ca.crt
+  storageClassName: csi-cephrbd
+  tenants:
+    mode: openshift-logging
+EOF
+
+
+cat << 'EOF' > ~/ocp4.18/operator/loki/4_serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: log-forwarder
+  namespace: openshift-logging
+EOF
+
+
+cat << 'EOF' > ~/ocp4.18/operator/loki/5_cluster-role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: collect-application-logs-log-forwarder
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: collect-application-logs
+subjects:
+- kind: ServiceAccount
+  name: log-forwarder
+  namespace: openshift-logging
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: collect-audit-logs-log-forwarder
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: collect-audit-logs
+subjects:
+- kind: ServiceAccount
+  name: log-forwarder
+  namespace: openshift-logging
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: collect-infrastructure-logs-log-forwarder
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: collect-infrastructure-logs
+subjects:
+- kind: ServiceAccount
+  name: log-forwarder
+  namespace: openshift-logging
+EOF
+
+
+cat << 'EOF' > ~/ocp4.18/operator/loki/6_clusterLogForwarder.yaml
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: log-forwarder
+  outputs:
+    - name: elasticsearch-secure
+      type: syslog
+      syslog:
+        url: udp://10.215.1.154:514
+        rfc: RFC5424
+  pipelines:
+    - name: send-audit-logs
+      inputRefs:
+        - audit
+        - application
+        - infrastructure
+      outputRefs:
+        - elasticsearch-secure
+EOF
+----
+
+*Apply the Configuration file*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/loki/1_bucketname.yaml
+----
+
+[source, bash]
+----
+chmod +x 2_secret.sh
+./2_secret.sh
+----
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/loki/3_loki-stack.yaml
+----
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/loki/4_serviceaccount.yaml
+----
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/loki/5_cluster-role-binding.yaml
+----
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/loki/6_clusterLogForwarder.yaml
+----
+

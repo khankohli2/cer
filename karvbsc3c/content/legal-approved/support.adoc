@@ -1,0 +1,181 @@
+////
+Purpose
+-------
+This section describes options for contacting Red Hat support.  In general this
+information should not need to be altered. If you do find a need to alter it,
+please submit a merge request/pull request to the CER github so the update can
+be incorporated going forward.
+
+Sample
+------
+N/A
+
+////
+[appendix]
+= Engaging Red Hat Support and Customer Service
+
+[.normal]
+Red Hat Support helps you get the most from your Red Hat subscriptions. This section includes information about the Red Hat Customer Portal, Red Hat phone support, and how to contact sales and customer service.
+
+Red Hat Support is always available to assist you. If at any time you are unable to reach your personal Red Hat Support contacts, you can find <<support-escalation-contacts,escalation contact information>> below for the global support leadership team.
+
+In order to assist you in the most efficient way, Red Hat provides some recommendations in the https://access.redhat.com/articles/280093[Reference Guide for engaging with Red Hat Support]. Some <<support-case-tips,tips>> are also included below.
+
+Opening a support case online can make it easier to share technical data, error messages, and system information with your Red Hat Support representative. Following the online submission with a phone call can reduce response time as well as potential errors in the capture of information. Red Hat recommends that you follow any <<support-severity-level-defs,Severity 1 and 2>> online support case submissions with a phone call to your local support center.
+
+== Red Hat Customer Portal
+The https://access.redhat.com/[Red Hat Customer Portal] is an award-winning digital platform that delivers enterprise product knowledge, subscription resources, and technical expertise. Use the Customer Portal to access our Knowledgebase of technical expertise, collaborate with peers and Red Hat experts, create, track, and manage your case activity, and much more.
+
+Use of the Customer Portal requires a login/password (linked to your Red Hat account). If you have any questions about your login and/or password, please contact your account representative, or Technical Account Manager/Customer Success Manager (if you have one assigned).
+
+== Red Hat phone support
+Red Hat technical support engineers are available through phone support to quickly troubleshoot and resolve problems. Further information about regional contacts and business hours can be found at the https://access.redhat.com/support/contact/technicalSupport[Technical Support contact information page].
+
+.Red Hat Production Support phone contacts
+[cols="1,1,.^1",width=90%]
+|===
+|Region|Contact details|Availability
+
+|North America
+|+888-GO-REDHAT +
+(+888-467-3342)
+.2+|24x7x365 (Premium support)
+Depending on severity, as the first point of contact for Red Hat support.
+
+|Europe, Middle East, Africa
+|+800-GO-REDHAT +
+(00800 4673 3428)
+
+|===
+
+Inform the technician that you are with **{custgss}**, account number **{nogss}**.
+
+[#support-escalation-contacts]
+== Escalation contacts
+If you feel a support case requires extra attention, Red Hat provides https://access.redhat.com/support/escalation[Escalation contacts].
+
+== Customer Service
+In addition to Red Hat Support, Red Hat sales and https://access.redhat.com/support/customer-service[Customer Service] are available to assist you. If you have questions regarding sales, future product needs, or entitlements, please contact your regular account team, or use the contact information provided below.
+
+.Customer Service contacts
+[cols="1,1,.^1"]
+|===
+| Region | Telephone | E-mail
+
+| North America | 888-467-3342 | customerservice@redhat.com
+| Germany | 0800 1828065 .7+|customerservice-emea@redhat.com
+| France (Hors Dom-Tom) | 0800 907101
+| France (Dom-Tom) | +353 212303445
+| UK | 0800 032 9515
+| Italy | 800 979 269
+| Spain | 900 811 831
+| Portugal | +34 900 811 831
+| All other countries| +353 21 2303 445 |
+|===
+
+== Production support terms of service
+
+The table below summarises Red Hat's https://access.redhat.com/support/offerings/production/sla[Production Support terms of service].
+
+[cols=4,options=header,cols="2,3,3,1,2"]
+|===
+|
+|Self-support
+|Standard
+2+|Premium
+
+|*Hours of coverage*
+|N/A
+|Standard business hours
+2+|Standard business hours (24x7 for <<support-severity-level-defs,Severity 1 and 2>>)
+
+|*Support channel*
+|None
+|Web and phone
+2+|Web and phone
+
+|*Number of cases*
+|N/A
+|Unlimited
+2+|Unlimited
+
+|*Response times*
+|*Initial and ongoing response*
+|*Initial and ongoing response*
+|*Initial response*
+|*Ongoing response*
+
+|*Severity 1*
+|N/A
+|1 business hour
+|1 hour
+|1 hour or as agreed
+
+|*Severity 2*
+|N/A
+|4 business hours
+|2 hours
+|4 hours or as agreed
+
+|*Severity 3*
+|N/A
+|1 business day
+|4 business hours
+|8 business hours or as agreed
+
+|*Severity 4*
+|N/A
+|2 business day
+|8 business hours
+|2 business days or as agreed
+
+|===
+
+[#support-severity-level-defs]
+== Red Hat Support severity level definitions
+
+Red Hat Support uses the following https://access.redhat.com/support/policy/severity/[severity level definitions] to classify issues:
+
+=== Severity 1 (urgent)
+A problem that severely impacts your use of the software in a production environment (such as loss of production data or in which your production systems are not functioning). The situation halts your business operations and no procedural workaround exists.
+
+=== Severity 2 (high)
+A problem where the software is functioning but your use in a production environment is severely reduced. The situation is causing a high impact to portions of your business operations and no procedural workaround exists.
+
+=== Severity 3 (medium)
+A problem that involves partial, non-critical loss of use of the software in a production environment or development environment. For production environments, there is a medium-to-low impact on your business, but your business continues to function, including by using a procedural workaround. For development environments, where the situation is causing your project to no longer continue or migrate into production.
+
+=== Severity 4 (low)
+A general usage question, reporting of a documentation error, or recommendation for a future product enhancement or modification. For production environments, there is low-to-no impact on your business or the performance or functionality of your system. For development environments, there is a medium-to-low impact on your business, but your business continues to function, including by using a procedural workaround.
+
+[#support-case-tips]
+== Tips for creating a good support case
+
+* Fill out the account number and your name. It is recommended to use individual accounts rather than global/generic accounts.
+* Select the product that is affected.
+* Specify the version of the product.
+* The problem statement should be as precise as possible, to help identify if there are any Knowledgebase articles that may help with resolution. Please read any suggested Knowledgebase articles before opening a case.
+* Use the name of the component that you are having issues with if possible (for example "Ceph", "Nova" etc.) Keywords are very important.
+* Explain your issue with as much detail as possible, and add the commands that you are using with outputs.
+* Problem statements should be descriptive; for example: "[Component][Region] Issue description". +
+Examples might include: +
+_[Nova][NL Region] Nova fails on one compute node_ +
+_[Ceph][Singapore Region] Ceph without OSD_
+
+.Portal: case
+image::support/portal-ss.png[Opening a case in the Red Hat Portal]
+
+* It is important to specify the environment that it is affected (for example pre-production or production), and which region is affected (e.g. London, New York)
+* Keep in mind the <<Red Hat Support severity level definitions>> and assign appropriately
+* https://access.redhat.com/solutions/3592[Attach sosreports] of the servers/components affected, to speed up case resolution
+* Select level of support; add Premium any time that you have the option.
+
+.Portal: case details
+image::support/portal-ss-2.png[Case details in Red Hat Portal]
+
+* Select severity level
+* Add notifications to an individual or distribution list.
+* If available, select a case group to notify other members, for example "Cloud" to alert all members of the "Cloud" group from your team so that they can work on the case too.
+
+.Portal: set severity and add notification
+image::support/portal-ss-3.png[Setting severity and adding notifications to a case in the Red Hat Portal]

@@ -1,0 +1,48 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288)
+
+[.big]#*Course description*#
+
+*Design, build, and deploy containerized applications on Red Hat OpenShift*
+
+Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288) teaches you how to design, build, and deploy containerized software applications on an OpenShift cluster
+
+Whether you are migrating existing applications or writing container-native applications, you will learn how to boost developer productivity powered by Red Hat® OpenShift Container Platform, a containerized application platform that allows enterprises to manage container deployments and scale their applications using Kubernetes.
+
+The skills you learn in this course can be applied using all versions of Red Hat OpenShift, including Red Hat OpenShift on AWS (ROSA), Azure Red Hat OpenShift (ARO), and Red Hat OpenShift Container Platform.
+
+This course is based on Red Hat OpenShift 4.14.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a four day in classroom,  a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Features for developers in the Red Hat OpenShift web console
+* Building and publishing container images for Red Hat OpenShift
+* Managing container deployments on Red Hat OpenShift
+* Create and deploy multi-container applications on Red Hat OpenShift
+* Deploy multi-container applications using Helm Charts and Kustomize
+* Create health checks to monitor and improve application reliability
+* Creating CI/CD Workflows using Red Hat OpenShift Pipelines
+
+[.big]#*Audience for this course*#
+
+* Software developers
+* Software architects
+
+[.big]#*Recommended for this course*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* Complete https://www.redhat.com/en/services/training/do188-red-hat-open-shift-development-introduction-containers-with-podman[Red Hat OpenShift I: Containers & Kubernetes (DO188)], or have equivalent knowledge.
+* RHCSA or higher is helpful for navigation and usage of the command line, but it is not required.
+
+[.big]#*Technology considerations*#
+
+* This course uses a lab environment provisioned in the Red Hat Online Learning (ROL) cloud.
+* Internet access is required to run the exercises and labs.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/red-hat-openshift-developer-ii-building-and-deploying-cloud-native-applications

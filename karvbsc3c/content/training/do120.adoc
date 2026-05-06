@@ -1,0 +1,48 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Introduction to Red Hat OpenShift Service on AWS (ROSA) (DO120)
+
+[.big]#*Course description*#
+
+*Learn how to deploy, access, and perform basic customizations to a ROSA cluster.*
+
+This course teaches Platform Operators how to provision managed clusters by using Red Hat OpenShift Service on AWS (ROSA) and how to perform basic day-2 customizations on these clusters to onboard application developers and applications.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is self paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Introduction to Managed OpenShift
+* Identify prerequisites to create and deploy a ROSA cluster
+* Access a ROSA cluster as an administrator and as a developer self-service user
+* Connect a ROSA cluster to Red Hat Services
+* Configure additional storage classes and configure log forwarding to AWS CloudWatch
+* Create dedicated node pools and configure node autoscaling
+
+[.big]#*Target Audience*#
+
+* System administrators, platform operators, and cloud engineers.
+* Enterprise and cloud-native application developers.
+* Application and development infrastructure professionals such as site reliability engineers and DevOps engineers.
+
+[.big]#*Recommended training*#
+
+* All students must be knowledgeable of Amazon Web Services (AWS), including operating and managing AWS compute, storage, and network resources.
+* For students that are new to Red Hat OpenShift it is recommended that you learn the fundamental skills of managing Red Hat OpenShift clusters, before taking DO120, from the following courses:
+** https://www.redhat.com/en/services/training/red-hat-openshift-administration-i-operating-a-production-cluster[Red Hat OpenShift I: Containers & Kubernetes (DO180)]
+** https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster[Red Hat OpenShift Administration II: Operating a Production Kubernetes Cluster (DO280)]
+* Students with previous experience managing Kubernetes clusters are advised to take DO180 and DO280 before taking DO120 or at least acquire foundational skills operating Red Hat OpenShift clusters by using the following free resources from Red Hat:
+** https://developers.redhat.com/developer-sandbox[Red Hat Developer Sandbox for OpenShift]
+** https://developers.redhat.com/learn/openshift[OpenShift and Kubernetes learning from Red Hat Developer]
+** https://www.redhat.com/en/services/training/do080-deploying-containerized-applications-technical-overview[Containers, Kubernetes and Red Hat OpenShift Technical Overview (DO080)]
+
+[.big]#*Technology considerations*#
+
+* Internet access is required to access AWS cloud services using the AWS console and the AWS CLI. It is also required to access the Red Hat Hybrid Cloud Console and associated Red Hat cloud services.
+* Students must possess an active AWS account with permission to activate services from the AWS Marketplace and an associated payment method for the AWS resources consumed by ROSA clusters.
+* Students must possess an active Red Hat customer portal account or a free https://developers.redhat.com/about[Red Hat Developer program membership].
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/DO120-introduction-to-red-hat-openshift-service-on-aws

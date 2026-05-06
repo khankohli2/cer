@@ -1,0 +1,58 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Ansible Automation Platform Boot Camp (DO710)
+
+[.big]#*Course Description*#
+
+*Learn how to automate Linux system administration tasks with Red Hat Ansible Automation Platform and manage complex automation workflows at scale and prevent single points of failure.*
+
+* The Ansible Automation Platform Boot Camp (DO710) is designed for Linux administrators and developers who need to automate repeatable and error-prone steps for system provisioning, configuration, application deployment, and orchestration. Learn recommended practices for automation development using reusable code, advanced playbook techniques, shared execution environments, and preparing for scalable automation with the automation content navigator. Deploy automation controller to centrally manage automation workflows, automation mesh to scale up and distribute execution capacity, and private automation hub to manage Ansible Content Collections and automation execution environments for use by automation developers.
+
+* This collection of courses is based on Red Hat Ansible Automation Platform 2.2.
+
+* As part of enrollment, you will receive one year of Red Hat Learning Subscription Standard, which gives you unlimited access to all of our courses online, plus up to five certification exams.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a ten day virtual class. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course Content Summary*#
+
+* Installing Red Hat Ansible Automation Platform on control nodes.
+* Creating and updating inventories of managed hosts and managing connections to them.
+* Automating administration tasks with Ansible Playbooks.
+* Writing effective playbooks at scale.
+* Protecting sensitive data used by Ansible Automation Platform with Ansible Vault.
+* Reusing code and simplifying playbook development with Ansible Roles and Ansible Content Collections.
+* Apply recommended practices for effective and efficient automation with Ansible.
+* Perform automation operations as rolling updates.
+* Use advanced features of Red Hat Ansible Automation Platform to work with data, including filters and plugins.
+* Create automation execution environments to contain and scale Red Hat Ansible Automation.
+* Leverage capabilities of the automation content navigator to develop Ansible Playbooks.
+* Discussion of the architecture of Red Hat Ansible Automation Platform 2.
+* Installation and configuration of automation controllers and private automation hubs to centrally coordinate and scale Red Hat Ansible Automation.
+* Integration of Red Hat Ansible Automation Platform with centralized Git repository services such as GitLab.
+* Management of users, teams, and access permissions in Red Hat Ansible Automation Platform services.
+* Creation and management of workflows that execute automation based on the success or failure of previous jobs
+* Troubleshooting and maintenance of Red Hat Ansible Automation Platform services.
+* Discussion of recommended practices to ensure high availability and scalability of a large automation cluster.
+
+[.big]#*Target Audience*#
+
+This course is geared toward Linux system administrators, DevOps engineers, Site Reliability Engineers, infrastructure automation engineers, and developers who are responsible for repeatable tasks such as:
+
+* Automating configuration management
+* Ensuring consistent and repeatable application deployment
+* Provisioning and deployment of development, testing, and production servers
+* Integrating with DevOps continuous integration/continuous delivery workflows
+
+[.big]#*Recommended training*#
+
+* Become a Red Hat Certified System Administrator (RHCSA), or demonstrate equivalent experience
+
+[.big]#*Technology considerations*#
+
+* There are no special technical requirements for this course.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do710-ansible-automation-platform-bootcamp

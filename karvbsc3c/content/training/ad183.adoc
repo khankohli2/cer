@@ -1,0 +1,41 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Application Development I: Programming in Java EE (AD183)
+
+[.big]#*Course description*#
+
+*Helping Java SE developers write Java EE applications.*
+
+Red Hat Application Development I: Programming in Java EE (AD183) exposes experienced Java Standard Edition (Java SE) developers to the world of Java Enterprise Edition (Java EE).
+
+This course is based on Red Hat® Enterprise Application Platform 7.0.
+
+In this course, you will learn about the various specifications that make up Java EE. Through hands-on labs, you will transform a simple Java SE command line application into a multi-tiered enterprise application using various Java EE specifications, including Enterprise Java Beans, Java Persistence API, Java Messaging Service, JAX-RS for REST services, Contexts and Dependency Injection (CDI), and JAAS for securing the application.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:*This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course summary*#
+
+* Generating multi-tiered Java EE applications
+* Packaging and deploying Java EE applications
+* Creating Enterprise Java Beans, including message-driven beans
+* Managing persistence
+* Creating REST services with JAX-RS
+* Implementing Contexts and Dependency Injection
+* Creating messaging applications with JMS
+* Securing Java EE applications with JAAS
+
+[.big]#*Audience for this course*#
+
+This course is designed for Java developers who want to learn more about the specifications that comprise the world of Java Enterprise Edition (Java EE).
+
+[.big]#*Prerequisites for this course*#
+
+* Proficiency in developing Java SE applications, with 2+ years of experience required
+* Proficiency in using an IDE such as Red Hat Developer Studio or Eclipse
+* Experience with Maven is recommended but not required
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/ad183-red-hat-application-development-i-programming-java-ee

@@ -1,0 +1,42 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Python Programming with Red Hat (AD141)
+
+[.big]#*Course description*#
+
+*Python programming for beginners*
+
+Python is a popular programming language used by system administrators, data scientists, and developers to create web applications, custom Red Hat Ansible Automation modules, perform statistical analysis, and train AI/ML models. This course introduces the Python language and teaches fundamental concepts like control flow, loops, data structures, functions, file I/O, regular expressions, parsing JSON, and debugging. This course is based on Python 3 and RHEL 9.0.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is self paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Basics of Python syntax, functions and data types
+* How to debug Python scripts using the Python debugger (pdb)
+* Use Python data structures like dictionaries, sets, tuples and lists to handle compound data
+* Learn Object-oriented programming in Python and Exception Handling
+* How to read and write files in Python and parse JSON data
+* Use powerful regular expressions in Python to manipulate text
+* How to effectively structure large Python programs using modules and namespaces
+* How to use third-party libraries using the pip CLI tool.
+
+[.big]#*Audience for this course*#
+
+* System administrators and DevOps personnel who want to use Python to automate operating system tasks
+* Developers from other programming languages who want to learn Python for writing applications
+* AI/ML, data scientists, and engineers who want to use Python for data analysis and machine learning
+
+[.big]#*Prerequisites for this course*#
+
+* There are no prerequisites for this course.
+
+[.big]#*Technology considerations*#
+
+* Internet access is required.
+* A cloud-based RHEL workstation will be provided. Optionally, students can install Python on their own workstation and run lab exercises locally, however Red Hat will not troubleshoot local environment issues.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/ad141-red-hat-training-presents-introduction-to-python-programming

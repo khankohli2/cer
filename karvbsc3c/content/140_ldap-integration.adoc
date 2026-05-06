@@ -1,0 +1,335 @@
+////
+Purpose
+-------
+In the "Base" directory, this section is a placeholder which is to be
+overwritten by implementation details specific to the product or products being
+delivered.
+
+If "TODO" appears in your document after the init script has been run, then
+your product directory is missing a corresponding "implementation.adoc" which
+should be created to provide a basic implementation framework for that product.
+////
+
+== Create ldap configuration folder
+ 
+[source, bash]
+----
+mkdir -p ~/ocp4.18/ldap/
+cd ~/ocp4.18/ldap/
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$mkdir -p ~/ocp4.18/ldap/
+cd ~/ocp4.18/ldap/
+----
+
+== Create LDAP Configuration file
+
+*Create secret with OCPBINDUSER password*
+[source, bash]
+----
+oc create secret generic ldap-secret --from-literal=bindPassword=***** -n openshift-config
+----
+
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc create secret generic ldap-secret --from-literal=bindPassword=***** -n openshift-config
+secret/ldap-secret created
+----
+
+
+*put ldap certificate file on server*
+[source, bash]
+----
+cat <<EOF > ~/ocp4.18/ldap/ca.crt
+-----BEGIN CERTIFICATE-----
+MIIEUjCCArqgAwIBAgIBATANBgkqhkiG9w0BAQsFADA6MRgwFgYDVQQKDA9CSFNU
+RC5WSUwuTE9DQUwxHjAcBgNVBAMMFUNlcnRpZmljYXRlIEF1dGhvcml0eTAeFw0y
+NTAyMDYwNjQ1MjlaFw00NTAyMDYwNjQ1MjlaMDoxGDAWBgNVBAoMD0JIU1RELlZJ
+TC5MT0NBTDEeMBwGA1UEAwwVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MIIBojANBgkq
+hkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAz1o2jsLlqgEupohiYPuEcxadfOpL4lFb
+riuSxosRuJn2+rloXdOqywPl7EpRG/toCHW25CwQqfovd1i1vs6CpC990j2h6qEY
+6INXixBo/bNXtBbqqZAPx1i9QZK7S24mr2jN443og4gj1GB1UcjP4Q2467TeJ2us
+hc+JSZnx/AJ4/OW9nGaSt1cfVRvXq8r5/jkkXyyPSb/CumNky5ya6Z9CWC2wpKMu
+Ie88dDYIcSybL8a3FD8xR0jiY5svQnVSTbHfjwM3vU3Pxynyt8EsVdSlvCgYDNi4
+2uiQBE6q4WDDJGfiYYQoAdbwxzlL9/wdaFKQbOwzLLWV2+gjlq8SNNqCZSUCsSCh
+okIHL9SuXGEZjjW7QvhhEG/bEx3zbbDQCDnqKMIYHtPQN8kErmOh2cv1dYsqhCH2
+AOquIJT138jbdB0qlC3Jq9iMP6uxKTMmqLEWF33iPVMw+v7XG6busLIwiVxCxvF3
+6L9T5R1OHMXklQW5QX9/1FPwYbfykWErAgMBAAGjYzBhMB0GA1UdDgQWBBQZQTiI
+kWgJoGGHcB8gVhsHHbcO9jAfBgNVHSMEGDAWgBQZQTiIkWgJoGGHcB8gVhsHHbcO
+9jAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBxjANBgkqhkiG9w0BAQsF
+AAOCAYEARqbTfOINaiR8UuGX6rQtX5R2kTT1Kna+Xu+mtzkrhtr8eZF5R94x75fE
+vpBimy7R56x5oAQ1q9/YLK9sUADUa32uBZ0v7foVJwAbscINQCr07A6PNS5CNRe9
+xJRzmMl/QrbEXIdorhYb4TWx4sUQtP7TpNQkxuRNdqFAhbWpmXjoSqLKSiZWNO1V
+T863cgQNkXx1QkJR8RssdSShIgKMCwVuhFMUcSt9vjgS3pgLWPtfv7p8wxSQvepz
+alOEdzgM1ZS3KvE0BItoI7kELJJcDdBHunq9vtirCxThl9oNOHWkNEIxUC9LcNSC
+vQSKjsgjTqVDP9aRSSl3LbxNXEfOMce63WylQAx06yvVz8huYyKHkslPr8NgmbXO
+dKaliMV+VZZ+Msb5sLbh5ojXAVPE+IOovwFI/yXice5ncqhMtEO3QzqXrqcBlhoG
+C67/hLv+quZFQjZW8ESNyKeLYbAyMQiyMS7A3SRH9NI2O/FuW2I/l6SEXQLndFwM
++ZL3r2pY
+-----END CERTIFICATE-----
+EOF
+----
+
+*Create a config map with the ca.crt*
+
+[source, bash]
+----
+oc create configmap ca-config-map --from-file=ca.crt=ca.crt -n openshift-config
+----
+
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc create configmap ca-config-map --from-file=ca.crt=ca.crt -n openshift-config
+configmap/ca-config-map created
+----
+
+*Take backup of OAUTH and proceed to apply the latest OAUTH configuration that includes LDAP*
+
+[source, bash]
+----
+oc get oauth cluster -o yaml > oauth_bkp.yaml
+----
+
+*OAUTH with LDAP Configuration*
+
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/ldap/oauth.yaml
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+      - ldap:
+          attributes:
+            email:
+            - uid
+            id:
+            - uid
+            name:
+            - uid
+            preferredUsername:
+            - uid
+          bindDN: uid=ocpbinduser,cn=users,cn=accounts,dc=bhstd,dc=vil,dc=local
+          bindPassword:
+            name: ldap-secret
+          ca:
+            name: ca-config-map
+          insecure: false
+          url:  ldaps://invipb07moh1idmlbsm.pbstd.vil.local/cn=users,cn=accounts,dc=pbstd,dc=vil,dc=local?uid,memberOf?sub?(uid=*)
+        mappingMethod: claim
+        name: LDAP
+        type: LDAP
+EOF
+----
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/ldap/oauth.yaml
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc apply -f ~/ocp4.18/ldap/oauth.yaml
+Warning: resource oauths/cluster is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by oc apply. oc apply should only be used on resources created declaratively by either oc create --save-config or oc apply. The missing annotation will be patched automatically.
+oauth.config.openshift.io/cluster configured
+----
+
+*Wait for oauth CO to rollout and pods to restart*
+
+[source,bash]
+----
+oc get pods -n openshift-authentication
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc get pods -n openshift-authentication
+NAME                               READY   STATUS    RESTARTS   AGE
+oauth-openshift-6d49766d89-8444m   1/1     Running   0          102s
+oauth-openshift-6d49766d89-87rk6   1/1     Running   0          2m9s
+oauth-openshift-6d49766d89-mp6bf   1/1     Running   0          74s
+----
+
+== Validate LDAP integration
+[source,bash]
+----
+oc get pods -n openshift-authentication
+oc rsh -n openshift-authentication `oc get pods -n openshift-authentication | grep oauth | head -n 1 | awk {'print $1'}` cat /run/secrets/kubernetes.io/serviceaccount/ca.crt > ocpvbsc2-certificate.crt
+----
+*Update Certificate in to trust*
+
+[source,bash]
+----
+sudo cp ocpvbsc2-certificate.crt /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust
+----
+
+
+== LDAP Sync
+
+=== Create a project
+[source, bash]
+----
+oc new-project ldap-sync
+----
+
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc new-project ldap-sync
+Now using project "ldap-sync" on server "https://api.bhvbsc3c.vil.local:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app rails-postgresql-example
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.43 -- /agnhost serve-hostname
+----
+
+
+=== Service Account
+[source, bash]
+----
+oc create sa ldap-sync-sa
+----
+
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc create sa ldap-sync-sa
+serviceaccount/ldap-sync-sa created
+----
+
+*Provide Cluster admin role to service account*
+[source, bash]
+----
+oc adm policy add-cluster-role-to-user cluster-admin -z ldap-sync-sa
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc adm policy add-cluster-role-to-user cluster-admin -z ldap-sync-sa
+clusterrole.rbac.authorization.k8s.io/cluster-admin added: "ldap-sync-sa"
+----
+*Use the LDAP CA and create a config map in this project*
+
+[source, bash]
+----
+oc create configmap ldap-ca-config --from-file=ca.crt
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc create configmap ldap-ca-config --from-file=ca.crt
+configmap/ldap-ca-config created
+----
+
+=== LDAP Sync configuration
+*Create LDAP sysnc file for config map*
+
+[source, bash]
+----
+cat <<EOF >> ~/ocp4.18/ldap/ldap-sync-config.yaml
+kind: LDAPSyncConfig
+apiVersion: v1
+url: ldaps://invibh19ptn1idmlbsm.bhstd.vil.local
+insecure: false
+bindDN: "uid=ocpbinduser,cn=users,cn=accounts,dc=bhstd,dc=vil,dc=local"
+bindPassword:
+  value: root@123
+ca: /etc/pki/ca-trust/source/anchors/ca.crt
+rfc2307:
+    groupsQuery:
+        baseDN: "cn=groups,cn=accounts,dc=bhstd,dc=vil,dc=local"
+        scope: sub
+        derefAliases: never
+        pageSize: 0
+        filter: "(|(cn=vbsc3-cluster-admin)(cn=vbsc3-readonly)(cn=vbsc3-admin))"
+    groupUIDAttribute: dn
+    groupNameAttributes: [ cn ]
+    groupMembershipAttributes: [ member ]
+    usersQuery:
+        baseDN: "cn=users,cn=accounts,dc=bhstd,dc=vil,dc=local"
+        scope: sub
+        derefAliases: never
+        pageSize: 0
+    userUIDAttribute: dn
+    userNameAttributes: [ uid ]
+    tolerateMemberNotFoundErrors: false
+    tolerateMemberOutOfScopeErrors: false
+EOF
+----
+
+*Create the Configmap for LDAP-Sync*
+
+[source, bash]
+----
+oc create cm ldap-sync-config --from-file=ldap-sync-config.yaml
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc create cm ldap-sync-config --from-file=ldap-sync-config.yaml
+configmap/ldap-sync-config created
+----
+
+===	CronJob for LDAP Sync
+
+
+[source, yaml]
+----
+cat <<EOF >> ~/ocp4.18/ldap/ldap-sync-cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ldap-group-sync
+  namespace: ldap-sync
+spec:
+  schedule: "*/1 * * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: ldap-sync
+            image: invibh19ptn1ocprmsm.bhstd.vil.local:8443/openshift/origin-cli:latest
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "oc adm groups sync --sync-config=/etc/ldap-sync/ldap-sync-config.yaml --confirm"
+            volumeMounts:
+            - name: ldap-sync-config
+              mountPath: /etc/ldap-sync
+            - name: ldap-ca-config
+              mountPath: /etc/pki/ca-trust/source/anchors
+          restartPolicy: OnFailure
+          volumes:
+          - name: ldap-sync-config
+            configMap:
+              name: ldap-sync-config
+          - name: ldap-ca-config
+            configMap:
+              name: ldap-ca-config
+          serviceAccountName: ldap-sync-sa
+EOF
+----
+*Apply the configuration file*
+
+[source, bash]
+----
+oc apply -f ldap-sync-cronjob.yaml
+----
+
+*Verify for the pods to run and then check for the group sync*
+
+[source, bash]
+----
+oc get pods,groups
+----
+
+=== LDAP Groups and RBAC
+
+[source, bash]
+----
+oc adm policy add-cluster-role-to-group cluster-admin vbsc3-cluster-admin
+oc adm policy add-cluster-role-to-group view vbsc3-readonly
+----
+
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc adm policy add-cluster-role-to-group cluster-admin vbsc3-cluster-admin
+oc adm policy add-cluster-role-to-group view vbsc3-readonly
+clusterrole.rbac.authorization.k8s.io/cluster-admin added: "vbsc3-cluster-admin"
+clusterrole.rbac.authorization.k8s.io/view added: "vbsc3-readonly"
+----
+
+

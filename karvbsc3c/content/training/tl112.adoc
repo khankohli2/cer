@@ -1,0 +1,40 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Transformational Learning: Introduction to Pragmatic Site Reliability Engineering (TL112)
+
+[.big]#*Course description*#
+
+*A pragmatic introduction to the Site Reliability Engineering implementation of DevOps*
+
+Red Hat Transformational Learning: Introduction to Pragmatic Site Reliability Engineering (TL112) teaches the vocabulary, concepts and cultural considerations required to prepare to adopt an implementation of DevOps referred to as Site Reliability Engineering (SRE). In this course, the history, definitions, and Red Hat specific take on this practice will be explored as the student prepares to continue the learning path of joining or implementing an SRE team.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is self paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Introduction to Site Reliability Engineering
+* Determining Operational Readiness
+* Describing Toil and Implementing Automation
+* Explaining and Calculating Error Budgets
+* Explaining Incident Management
+* Implementing Site Reliability Engineering
+
+[.big]#*Audience for this course*#
+
+* DevOps Practitioners
+* System Administrators
+* Software Developers
+
+[.big]#*Prerequisites for this course*#
+
+* There are no prerequisites for this course.
+
+
+[.big]#*Technology considerations*#
+
+* Coursebook Only, no hands-on labs
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/tl112-pragmatic-introduction-site-reliability-engineering-implementation-devops

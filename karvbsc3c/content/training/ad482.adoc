@@ -1,0 +1,38 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Developing Event-Driven Applications with Apache Kafka and Red Hat AMQ Streams (AD482)
+
+[.big]#*Course description*#
+
+*Develop, scale, and troubleshoot event-driven microservice applications.*
+
+Learn to use Kafka and AMQ Streams to design, develop, and test event-driven applications. Event-driven microservices scale globally, store and stream process data, and provide low-latency feedback to customers. This course is for application developers and is based on Red Hat AMQ Streams 1.8 and Red Hat OpenShift Container Platform 4.6.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a four day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course summary*#
+
+* Describe the basics of Kafka and its architecture.
+* Develop applications with the Kafka Streams API.
+* Integrate applications with Kafka Connect.
+* Capture data change with Debezium.
+* Troubleshoot common application streaming issues.
+
+[.big]#*Audience for this course*#
+
+Application developers with microservice development experience.
+
+[.big]#*Prerequisites for this course*#
+
+* Experience with microservice application development and design, such as DO378 or equivalent experience.
+* OpenShift experience is recommended, but not required.
+
+[.big]#*Technology considerations*#
+
+* BYOD classroom environment with access to the shared cluster.
+* A cloud-based classroom environment will also be made available.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/ad482-developing-event-driven-applications-apache-kafka-and-red-hat-amq-streams

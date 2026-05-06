@@ -1,0 +1,37 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Container Adoption Boot Camp for Developers (DO720)
+
+[.big]#*Course description*#
+
+*Supporting the adoption of container technology through the development of cloud-native applications.*
+
+The Container Adoption Boot Camp for Developers (DO720) immerses you in intensive, hands-on development of cloud-native applications deployed on Red Hat's implementation of Kubernetes, Red Hat® OpenShift® Container Platform. As part of enrollment, you will receive one year of https://www.redhat.com/en/services/training/learning-subscription[Red Hat Learning Subscription Standard], which gives you unlimited access to all of our courses online, plus up to 5 certification exams and 2 retakes. This boot camp is for those seeking to make a quantum leap in their journey toward digital transformation. Making this shift involves developing software in tight iterations so that business value can be realized sooner. In order to accomplish this goal, this offering can facilitate the adoption of cloud-native applications, including microservices.
+
+This collection of courses is based on Red Hat OpenShift Container Platform 4.14 and Red Hat Build of Quarkus 3.8.
+
+[.big]#*Course content summary*#
+
+* Introduction to containers, Kubernetes, and Red Hat OpenShift
+* Deploy and manage applications on an OpenShift cluster
+* Build and design containerized applications for OpenShift
+* Create microservice-based applications with Quarkus
+* Deploy Quarkus and Node.js based microservices to an OpenShift cluster
+* Learn how to test, secure, and monitor Quarkus microservices
+* Make Quarkus microservices fault tolerant
+
+[.big]#*Target Audience*#
+
+* Developers interested in adopting container technology and developing microservices
+
+[.big]#*Recommended training*#
+
+* Become a https://www.redhat.com/en/services/certification/rhcsa-991[Red Hat Certified System Administrator (RHCSA)], or demonstrate equivalent experience
+* https://www.redhat.com/en/services/training/ad183-red-hat-application-development-i-programming-java-ee[Red Hat Application Development I: Programming in Java EE (AD183)] (or experience with Java EE development)
+
+[.big]#*Technology considerations*#
+
+* Internet access is required for this course in order to access the OpenShift shared clusters
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do720-container-adoption-boot-camp-for-developers

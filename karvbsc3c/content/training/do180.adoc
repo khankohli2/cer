@@ -1,0 +1,45 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat OpenShift Administration I: Operating a Production Cluster (DO180)
+
+*Deploy, manage, and troubleshoot containerized applications running as Kubernetes workloads in OpenShift clusters.*
+
+[.big]#*Course Description*#
+
+Red Hat OpenShift Administration I: Operating a Production Cluster (DO180) prepares OpenShift cluster administrators to manage Kubernetes workloads and to collaborate with developers, DevOps engineers, system administrators, and SREs to ensure the availability of application workloads. This course focuses on managing typical end-user applications that are often accessible from a web or mobile UI and that represent most cloud-native and containerized workloads. Managing applications also includes deploying and updating their dependencies, such as databases, messaging, and authentication systems.
+
+The skills that you learn in this course apply to all versions of OpenShift, including Red Hat OpenShift on AWS (ROSA), Azure Red Hat OpenShift, and OpenShift Container Platform.
+
+This course is based on Red Hat OpenShift 4.14.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:*  This course is offered as a four day in classroom, a five day virtual class, or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course Content Summary*#
+
+* Managing OpenShift clusters from the command-line interface and from the web console
+* Deploying applications on OpenShift from container images, templates, and Kubernetes manifests
+* Troubleshooting network connectivity between applications inside and outside an OpenShift cluster
+* Connecting Kubernetes workloads to storage for application data
+* Configuring Kubernetes workloads for high availability and reliability
+* Managing updates to container images, settings, and Kubernetes manifests of an application
+
+[.big]#*Target Audience*#
+
+* Primary: Platform Engineers, System Administrators, Cloud Administrators, and other infrastructure-related IT roles who are responsible for tier-1 support of infrastructure for applications.who are interested in managing OpenShift clusters and containerized applications.
+* Secondary: Enterprise Architects, Site Reliability Engineers, DevOps Engineers, and other application-related IT roles who are responsible for designing infrastructure for applications.
+* Developers and Site Reliability Engineers that are new to container technology should enroll in https://www.redhat.com/en/services/training/do188-red-hat-open-shift-development-introduction-containers-with-podman[Red Hat OpenShift Development I: Introduction to Containers with Podman (DO188)].
+
+[.big]#*Recommended training*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* Prerequisite: https://www.redhat.com/en/services/training/do080-deploying-containerized-applications-technical-overview[Containers, Kubernetes and Red Hat OpenShift Technical Overview (DO080)] or equivalent knowledge of Linux containers.
+* Prerequisite: https://www.redhat.com/en/services/training/getting-started-with-linux-fundamentals[Getting Started with Linux Fundamentals (RH104)] or equivalent proficiency in using a command line interface, ideally operating a Bash shell, is required.
+
+[.big]#*Technology considerations*#
+
+* This course requires internet access to access the cloud-based classroom environment that provides an OpenShift cluster and a remote administrator’s workstation.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/red-hat-openshift-administration-i-operating-a-production-cluster

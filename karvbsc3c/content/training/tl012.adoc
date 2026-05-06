@@ -1,0 +1,36 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Transitional approach to implementing pragmatic Site Reliability Engineering (SRE) Technical Overview (TL012)
+
+[.big]#*Course description*#
+
+*Learn why SRE has emerged as an IT strategy to deliver improved performance and time to market*
+
+Site Reliability engineering (SRE) is a shared responsibility model, and if executed well can improve efficiency, resiliency, and security. But implementing SRE in an organization requires cultural shift, team shaping and training, and process changes. To achieve this shift, organizations need to create a roadmap for the transition. This technical overview covers the pragmatic approach to SRE and introduces the core tools for shared responsibility to enable an incremental transition to SRE.
+
+[.big]#*Course summary*#
+
+Through online, on-demand videos you will learn about:
+
+* What is SRE? A pragmatic approach to SRE
+* Tools for shared responsibility 
+* How to scale service reliability 
+* Creating a ‘safe to fail’ culture
+* Assessing inconsistencies and how they generate toil 
+* Importance of aligning ITSM and DevOps/SRE
+* Team shaping - build/run teams
+* Defining and aligning goals of incident management and DevOps 
+* Collaboration hacks - things you can use now to get started in transition
+* Institutionalize Metrics 
+* Summary - a pragmatic approach 
+
+[.big]#*Audience for this course*#
+
+IT decision makers and leaders considering or in the process of implementing or improving their SRE practices.
+
+[.big]#*Prerequisites for this course*#
+
+There are no prerequisites for this course.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/transitional-approach-implementing-pragmatic-site-reliability-engineering-sre-technical-overview

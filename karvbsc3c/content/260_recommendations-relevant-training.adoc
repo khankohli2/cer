@@ -1,0 +1,33 @@
+////
+Purpose
+-------
+This section is a placeholder which should be replaced by training
+recommendations specific to the product(s) being delivered.
+
+If you are building this document for a specific product, please use the format
+shown in the examples below.
+
+Courses are grouped following the Red Hat Training and Certification Catalog
+Google Document: https://docs.google.com/document/d/1w4gu8mXy2R9RLD23v0iJ3JRemEU2FeBFwChLNUfOTws/edit
+
+Sample
+------
+////
+= Red Hat Training
+
+Specific course descriptions and availability can be found on Red Hat’s website under Training and Certification. The following courses are recommended:
+
+== Red Hat Learning Subscription
+
+Fill skills gaps and address business challenges by taking advantage of unlimited access to our comprehensive curriculum.
+
+For full details, or to enroll: +
+https://www.redhat.com/en/services/training/learning-subscription#tab.rhls.1
+
+== Red Hat Skills Assessment
+
+Use the skills assessment tool to discover what training opportunities you may benefit from.
+
+For full details, or to enroll: +
+https://www.redhat.com/rhtapps/assessment
+

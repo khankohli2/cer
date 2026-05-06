@@ -1,0 +1,48 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Managing Enterprise Automation with Red Hat Ansible Automation Platform (DO467)
+
+[.big]#*Course description*#
+
+*Manage complex Red Hat Ansible automation workflows at scale and prevent single points of failure.*
+
+Managing Enterprise Automation with Red Hat Ansible Automation Platform (DO467) is for experienced Ansible automation engineers, DevOps practitioners, and Linux system administrators seeking to deploy, control, and support centralized automation execution on a large scale. Students will use Red Hat Ansible Automation Platform 2 to scale up Ansible automation. They will deploy automation controller to centrally manage automation workflows, automation mesh to scale up and distribute execution capacity, and private automation hub to manage Ansible Content Collections and automation execution environments for use by automation developers. Large scale automation cluster design and approaches to ensure high availability of Ansible Automation Platform will also be discussed.
+
+This course is based on Red Hat Ansible Automation Platform 2.2.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Discussion of the architecture of Red Hat Ansible Automation Platform 2.
+* Installation and configuration of automation controllers and private automation hubs to centrally coordinate and scale Red Hat Ansible Automation.
+* Integration of Red Hat Ansible Automation Platform with centralized Git repository services such as GitLab.
+* Management of users, teams, and access permissions in Red Hat Ansible Automation Platform services.
+* Creation and management of workflows that execute automation based on the success or failure of previous jobs.
+* Configuration and management of automation mesh to distribute execution between automation controller and remote execution nodes.
+* Troubleshooting and maintenance of Red Hat Ansible Automation Platform services.
+* Discussion of recommended practices to ensure high availability and scalability of a large automation cluster.
+
+[.big]#*Audience for this course*#
+
+This course is designed for users who need to provide, manage, and maintain Ansible automation infrastructure for their organizations, including these roles:
+
+* Ansible automation engineers and architects
+* Linux system administrators supporting automation operations
+* DevOps engineers
+
+[.big]#*Prerequisites for this course*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* Be a https://www.redhat.com/en/services/certification/rhce-old[Red Hat Certified Engineer (RHCE®)] on Red Hat Enterprise Linux 8, or demonstrate equivalent Ansible experience
+* Complete Developing Advanced Automation with Red Hat Ansible Automation Platform (DO374).
+* Complete EX374 to achieve https://www.redhat.com/en/services/training/red-hat-certified-specialist-developing-automation-ansible-automation-platform-exam[Red Hat Certified Specialist in Developing Automation with Ansible Automation Platform] on Red Hat Ansible Automation Platform 2.
+
+[.big]#*Technology considerations*#
+
+* Internet access recommended but not required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do467-managing-enterprise-automation-red-hat-ansible-automation-platform

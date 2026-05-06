@@ -1,0 +1,41 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Developing Applications with Red Hat OpenShift Serverless and Knative (DO244)
+
+[.big]#*Course description*#
+
+*Develop and deploy event-driven auto-scaling serverless applications and functions*
+
+Learn how to develop, deploy, and auto-scale event driven serverless applications on the https://www.redhat.com/en/technologies/cloud-computing/openshift/container-platform[Red Hat OpenShift Container Platform].https://www.redhat.com/en/topics/microservices/why-choose-openshift-serverless[ Red Hat OpenShift Serverless] enables developers and https://www.redhat.com/en/topics/cloud-computing/sre[Site Reliability Engineers (SREs)] to focus on the core business logic of their applications and functions by delegating operational concerns and infrastructure services to the Red Hat® OpenShift Serverless platform.
+
+This course is based on Red Hat OpenShift Serverless 1.23 and OpenShift Container Platform 4.10.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a two day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Understand OpenShift Serverless architecture and primary features of https://www.redhat.com/en/topics/microservices/what-is-knative[Knative] for serverless applications.
+* Implement cloud-native serverless applications using Knative serving.
+* Implement event-driven serverless applications using Knative eventing.
+* Implement serverless applications using OpenShift Serverless functions.
+
+[.big]#*Audience for this course*#
+
+* Cloud-native application developers interested in developing serverless applications
+* Site Reliability Engineers and OpenShift Administrators interested in using serverless technologies to automate operations and developing utility tools to manage and monitor their applications.
+
+[.big]#*Prerequisites for this course*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* Complete https://www.redhat.com/en/node/212491[Red Hat OpenShift I: Containers & Kubernetes (DO180) ]or demonstrate equivalent knowledge.
+* Complete https://www.redhat.com/en/services/training/red-hat-openshift-developer-ii-building-and-deploying-cloud-native-applications[Red Hat OpenShift Development II: Containerizing Applications (DO288)] or demonstrate equivalent knowledge.
+* Experience programming REST APIs in Java or JavaScript (Node.js) is required.
+
+[.big]#*Technology considerations*#
+
+* Internet access is required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do244-developing-applications-with-red-hat-openshift-serverless-and-knative

@@ -1,0 +1,42 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Integrating ROSA Applications with AWS Services (CS221)
+
+*Integrate applications on ROSA with AWS services while keeping a good security posture.*
+
+[.big]#*Course Description*#
+
+* Integrate applications deployed on ROSA with AWS services in a way that cluster administrators and platform engineers retain control of credentials and roles required by applications to access AWS services instead of exposing those credentials to application developers.
+* *Note:* This course is offered as a two day in person class, a three day virtual class or is self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course Content Summary*#
+
+* Integrate with external container registries such as ECR and Quay.io to deploy applications from private image repositories
+* Configure storage classes to enable application access to different EBS volume types
+* Configure storage classes and security contexts to enable application access to shared EFS storage volumes
+* Configure pod identity using STS/IRSA to enable application access to AWS services such as database (Aurora), integration (SQS), and object storage (S3)
+* Provision AWS services for applications using the AWS Controllers for Kubernetes (ACK)
+* Federate and query application metrics (application workload monitoring) with Amazon Managed Prometheus Service
+* Aggregate and query structured application logs with Amazon CloudWatch
+* Configure custom domains and TLS certificates for secure public access to applications
+
+[.big]#*Target Audience*#
+
+* *Primary:* ROSA Administrators, Platform Engineers, Cloud Administrators, System Administrators and other infrastructure-related IT roles who are responsible for providing and supporting infrastructure for applications deployed on AWS
+* *Secondary:* Enterprise Architects, Site Reliability Engineers, DevOps Engineers, and other application-related IT roles who are responsible for designing infrastructure for applications deployed on AWS
+
+[.big]#*Recommended training*#
+
+* *CS220 - Create and Configure Production Red Hat OpenShift on AWS (ROSA) Clusters* or equivalent experience: “I know how to create and access a private ROSA cluster”
+* AWS administration at the level of either *AWS Certified SysOps Administrator - Associate or AWS Certified Solutions Architect - Associate*, or equivalent experience: “I know how to manage AWS infrastructure services”
+* Basic knowledge of OpenShift from *DO080 Technical Overview*: “I know basic concepts of OpenShift and containers”
+* It is recommended that learners also enroll in the https://www.redhat.com/en/services/certification/rhcs-paas[Red Hat Certified OpenShift Administration certification courses] in addition to taking CS220 and CS221
+
+[.big]#*Technology considerations*#
+
+* Internet access is required to access AWS services by using the AWS console and the AWS CLI. It is also required to access the Red Hat Hybrid Cloud Console and associated Red Hat cloud services.
+* Students must possess an active Red Hat customer portal account or a free Red Hat Developer program membership.
+* This course assumes a PrivateLink STS ROSA cluster and a bastion host to access the cluster, as configured in Chapter 01 of https://www.redhat.com/en/services/training/creating-and-configuring-production-rosa-clusters-cs220[CS220: Creating and Configuring Production Red Hat OpenShift on AWS (ROSA) Clusters]. Students must either perform these activities from CS220 prior to starting CS221. Ch0 in the CS221 course book covers these activities and provides links to cloud formation templates.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/integrating-rosa-applications-aws-services-cs221

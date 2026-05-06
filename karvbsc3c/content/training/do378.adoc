@@ -1,0 +1,44 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Cloud-native Microservices Development with Quarkus (DO378)
+
+[.big]#*Course description*#
+
+*Develop microservice-based applications with Quarkus and OpenShift.*
+
+Enterprises are moving to cloud-native microservices architectures. Quarkus is an exciting new technology that brings the reliability, familiarity, and maturity of Java Enterprise with a container-ready lightning fast deployment time. Red Hat Cloud-native Microservices Development with Quarkus (DO378) emphasizes learning architectural principles and implementing microservices based on the Red Hat Build of Quarkus and Red Hat OpenShift. You will build on application development fundamentals and focus on how to develop, monitor, test, and deploy modern microservices applications.
+
+This course is based on OpenShift 4.14, and Red Hat Build of Quarkus 3.8.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Deploy microservice applications on Red Hat® OpenShift Container Platform.
+* Build a microservice application with Quarkus.
+* Implement unit and integration tests for microservices.
+* Use the config specification to inject data into a microservice.
+* Secure a microservice using OAuth.
+* Implement health checks, tracing and monitoring of microservices.
+* Build reactive and asynchronous applications using Quarkus.
+
+[.big]#*Target Audience*#
+
+This course is designed for Java application developers.
+
+[.big]#*Recommended training*#
+
+* Experience with Java application development or https://www.redhat.com/en/services/training/ad183-red-hat-application-development-i-programming-java-ee[Red Hat Application Development I: Programming in Java EE (AD183)]
+* Be proficient in using an IDE such as Visual Studio Code
+* Recommended, but not required: experience with Maven and version control.
+* Recommended, but not required: experience withhttps://www.redhat.com/en/services/training/do101-introduction-openshift-applications[ OpenShift or Introduction to OpenShift Applications (DO101)]
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+
+[.big]#*Technology considerations*#
+
+* None
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/red-hat-cloud-native-microservices-development-quarkus-do378

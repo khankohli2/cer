@@ -1,0 +1,44 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280)
+
+[.big]#*Course description*#
+
+*Configure and manage OpenShift clusters to maintain security and reliability across multiple applications and development teams.*
+
+Red Hat OpenShift Administration II: Configuring a Production Cluster (DO280) prepares OpenShift Cluster Administrators to perform daily administration tasks on clusters that host applications provided by internal teams and external vendors, enable self-service for cluster users with different roles, and deploy applications that require special permissions such as such as CI/CD tooling, performance monitoring, and security scanners. This course focuses on configuring multi-tenancy and security features of OpenShift as well as managing OpenShift add-ons based on operators.
+
+The skills you learn in this course can be applied using all versions of OpenShift, including Red Hat OpenShift on AWS (ROSA), Azure Red Hat OpenShift, and OpenShift Container Platform.
+
+This course is based on OpenShift Container Platform 4.14.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a four day in classroom, a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course Topics*#
+
+* Deploying packaged applications using manifests, templates, kustomize, and helm.
+* Configuring authentication and authorization for users and applications.
+* Protecting network traffic with network policies and exposing applications with proper network access.
+* Deploying and managing applications using resources manifests.
+* Enabling developer self-service of application projects.
+* Managing OpenShift cluster updates and Kubernetes operator updates.
+
+[.big]#*Target Audience*#
+
+* Platform Administrators, System Administrators, Cloud Administrators, and other infrastructure-related IT roles who are responsible for managing and maintaining infrastructure for applications
+* Enterprise Architects, Site Reliability Engineers, DevOps Engineers, and other application-related IT roles who are responsible for designing infrastructure for applications
+
+[.big]#*Recommended Training*#
+
+https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+*  Prerequisite: https://www.redhat.com/en/services/training/red-hat-openshift-administration-i-operating-a-production-cluster[Red Hat OpenShift Administration I: Operating a Production Cluster (DO180v4.14)], or equivalent skills deploying and managing Kubernetes applications using the OpenShift web console and command-line interfaces. 
+* Significant experience with Linux System Administration is not needed for this course. Basic skills operating a Bash shell, manipulating files and processes, and verifying system confirmations such as network addresses are necessary and sufficient. Students are encouraged to take https://www.redhat.com/en/services/training/getting-started-with-linux-fundamentals[Getting Started with Linux Fundamentals (RH104)] before enrolling in DO280
+
+[.big]#*Technology considerations*#
+
+* This course requires internet access to access the cloud-based classroom environment that provides an OpenShift cluster and a remote administrator’s workstation.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster

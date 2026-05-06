@@ -1,0 +1,154 @@
+//#H Header ##//
+include::content/vars/render-vars.adoc[]
+include::content/vars/document-vars.adoc[]
+include::content/vars/redhat-vars.adoc[]
+include::content/vars/customer-vars.adoc[]
+include::content/000_vars.adoc[]
+include::content/locale/attributes.adoc[]
+
+// Adding logo to the coverpage.
+// Change the pdfwidth to improve embedding
+//ifeval::["{customerlogo}" != "empty"]
+//:title-logo-image: image:{customerlogo}[pdfwidth=50%,align=center]
+//endif::[]
+
+= {subject}: {customer} - {description}
+
+// M = mandatory
+// R = recommended
+// O = optional
+// H = header
+// 
+// This document describes the different sections:
+//  https://docs.google.com/document/d/1qGsgsE0tg6oHOKS178pF6IkmVSF_yQTiXr29gSsWQfU/edit#heading=h.66y4kqbj468a
+// 
+// The sections have also been described here: 
+//  https://source.redhat.com/groups/public/gcs_asociates_success_enablement/tsm_adp/global_enablement/content_strategy_programs/engagementjournalstandardization/consulting_engagement_report_cer_wiki/consulting_engagement_report_cer_components__raci
+// 
+// The markings for mandatory/recommended/optional come from this document and this
+// page, which has been aligned with legal.
+// 
+//## ##//
+
+//#M The table of content will allow the reader to quickly flip to the sections they are interested in throughout the document. The AsciiDoc Render should create it automatically, though it is the owners responsibility to ensure its accuracy. The prefaces is a required section and covers basic legalities and document information. ##//
+<<<
+toc::[]
+
+<<<
+include::content/legal-approved/preface.adoc[leveloffset=+1]
+//## ##//
+
+//#H Header bit ##//
+<<<
+== Project Information
+//## ##//
+
+//#M This section provides general information about document ownership and Red Hat project team and customer participants. ##//
+=== Originator 
+include::content/010_originator.adoc[leveloffset=+3]
+
+=== Owner
+include::content/020_owner.adoc[leveloffset=+3]
+//## ##//
+
+//#R The document conventions section is provided so the customer understands the markup. ##//
+=== Document Conventions
+include::content/030_document-conventions.adoc[leveloffset=+3]
+//## ##//
+
+//#M Will you need an additional copies segment? ##//
+=== Additional Copies
+include::content/040_additional-copies.adoc[leveloffset=+3]
+//## ##//
+
+//#M The participants section describes all participants and is very valuable for future engagements. Will this be provided? ##//
+[#participants]
+=== Participants of the Engagement
+
+==== Red Hat
+include::content/050_red-hat-participants.adoc[leveloffset=+4]
+
+==== {customer}
+include::content/060_customer-participants.adoc[leveloffset=+4]
+
+=== Revisions
+include::content/065_revisions.adoc[leveloffset=+3]
+//## ##//
+
+//#M The executive summary is the part read most by customers. It captures the work done in a summarized, high-level way. ##//
+<<<
+== Executive Summary
+include::content/070_executive-summary.adoc[leveloffset=+2]
+//## ##//
+
+//#H Header ##//
+<<<
+== Overview
+//## ##//
+
+//#R Will a short description which explains what the customer is or does be provided? ##//
+=== About {cust}
+include::content/080_about-the-customer.adoc[leveloffset=+3]
+//## ##//
+
+//#M Describe the approach taken? ##//
+=== Purpose And Engagement Approach
+include::content/100_purpose-and-approach.adoc[leveloffset=+3]
+//## ##//
+
+== Technical Implementation
+
+=== OpenShift Prerequisites
+include::content/120_implementation_prerequisites.adoc[leveloffset=+2]
+
+=== Cluster Build from Bastion
+include::content/130_cluster_build_from_bastion.adoc[leveloffset=+2]
+
+=== Configure Catalogue/Image Source
+include::content/131_configure-catalogue-image-source.adoc[leveloffset=+2]
+
+=== Install NMSTATE Operator
+include::content/132_nmstate-operator.adoc[leveloffset=+2]
+
+=== Install Local Storage Operator
+include::content/133_lso-operator.adoc[leveloffset=+2]
+
+=== Install ODF Operator
+include::content/134_odf-operator.adoc[leveloffset=+2]
+
+=== Redhat Openshift Logging Operator
+
+include::content/145_redhat-login.adoc[leveloffset=+2]
+
+=== Install NUMA Operator
+include::content/135_numa-operator.adoc[leveloffset=+2]
+
+=== Install SRIOV Operator
+include::content/136_sriov-operator.adoc[leveloffset=+2]
+
+=== Kernel RT Parameter
+include::content/137_kernel-setting.adoc[leveloffset=+2]
+
+=== Install LDAP Operator
+include::content/140_ldap-integration.adoc[leveloffset=+2]
+
+=== ETCD Backup and Encription
+include::content/150_etcd-enc-backup.adoc[leveloffset=+2]
+
+== Recommendations
+
+//include::content/260_recommendations-relevant-training.adoc[leveloffset=+2]
+
+//include::content/training/do280.adoc[leveloffset=+2]
+//include::content/training/do288.adoc[leveloffset=+2]
+
+
+= SDN
+[appendix]
+
+include::content/300_additional-appendices.adoc[leveloffset=+2]
+
+<<<
+[appendix]
+= Glossary
+include::content/290_glossary.adoc[leveloffset=+2]

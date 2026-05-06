@@ -1,0 +1,44 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat JBoss Application Administration I (AD248)
+
+[.big]#*Course description*#
+
+*Install, configure, and manage Red Hat JBoss Enterprise Application Platform*
+
+Red Hat JBoss Application Administration I teaches you the best practices for installing and configuring https://www.redhat.com/en/technologies/jboss-middleware/application-platform-old[Red Hat® JBoss® Enterprise Application Platform (JBoss EAP) 7]. Through hands-on labs, learn the essential, real-world tasks that a system administrator needs to know to effectively deploy and manage applications on JBoss EAP.
+
+This course is based on Red Hat JBoss® Enterprise Application Platform 7.4.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+[.big]#*Course content summary*#
+
+* Installing and run JBoss EAP 7 in standalone mode and domain mode
+* Configuring and managing a JBoss EAP domain
+* Deploying applications to JBoss EAP 7 in standalone and domain mode
+* Configuring the datasource subsystem
+* Configuring Java^™^ Message Service (JMS)
+* Configuring the logging subsystem
+* Configuring the web subsystem
+* Implementing application security in JBoss EAP 7
+* JVM configuration and tuning for JBoss EAP
+* Clustering JBoss EAP instances
+
+[.big]#*Audience for this course*#
+
+System administrators who are either new to Red Hat JBoss or have experience with Red Hat JBoss Enterprise Application Platform 7.
+
+[.big]#*Prerequisites for this course*#
+
+* https://skills.ole.redhat.com/en[Take our free assessment] to gauge whether this offering is the best fit for your skills
+* Base experience with system administration on Microsoft Windows, UNIX, or Linux^®^ operating systems
+* Basic understanding of TCP/IP networking
+* No prior knowledge of Java or shell scripting is required
+
+[.big]#*Technology considerations*#
+
+* No Specific Requirements
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/ad248-red-hat-jboss-application-administration-i

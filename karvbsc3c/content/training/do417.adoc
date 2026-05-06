@@ -1,0 +1,51 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Microsoft Windows Automation with Red Hat Ansible Automation Platform (DO417)
+
+[.big]#*Course Description*#
+
+*Introduction to performing core system administration tasks by creating and running automation for a Windows Server using Red Hat Ansible Automation Platform.*
+
+Microsoft Windows Automation with Red Hat Ansible Automation Platform (DO417) is designed for System administrators, DevOps engineers, and developers who want to learn how to automate the deployment and management of Microsoft Windows servers and applications hosted on them using Red Hat Ansible Automation Platform.
+
+This course is based on Red Hat® Ansible Automation Platform 2.4.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a four day in classroom, a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course Content Summary*#
+
+* Writing Ansible Playbooks that automate tasks on Microsoft Windows servers
+* Managing Ansible Playbooks stored in a Git-based version control system
+* Running Ansible Playbooks by using the automation controller web-based UI
+* Managing and ensuring software and Windows features are installed and up-to-date using Ansible automation
+* Writing efficient tasks in Ansible Playbooks by using loops, conditional tests, and handlers
+* Writing Ansible Playbooks that ensure plays can recover when tasks fail
+* Deploying, modifying, and managing files with Ansible on your Windows servers, using completed files and Jinja2 templates
+* Managing local and domain users, managing Active Directory domains, and generating dynamic inventory of managed hosts in automation controller based on domain membership
+* Automating specific, common Windows Server administration tasks
+* Reusing existing automation code by using Ansible Content Collections, Ansible Roles, and Ansible integration with PowerShell Desired State Configuration (DSC) resources
+
+[.big]#*Target Audience*#
+
+* System administrators, DevOps engineers, and developers who are responsible for automating the deployment and management of Microsoft Windows servers and applications hosted on them using Red Hat Ansible Automation Platform
+
+[.big]#*Recommended training*#
+
+* https://skills.ole.redhat.com/en[Take our free assessment] to gauge whether this offering is the best fit for your skills
+* A basic understanding of Windows Server administration is expected
+* Students do not need any previous experience with Ansible or Linux
+* There are no prerequisites for this course
+
+[.big]#*Technology considerations*#
+
+* For virtual or self-paced learners:
+** Internet access is required to access ROLE
+** BYOD/BYDW is not supported
+* For classroom learners:
+** Internet access is required to access ROLE
+** BYOD/BYDW is not supported
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do417-microsoft-windows-automation-red-hat-ansible

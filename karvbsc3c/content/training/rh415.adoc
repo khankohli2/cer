@@ -1,0 +1,43 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Security: Linux in Physical, Virtual, and Cloud (RH415)
+
+The "Red Hat Security: Linux in Physical, Virtual, and Cloud" (RH415) course is designed for security and system administration personnel who manage the secure operation of computer systems running Red Hat Enterprise Linux on physical hardware, as virtual machines, or as cloud instances both in private data centers and on public cloud platforms.
+
+[.big]#*Course description*#
+
+* Maintaining the security of computing systems is a process of managing risk through the implementation of processes and standards backed by technologies and tools. "Red Hat Security: Linux in Physical, Virtual, and Cloud" (RH415) is designed for security administrators and system administrators who need to manage the secure operation of servers running Red Hat Enterprise Linux, whether deployed on physical hardware, as virtual machines, or as cloud instances. You will learn about technologies and tools that can be used to help you implement and comply with your security requirements, including the kernel's Audit subsystem, AIDE, SELinux, OpenSCAP and SCAP Workbench, USBGuard, PAM authentication, and Network-Based Device Encryption. You will learn to monitor compliance and to proactively identify, prioritize, and resolve issues by using OpenSCAP, Red Hat Insights, Red Hat Satellite, and Red Hat Ansible Automation Platform. You will have a basic introduction to how Red Hat Ansible Automation Platform automates the deployment of remediation to systems, by using Ansible Playbooks from OpenSCAP or Red Hat Insights.
+* This course is based on RHEL 9.2, Ansible Core 2.14, Red Hat Ansible Automation Platform 2.4, Satellite 6.14, and OpenSCAP 1.3.7.
+* Maintaining the security of computing systems is a process of managing risk through the implementation of processes and standards backed by technologies and tools. In this course, you will learn about resources that can be used to help you implement and comply with your security requirements.
+* Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+* *Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+
+[.big]#*Course summary*#
+
+* Manage compliance with OpenSCAP.
+* Enable SELinux on a server from a disabled state, perform basic analysis of the system policy, and mitigate risk with advanced SELinux techniques.
+* Proactively identify and resolve issues with Red Hat Insights.
+* Monitor activity and changes on a server with Linux Audit and AIDE.
+* Protect data from compromise with USBGuard and storage encryption.
+* Manage authentication controls with PAM.
+* Manually apply provided Ansible Playbooks to automate mitigation of security and compliance issues.
+* Scale OpenSCAP and Red Hat Insights management with Red Hat Satellite and Red Hat Ansible Automation Platform.
+
+[.big]#*Target Audience*#
+
+* *System Administrator* - responsible for supporting the company’s physical and virtual infrastructure, systems, and servers
+* *IT Security Practitioner / Compliance & Auditor* - responsible for ensuring the technology environment is protected from attacks and is in compliance with security/privacy rules and regulations.
+* *Automation Architect* - Engineer or architect responsible for the company’s automation development and optimizing cloud tools and infrastructure to achieve automation goals.
+
+[.big]#*Recommended training*#
+
+* https://skills.ole.redhat.com/en[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* Red Hat Certified Engineer (EX294 / RHCE) certification or equivalent Red Hat Enterprise Linux knowledge and experience.
+
+[.big]#*Technology considerations*#
+
+* If the instructor intends to demonstrate Red Hat Insights, internet access and appropriate entitlements are required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/rh415-red-hat-security-linux-physical-virtual-and-cloud

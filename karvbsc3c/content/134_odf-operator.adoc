@@ -1,0 +1,406 @@
+////
+Purpose
+-------
+In the "Base" directory, this section is a placeholder which is to be
+overwritten by implementation details specific to the product or products being
+delivered.
+
+If "TODO" appears in your document after the init script has been run, then
+your product directory is missing a corresponding "implementation.adoc" which
+should be created to provide a basic implementation framework for that product.
+////
+
+== Create odf operator folder
+ 
+[source, bash]
+----
+mkdir -p ~/ocp4.18/operator/odf
+cd ~/ocp4.18/operator/odf
+----
+
+== Deploy ODF operator
+
+*Creaet operator Deployment File*
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/odf/1_odf-deployment.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-storage
+  labels:
+    openshift.io/cluster-monitoring: "true"
+	
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-storage
+  namespace: openshift-storage
+spec:
+  targetNamespaces:
+  - openshift-storage
+
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/odf-operator.openshift-storage: ''
+  name: odf-operator
+  namespace: openshift-storage
+spec:
+  channel: stable-4.18
+  name: odf-operator
+  source: cs-redhat-operator-index-2
+  sourceNamespace: openshift-marketplace
+
+EOF
+----
+
+*Deploy ODF Operator*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/odf/1_odf-deployment.yaml
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm odf]$ oc apply -f ~/ocp4.18/operator/odf/1_odf-deployment.yaml
+namespace/openshift-storage created
+operatorgroup.operators.coreos.com/openshift-storage created
+subscription.operators.coreos.com/odf-operator created
+----
+
+*Check ODF operator instalation status*
+[source, bash]
+----
+oc get csv -n openshift-storage
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm odf]$ oc get csv -n openshift-storage
+NAME                                     DISPLAY                            VERSION         REPLACES                                PHASE
+cephcsi-operator.v4.18.10-rhodf          CephCSI operator                   4.18.10-rhodf   cephcsi-operator.v4.18.9-rhodf          Succeeded
+mcg-operator.v4.18.10-rhodf              NooBaa Operator                    4.18.10-rhodf   mcg-operator.v4.18.9-rhodf              Succeeded
+ocs-client-operator.v4.18.10-rhodf       OpenShift Data Foundation Client   4.18.10-rhodf   ocs-client-operator.v4.18.9-rhodf       Succeeded
+ocs-operator.v4.18.10-rhodf              OpenShift Container Storage        4.18.10-rhodf   ocs-operator.v4.18.9-rhodf              Succeeded
+odf-csi-addons-operator.v4.18.10-rhodf   CSI Addons                         4.18.10-rhodf   odf-csi-addons-operator.v4.18.9-rhodf   Succeeded
+odf-dependencies.v4.18.10-rhodf          Data Foundation Dependencies       4.18.10-rhodf   odf-dependencies.v4.18.9-rhodf          Succeeded
+odf-operator.v4.18.10-rhodf              OpenShift Data Foundation          4.18.10-rhodf   odf-operator.v4.18.9-rhodf              Succeeded
+odf-prometheus-operator.v4.18.10-rhodf   Prometheus Operator                4.18.10-rhodf   odf-prometheus-operator.v4.18.9-rhodf   Succeeded
+recipe.v4.18.10-rhodf                    Recipe                             4.18.10-rhodf   recipe.v4.18.9-rhodf                    Succeeded
+rook-ceph-operator.v4.18.10-rhodf        Rook-Ceph                          4.18.10-rhodf   rook-ceph-operator.v4.18.9-rhodf        Succeeded
+
+----
+
+
+*Create nand for ODF*
+
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/odf/2_nand-odf.yaml
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: odf-cluster
+  namespace: openshift-storage
+spec:
+  config: '{
+        "cniVersion": "0.3.1",
+        "type": "macvlan",
+        "master": "bond1.810",
+        "mode": "bridge",
+        "ipam": {
+            "type": "whereabouts",
+            "ipRanges": [
+                     {"range": "172.18.15.0/24"},
+                     {"range": "2400:5200:a000::12:100:100/121"}
+            ]
+        }
+  }'
+
+EOF
+
+
+----
+
+*Apply nand configuration File*
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/odf/2_nand-odf.yaml
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm odf]$ oc apply -f ~/ocp4.18/operator/odf/2_nand-odf.yaml
+networkattachmentdefinition.k8s.cni.cncf.io/odf-cluster created
+----
+
+*Create ODF Cluster configuration file*
+
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/odf/3_ocs-storagecluster.yaml
+---
+apiVersion: ocs.openshift.io/v1
+kind: StorageCluster
+metadata:
+  annotations:
+    cluster.ocs.openshift.io/local-devices: "true"
+    uninstall.ocs.openshift.io/cleanup-policy: delete
+    uninstall.ocs.openshift.io/mode: graceful
+  name: ocs-storagecluster
+  namespace: openshift-storage
+spec:
+  enableCephTools: true
+  arbiter: {}
+  encryption:
+    # clusterWide: true
+    # keyRotation:
+    #   enable: true
+    #   schedule: '@weekly'
+    kms: {}
+  externalStorage: {}
+  flexibleScaling: true
+  resources:
+    mds:
+      limits:
+        cpu: "3"
+        memory: "32Gi"
+      requests:
+        cpu: "3"
+        memory: "32Gi"
+  managedResources:
+    cephBlockPools:
+      reconcileStrategy: manage
+      storageClassName: "csi-cephrbd"
+      defaultStorageClass: true
+    cephCluster: {}
+    cephConfig:
+      reconcileStrategy: manage
+    cephDashboard: {}
+    cephFilesystems:
+      reconcileStrategy: manage
+      storageClassName: "csi-cephfs"
+    cephNonResilientPools: {}
+    cephObjectStoreUsers:
+      reconcileStrategy: manage
+    cephObjectStores: {}
+    cephRBDMirror: {}
+    cephToolbox: {}
+  mirroring: {}
+  monDataDirHostPath: /var/lib/rook
+  multiCloudGateway:
+    reconcileStrategy: manage
+    disableLoadBalancerService: true
+  network:
+    connections:
+      encryption: {}
+    multiClusterService: {}
+    provider: multus
+    selectors:
+      cluster: openshift-storage/odf-cluster
+  nodeTopologies: {}
+  storageDeviceSets:
+  - config: {}
+    count: 3 # <-- Modify count to desired value. For each set of 3 disks increment the count by 1. -->
+    #total number of odf disks in the cluster devided by the number of replicas (e.g. each storage nodes have 6 disks for odf, there are four nodes, so 24 disks in total, diveded by the number of replicas equals 8)
+    dataPVCTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: "1"
+        storageClassName: localblockstorage
+        volumeMode: Block
+      status: {}
+    name: ocs-deviceset-localblockstorage
+    placement: {}
+    portable: false
+    replica: 1
+    resources:
+      limits:
+        cpu: "2"
+        memory: "5Gi"
+      requests:
+        cpu: "2"
+        memory: "5Gi"
+
+EOF
+----
+
+
+*Create ODF Cluster*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/odf/3_ocs-storagecluster.yaml
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm odf]$ oc apply -f ~/ocp4.18/operator/odf/3_ocs-storagecluster.yaml
+storagecluster.ocs.openshift.io/ocs-storagecluster created
+----
+
+*Check ODF Cluster Status*
+
+[source, bash]
+----
+oc get StorageCluster -n openshift-storage
+----
+----
+[invibh19ptn1bast1sm ~ ocpvbsc3]$oc get StorageCluster -n openshift-storage
+NAME                 AGE     PHASE   EXTERNAL   CREATED AT             VERSION
+ocs-storagecluster   2m57s   Ready              2026-01-06T14:09:29Z   4.18.10
+----
+
+*Check CEPH Status*
+
+[source, bash]
+----
+oc rsh  -n openshift-storage `oc get pod -n openshift-storage | grep rook-ceph-tools | awk {'print$1'}`
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc rsh  -n openshift-storage `oc get pod -n openshift-storage | grep rook-ceph-tools | awk {'print$1'}`
+sh-5.1$ ceph -s
+  cluster:
+    id:     cfcbc477-f1d7-4faa-935e-cf3cf7bcebe0
+    health: HEALTH_OK
+
+  services:
+    mon: 3 daemons, quorum a,b,c (age 6h)
+    mgr: b(active, since 7h), standbys: a
+    mds: 1/1 daemons up, 1 hot standby
+    osd: 3 osds: 3 up (since 6h), 3 in (since 7h)
+    rgw: 1 daemon active (1 hosts, 1 zones)
+
+  data:
+    volumes: 1/1 healthy
+    pools:   12 pools, 200 pgs
+    objects: 549 objects, 284 MiB
+    usage:   641 MiB used, 5.2 TiB / 5.2 TiB avail
+    pgs:     200 active+clean
+
+  io:
+    client:   938 B/s rd, 1.2 KiB/s wr, 1 op/s rd, 0 op/s wr
+
+sh-5.1$
+
+----
+
+*Check all Storage Class*
+
+[source, bash]
+----
+oc get sc
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get sc
+NAME                          PROVISIONER                             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+csi-cephfs                    openshift-storage.cephfs.csi.ceph.com   Delete          Immediate              true                   7h56m
+csi-cephrbd (default)         openshift-storage.rbd.csi.ceph.com      Delete          Immediate              true                   7h56m
+localblockstorage             kubernetes.io/no-provisioner            Delete          WaitForFirstConsumer   false                  2d5h
+ocs-storagecluster-ceph-rgw   openshift-storage.ceph.rook.io/bucket   Delete          Immediate              false                  45h
+openshift-storage.noobaa.io   openshift-storage.noobaa.io/obc         Delete          Immediate              false                  7h52m
+----
+
+*Remove Default storage class flag from sc csi-cephrbd*
+
+[source, bash]
+----
+oc edit sc csi-cephrbd
+----
+----
+change storageclass.kubernetes.io/is-default-class: "true"  to storageclass.kubernetes.io/is-default-class: "false"
+----
+
+== create new sc with name ocs-storagecluster-ceph-rbd
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/odf/4_ocs-storagecluster-ceph-rbd.yaml
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    description: Provides RWO Filesystem volumes, and RWO and RWX Block volumes
+    reclaimspace.csiaddons.openshift.io/schedule: '@weekly'
+    storageclass.kubernetes.io/is-default-class: "true"
+  creationTimestamp: "2026-01-06T14:11:10Z"
+  name: ocs-storagecluster-ceph-rbd
+parameters:
+  clusterID: openshift-storage
+  csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/controller-expand-secret-namespace: openshift-storage
+  csi.storage.k8s.io/fstype: ext4
+  csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+  csi.storage.k8s.io/node-stage-secret-namespace: openshift-storage
+  csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/provisioner-secret-namespace: openshift-storage
+  imageFeatures: layering,deep-flatten,exclusive-lock,object-map,fast-diff
+  imageFormat: "2"
+  pool: ocs-storagecluster-cephblockpool
+provisioner: openshift-storage.rbd.csi.ceph.com
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+EOF
+----
+*Apply the Configuration*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/odf/4_ocs-storagecluster-ceph-rbd.yaml
+----
+
+*check the status*
+[source, bash]
+----
+oc get sc
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc apply -f ~/ocp4.18/operator/odf/4_ocs-storagecluster-ceph-rbd.yaml
+storageclass.storage.k8s.io/ocs-storagecluster-ceph-rbd created
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get sc
+NAME                                    PROVISIONER                             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+csi-cephfs                              openshift-storage.cephfs.csi.ceph.com   Delete          Immediate              true                   7h59m
+csi-cephrbd                             openshift-storage.rbd.csi.ceph.com      Delete          Immediate              true                   7h59m
+localblockstorage                       kubernetes.io/no-provisioner            Delete          WaitForFirstConsumer   false                  2d5h
+ocs-storagecluster-ceph-rbd (default)   openshift-storage.rbd.csi.ceph.com      Delete          Immediate              true                   9s
+ocs-storagecluster-ceph-rgw             openshift-storage.ceph.rook.io/bucket   Delete          Immediate              false                  45h
+openshift-storage.noobaa.io             openshift-storage.noobaa.io/obc         Delete          Immediate              false                  7h54m
+----
+
+== create new sc with name ocs-storagecluster-ceph-rbd
+
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/odf/5_ocs-storagecluster-cephfs.yaml
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    description: Provides RWO and RWX Filesystem volumes
+  name: ocs-storagecluster-cephfs
+parameters:
+  clusterID: openshift-storage
+  csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+  csi.storage.k8s.io/controller-expand-secret-namespace: openshift-storage
+  csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+  csi.storage.k8s.io/node-stage-secret-namespace: openshift-storage
+  csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+  csi.storage.k8s.io/provisioner-secret-namespace: openshift-storage
+  fsName: ocs-storagecluster-cephfilesystem
+provisioner: openshift-storage.cephfs.csi.ceph.com
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+EOF
+----
+*Apply the Configuration file*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/odf/5_ocs-storagecluster-cephfs.yaml
+----

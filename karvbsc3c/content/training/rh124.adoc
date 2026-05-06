@@ -1,0 +1,47 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat System Administration I (RH124)
+
+[.big]#*Course description*#
+
+*The first of two courses covering the core system administration tasks needed to manage Red Hat Enterprise Linux servers*
+
+Red Hat System Administration I (RH124) is designed for IT professionals without previous Linux system administration experience. The course provides students with Linux administration competence by focusing on core administration tasks. This course also provides a foundation for students who plan to become full-time Linux system administrators by introducing key command-line concepts and enterprise-level tools.
+
+This course is the first of a two-course series that takes a computer professional without Linux system administration knowledge to become a fully capable Linux administrator. These concepts are further developed in the follow-on course, https://www.redhat.com/en/services/training/rh134-red-hat-system-administration-ii[Red Hat System Administration II (RH134)].
+
+This course is based on Red Hat® Enterprise Linux 9.0.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day in person class, a five day virtual class or is self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Introduce Linux and the Red Hat Enterprise Linux ecosystem.
+* Run commands and view shell environments.
+* Manage, organize, and secure files.
+* Manage users, groups and user security policies.
+* Control and monitor systemd services.
+* Configure remote access using the web console and SSH.
+* Configure network interfaces and settings.
+* Manage software using DNF
+
+[.big]#*Audience for this course*#
+
+* The primary persona is a technical professional with current or pending responsibilities as a Linux enterprise or cloud system administrator.
+* This course is popular in https://www.redhat.com/en/services/training/red-hat-academy[Red Hat Academy], and is targeted at the student who is planning to become a technical professional using Linux.
+
+[.big]#*Prerequisites for this course*#
+
+* Basic technical user skills with computer applications on some operating systems are expected.
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+
+[.big]#*Technology considerations*#
+
+* There are no special technical requirements for this course.
+* This course is not designed for bring your own device (BYOD).
+* Internet access is not required but is recommended so that students can research and browse Red Hat online resources.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/rh124-red-hat-system-administration-i

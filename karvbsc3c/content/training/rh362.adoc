@@ -1,0 +1,49 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Security: Identity Management and Authentication (RH362)
+
+Provide help to secure, centralized identity management services to coordinate user authentication and authorization with client systems, network services, and Windows domains.
+
+[.big]#*Course Description*#
+
+Red Hat Security: Identity Management and Authentication (RH362) provides the skills to configure and manage Identity Management (IdM), the comprehensive identity management component bundled with Red Hat Enterprise Linux. This course helps students to gain the skills with this technology most requested by customers.
+
+Some topics covered in this course are central management and provisioning of user accounts; design and installation of IdM server topologies; operation of the integrated DNS and TLS Certificate Authority services; management of two-factor authentication, smart card authentication, and operation as a single-sign on provider; integration and management of two-way trusts with Active Directory; and troubleshooting and disaster recovery planning. Registration of Linux clients to IdM and operation in enterprise environments that use both Linux and Microsoft Windows clients and servers is discussed.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day virtual class. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course Content Summary*#
+
+* Design an Identity Management topology for scale and resiliency.
+* Describe key technologies used by IdM, including SSSD, PAM, Kerberos, and PKI.
+* Install Identity Management (IdM) servers, replicas, and clients using Ansible Playbooks.
+* Manage IdM services, including integrated DNS and CA.
+* Configure and manage Kerberos authentication and secure services.
+* Configure and manage TLS certificates.
+* Create and manage a trust relationship with Microsoft Active Directory.
+* Configure to help secure user authentication, including two-factor authentication and single sign-on.
+* Configure and manage Sudo, HBAC, and RBAC policies.
+* Manage secrets, vaults, certificates, and keys.
+* Troubleshoot identity management.
+* Integrate Satellite 6 and Red Hat Ansible Automation Platform with IdM.
+* Configure IdM backup and recovery.
+
+[.big]#*Audience for this course*#
+
+* Red Hat Certified System Engineers (RHCE) who wish to learn how to provision and configure centralized identity management solutions for Linux clients and how to integrate them with other network services and identity management systems.
+** Identity Management specialists or engineers
+** Access Management specialists or engineers
+
+[.big]#*Recommended training*#
+
+* https://www.redhat.com/rhtapps/assessment/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* An RHCE certification or equivalent skill is a prerequisite to this course.
+
+[.big]#*Technology considerations*#
+
+* There are no special requirements other than those needed for standard courses delivered in ILT/VT/ROLE/RHLS delivery modes.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/rh362-red-hat-security-identity-management-and-authentication

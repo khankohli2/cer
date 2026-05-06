@@ -1,0 +1,43 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat High Availability Clustering (RH436)
+
+[.big]#*Course description*#
+
+*Deploy reliable, available critical production services in a high availability cluster*
+
+In the Red Hat High Availability Clustering (RH436) course, you will learn how to provide highly available network services to a mission-critical enterprise environment through the deployment and management of shared storage and server clusters. Created for senior Linux system administrators, this 4-day course strongly emphasizes lab-based activities.
+
+You will set up a cluster of systems running the Pacemaker component of the Red Hat Enterprise Linux High-Availability Add-On, and deploy Linux-based services such as web servers and databases on that cluster. Cluster storage components from the Resilient Storage Add-On are also covered; installations and applications that require multiple cluster nodes can access the same storage simultaneously. This includes Logical Volume Manager (LVM) Shared Volume Groups, Red Hat Global File System 2 (GFS2), and Device-Mapper Multipath.
+
+This course is based on Red Hat Enterprise Linux 8.3.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Install and configure a Pacemaker-based high availability cluster.
+* Create and manage highly available services.
+* Troubleshoot common cluster issues.
+* Work with shared storage (iSCSI) and configure multipathing.
+* Implement Logical Volume Manager (LVM) in cluster-aware configurations.
+* Configure GFS2 file systems on storage shared by multiple nodes.
+
+[.big]#*Audience for this course*#
+
+* Senior Linux system administrators who use high-availability clustering and fault-tolerant shared storage technologies to maximize resiliency of production services.
+
+[.big]#*Prerequisites for this course*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* https://www.redhat.com/en/services/training/ex200-red-hat-certified-system-administrator-rhcsa-exam[Red Hat Certified System Administrator (RHCSA) exam (EX200)] and associated courses.
+* https://www.redhat.com/en/services/training/ex294-red-hat-certified-engineer-rhce-exam-red-hat-enterprise-linux-9[Red Hat Cerfitied Engineer (RHCE) exam (EX294)] and associated courses.
+
+[.big]#*Technology considerations*#
+
+* Internet access is required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/rh436-red-hat-high-availability-clustering

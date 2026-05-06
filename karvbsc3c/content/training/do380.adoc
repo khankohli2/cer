@@ -1,0 +1,40 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat OpenShift Administration III: Scaling Deployments in the Enterprise (DO380)
+
+[.big]#*Course description*#
+
+*Plan, implement, and manage OpenShift clusters at scale*
+
+Red Hat OpenShift Administration III: Scaling Kubernetes Deployments in the Enterprise (DO380) expands upon the skills required to plan, implement, and manage OpenShift® clusters in the enterprise. You will learn how to configure and manage OpenShift clusters at scale to address increasing and special demands from applications and ensure reliability, performance, and availability.
+
+This course is based on Red Hat® OpenShift Container Platform 4.14.
+
+*Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course summary*#
+
+* Manage OpenShift cluster operators and add operators.
+* Implement GitOps workflows using OpenShift GitOps operator.
+* Integrate OpenShift with enterprise authentication.
+* Query and visualize cluster-wide logs, metrics, and alerts.
+* Backup and restore application settings and data with OpenShift APIs for Data Protection (OADP).
+* Manage machine pools and machine configurations.
+
+[.big]#*Audience for this course*#
+
+* Primary: Platform Engineers, System Administrators, Cloud Administrators, and other infrastructure-related IT roles who are responsible for implementing and managing infrastructure for applications.
+* Secondary: Enterprise Architects, Site Reliability Engineers (SRE), DevOps Engineers, and other application-related IT roles who are responsible for designing infrastructure for applications.
+
+[.big]#*Prerequisites for this course*#
+
+* Complete https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster[Red Hat OpenShift Administration II: Operating a Production Kubernetes Cluster(DO280)] and become a https://www.redhat.com/en/services/certification/rhcs-paas[Red Hat Certified Specialist in OpenShift Administration.]
+* https://www.redhat.com/en/services/training/rh134-red-hat-system-administration-ii[Complete Red Hat System Administration II (RH134)] and become a https://www.redhat.com/en/services/certification/rhcsa[Red Hat Certified System Administrator.]
+* Recommended, but not required: become a https://www.redhat.com/en/services/certification/rhce[Red Hat Certified Systems Engineer] or a https://www.redhat.com/en/services/certification/rhcs-ansible-automation[Red Hat Certified Specialist in Ansible Automation]. Basic knowledge about writing and running Ansible playbooks is desired.
+
+[.big]#*Technology requirements*#
+
+* This course requires internet access to access the cloud-based classroom environment that provides an OpenShift cluster and a remote administrator’s workstation.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do380-red-hat-openshift-administration-III-scaling-kubernetes-deployments-enterprise

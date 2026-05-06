@@ -1,0 +1,264 @@
+////
+Purpose
+-------
+In the "Base" directory, this section is a placeholder which is to be
+overwritten by implementation details specific to the product or products being
+delivered.
+
+If "TODO" appears in your document after the init script has been run, then
+your product directory is missing a corresponding "implementation.adoc" which
+should be created to provide a basic implementation framework for that product.
+////
+
+
+== Redhat Openshift Logging Operator 6.2
+
+Configure Openshift Logging . Navigate to Operators > OperatorHub . Search for "Openshift Logging" .
+Select "Red Hat OpenShift Logging Operator" . Click Install and choose .. Namespace: openshift-logging ..
+Approval Strategy: Automatic .. Channel: 6.2 .. Verrsion: 6.2.6 .. Console Plugin: enable . Click Install and
+wait for the installation to complete
+
+image::../images/openshift-logging.png[": openshift-logging",width=100%]
+
+=== Loki Operator 
+
+Loki Operator . Navigate to Operators > OperatorHub . Search for "Loki Operator" .
+Select "Loki Operator" . Click Install and choose .. Namespace: openshift-operators-redhat ..
+Approval Strategy: Automatic .. Channel: 6.2 .. Verrsion: 6.2.6 .. Console Plugin: enable . Click Install and
+wait for the installation to complete
+
+image::../images/Loki=Operator.png[":loki=operator",width=100%]
+
+
+Confige the openshift-logging loki-stack / Log Forwarder
+
+[source, bash]
+----
+cat << 'EOF' > 1_bucketname.yaml
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: loki-s3
+  namespace: openshift-logging
+spec:
+  generateBucketName: loki-s3
+  storageClassName: ocs-storagecluster-ceph-rgw
+EOF
+cat << 'EOF' > 2_secret.sh
+#!/bin/bash
+BUCKET_HOST=$(oc get -n openshift-logging configmap loki-s3 -o jsonpath='{.data.BUCKET_HOST}')
+BUCKET_NAME=$(oc get -n openshift-logging configmap loki-s3 -o jsonpath='{.data.BUCKET_NAME}')
+BUCKET_PORT=$(oc get -n openshift-logging configmap loki-s3 -o jsonpath='{.data.BUCKET_PORT}')
+ACCESS_KEY_ID=$(oc get -n openshift-logging secret loki-s3 -o jsonpath='{.data.AWS_ACCESS_KEY_ID}' | base64 -d)
+SECRET_ACCESS_KEY=$(oc get -n openshift-logging secret loki-s3 -o jsonpath='{.data.AWS_SECRET_ACCESS_KEY}' | base64 -d)
+
+echo "BUCKET_HOST=$BUCKET_HOST"
+echo "BUCKET_NAME=$BUCKET_NAME"
+echo "BUCKET_PORT=$BUCKET_PORT"
+echo "ACCESS_KEY_ID=$ACCESS_KEY_ID"
+echo "SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY"
+
+oc create -n openshift-logging secret generic logging-loki-s3 --from-literal=access_key_id=$ACCESS_KEY_ID --from-literal=access_key_secret=$SECRET_ACCESS_KEY --from-literal=bucketnames=$BUCKET_NAME --from-literal=endpoint="https://$BUCKET_HOST:$BUCKET_PORT"
+EOF
+cat << 'EOF' > 3_loki-stack.yaml
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: logging-loki
+  namespace: openshift-logging
+spec:
+  managementState: Managed
+  size: 1x.extra-small
+  hashRing:
+    type: memberlist
+    memberlist:
+      instanceAddrType: podIP
+  storage:
+    schemas:
+      - version: v13
+        effectiveDate: "2020-10-24"
+    secret:
+      name: logging-loki-s3
+      type: s3
+    tls:
+      caName: loki-s3-ca
+  storageClassName: csi-cephrbd
+  tenants:
+    mode: openshift-logging
+EOF
+cat << 'EOF' > 4_serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: log-forwarder
+  namespace: openshift-logging
+EOF
+cat << 'EOF' > 5_cluster-role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: collect-application-logs-log-forwarder
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: collect-application-logs
+subjects:
+- kind: ServiceAccount
+  name: log-forwarder
+  namespace: openshift-logging
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: collect-audit-logs-log-forwarder
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: collect-audit-logs
+subjects:
+- kind: ServiceAccount
+  name: log-forwarder
+  namespace: openshift-logging
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: collect-infrastructure-logs-log-forwarder
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: collect-infrastructure-logs
+subjects:
+- kind: ServiceAccount
+  name: log-forwarder
+  namespace: openshift-logging
+EOF
+cat << 'EOF' > 6_clusterLogForwarder.yaml
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  serviceAccount:
+    name: log-forwarder
+  outputs:
+    - name: elasticsearch-secure
+      type: syslog
+      syslog:
+        url: udp://10.215.1.154:514
+        rfc: RFC5424
+  pipelines:
+    - name: send-audit-logs
+      inputRefs:
+        - audit
+      outputRefs:
+        - elasticsearch-secure
+    - name: send-app-logs
+      inputRefs:
+        - application
+      outputRefs:
+        - elasticsearch-secure
+    - name: send-infra-logs
+      inputRefs:
+        - infrastructure
+      outputRefs:
+        - elasticsearch-secure
+EOF
+cat << 'EOF' > 7_cluster_logging.yaml
+apiVersion: logging.openshift.io/v1
+kind: ClusterLogging
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  collection:
+    type: vector
+  logStore:
+    elasticsearch:
+      resources:
+        requests:
+          memory: 2Gi
+      storage:
+        storageClassName: csi-cephrbd
+        size: 200G
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+      nodeCount: 3
+      redundancyPolicy: SingleRedundancy
+    retentionPolicy:
+      infra:
+        maxAge: 3d
+      audit:
+        maxAge: 3d
+    type: elasticsearch
+  visualization:
+    kibana:
+      nodeSelector:
+        node-role.kubernetes.io/infra: ""
+      replicas: 1
+    nodeSelector:
+        node-role.kubernetes.io/infra: ""
+    type: kibana
+  managementState: Managed
+EOF
+----
+
+----
+Suggested Execution Path:
+Apply the OBC: oc apply -f 1_bucketname.yaml
+
+Wait for the bucket to be provisioned (Check with oc get obc -n openshift-logging).
+
+Run the script: ./2_secret.sh to generate the Loki secret.
+
+Deploy Loki: oc apply -f 3_loki-stack.yaml
+
+Setup Permissions: oc apply -f 4_serviceaccount.yaml -f 5_cluster-role-binding.yaml
+
+Deploy Logging & Forwarding: oc apply -f 6_clusterLogForwarder.yaml -f 7_cluster_logging.yaml
+----
+
+[source, bash]
+----
+oc apply -f 1_bucketname.yaml
+./2_secret.sh
+oc apply -f 3_loki-stack.yaml
+oc apply -f 4_serviceaccount.yaml
+oc apply -f 5_cluster-role-binding.yaml
+oc apply -f 6_clusterLogForwarder.yaml
+oc apply -f 7_cluster_logging.yaml
+----
+
+*Validate*
+
+----
+[ocpvbsc2@invipb07moh1bast1sm loki]$ oc get pod,pvc -n openshift-logging
+NAME                                              READY   STATUS    RESTARTS   AGE
+pod/cluster-logging-operator-ff9846bd-lxpgx       1/1     Running   0          7h26m
+pod/instance-dcnm7                                1/1     Running   0          2m13s
+pod/instance-fdjct                                1/1     Running   0          2m13s
+pod/instance-pt9kk                                1/1     Running   0          2m12s
+pod/logging-loki-compactor-0                      1/1     Running   0          3m12s
+pod/logging-loki-distributor-555ff667f5-cv65b     1/1     Running   0          3m13s
+pod/logging-loki-distributor-555ff667f5-v5zs5     1/1     Running   0          3m13s
+pod/logging-loki-gateway-7d7fddd5c9-6586j         2/2     Running   0          3m12s
+pod/logging-loki-gateway-7d7fddd5c9-6dzb4         2/2     Running   0          3m12s
+pod/logging-loki-index-gateway-0                  1/1     Running   0          3m12s
+pod/logging-loki-index-gateway-1                  1/1     Running   0          2m42s
+pod/logging-loki-ingester-0                       1/1     Running   0          3m12s
+pod/logging-loki-ingester-1                       1/1     Running   0          2m2s
+pod/logging-loki-querier-6485984599-j2ck7         1/1     Running   0          3m12s
+pod/logging-loki-querier-6485984599-wc2jq         1/1     Running   0          3m12s
+pod/logging-loki-query-frontend-99cc8966b-6dwbg   1/1     Running   0          3m12s
+pod/logging-loki-query-frontend-99cc8966b-wgjct   1/1     Running   0          3m12s
+
+NAME                                                         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/storage-logging-loki-compactor-0       Bound    pvc-ba7123dc-c560-47f2-8769-7933c4ef0167   10Gi       RWO            csi-cephrbd    <unset>                 3m12s
+persistentvolumeclaim/storage-logging-loki-index-gateway-0   Bound    pvc-f2ffaf29-b0d6-4761-a5c6-ff8715757a7d   50Gi       RWO            csi-cephrbd    <unset>                 3m12s
+persistentvolumeclaim/storage-logging-loki-index-gateway-1   Bound    pvc-d0e98044-c451-49ea-a8ec-837410b5cea8   50Gi       RWO            csi-cephrbd    <unset>                 2m42s
+persistentvolumeclaim/storage-logging-loki-ingester-0        Bound    pvc-ea6d7783-9881-422d-9e3a-d6fe4a9e96af   10Gi       RWO            csi-cephrbd    <unset>                 3m12s
+persistentvolumeclaim/storage-logging-loki-ingester-1        Bound    pvc-33e5e834-cbf3-4731-ae37-1a398c3c2d92   10Gi       RWO            csi-cephrbd    <unset>                 2m2s
+persistentvolumeclaim/wal-logging-loki-ingester-0            Bound    pvc-a1b78c2b-9d91-4907-915d-c944586a5c6d   150Gi      RWO            csi-cephrbd    <unset>                 3m12s
+persistentvolumeclaim/wal-logging-loki-ingester-1            Bound    pvc-fb3ab031-885e-419c-8f01-f550f6b8e01f   150Gi      RWO            csi-cephrbd    <unset>                 2m2s
+----

@@ -1,0 +1,52 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat OpenShift Installation Lab (DO322)
+
+[IMPORTANT]
+====
+
+* Please note: Students are strongly advised to complete https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster[Red Hat OpenShift Administration II: Operating a Production Kubernetes Cluster (DO280)] as a prerequisite before taking this OpenShift Installation Lab
+
+====
+
+[.big]#*Course description*#
+
+*Installing OpenShift on a cloud, virtual, or physical infrastructure.*
+
+Red Hat OpenShift Installation Lab (DO322) teaches essential skills for installing an OpenShift cluster in a range of environments, from proof of concept to production, and how to identify customizations that may be required because of the underlying cloud, virtual, or physical infrastructure.
+
+This course is based on Red Hat OpenShift Container Platform 4.6.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a three day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course summary*#
+
+* Validate infrastructure prerequisites for an OpenShift cluster.
+* Run the OpenShift installer with custom settings.
+* Describe and monitor each stage of the OpenShift installation process.
+* Collect troubleshooting information during an ongoing installation, or after a failed installation.
+* Complete the configuration of cluster services in a newly installed cluster.
+
+[.big]#*Target Audience*#
+
+* Cluster administrators (Junior systems administrators, junior cloud administrators) interested in deploying additional clusters to meet increasing demands from their organizations.
+* Cluster engineers (Senior systems administrators, senior cloud administrators, cloud engineers) interested in the planning and design of OpenShift clusters to meet performance and reliability of different workloads and in creating work books for these installations.
+* Site reliability engineers (SREs) interested in deploying test bed clusters to validate new settings, updates, customizations, operational procedures, and responses to incidents.
+
+[.big]#*Recommended training*#
+
+* Achieving the *Red Hat Certified Specialist in OpenShift Administration* certification on OpenShift 4 is strongly recommended, or at least taking https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster[Red Hat OpenShift Administration II: Operating a Production Kubernetes Cluster (DO280)] before taking this course.
+** “Equivalent knowledge of Kubernetes” is not applicable here because performing anything other than a very minimal, all-defaults Full Stack Automated installation of OpenShift on a cloud provider requires knowledge of OpenShift cluster operators.
+* Achieving the https://www.redhat.com/en/services/certification/rhcsa-991[Red Hat Certified System Administrator (RHCSA)] certification or equivalent knowledge of Red Hat Enterprise Linux system administration before taking DO322 is also strongly recommended.
+
+[.big]#*Technology considerations*#
+
+* No local instructor led training (ILT) classroom is provided for DO322. All modalities require access to cloud-based classrooms.
+* This course uses cloud labs provisioned in the Red Hat Training Cloud.
+* Internet access is required in order for the installer tool to function as designed.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do322-red-hat-openshift-installation-lab +
+

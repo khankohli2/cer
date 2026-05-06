@@ -1,0 +1,134 @@
+////
+Purpose
+-------
+In the "Base" directory, this section is a placeholder which is to be
+overwritten by implementation details specific to the product or products being
+delivered.
+
+If "TODO" appears in your document after the init script has been run, then
+your product directory is missing a corresponding "implementation.adoc" which
+should be created to provide a basic implementation framework for that product.
+////
+
+== Create NUMA operator folder
+ 
+[source, bash]
+----
+mkdir -p ~/ocp4.18/operator/numa
+cd ~/ocp4.18/operator/numa
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm loki]$ mkdir -p ~/ocp4.18/operator/numa
+cd ~/ocp4.18/operator/numa
+----
+== Deploy NUMA operator
+
+*Creaet operator Deployment File*
+[source, yaml]
+----
+cat <<EOF >> ~/ocp4.18/operator/numa/1_numa-deployment.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-numaresources
+  
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: numaresources-operator
+  namespace: openshift-numaresources
+spec:
+  targetNamespaces:
+  - openshift-numaresources
+
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: numaresources-operator
+  namespace: openshift-numaresources
+spec:
+  name: numaresources-operator
+  channel: "4.18"
+  source: cs-redhat-operator-index-2
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: Automatic
+EOF
+----
+
+*Deploy NUMA Operator*
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/numa/1_numa-deployment.yaml
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm numa]$ oc apply -f ~/ocp4.18/operator/numa/1_numa-deployment.yaml
+namespace/openshift-numaresources created
+operatorgroup.operators.coreos.com/numaresources-operator created
+subscription.operators.coreos.com/numaresources-operator created
+----
+*Check deployment Status*
+
+[source, bash]
+----
+oc get csv -n openshift-numaresources
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm numa]$ oc get csv -n openshift-numaresources
+NAME                             DISPLAY                  VERSION   REPLACES                         PHASE
+loki-operator.v6.2.6             Loki Operator            6.2.6     loki-operator.v6.2.5             Succeeded
+numaresources-operator.v4.18.2   numaresources-operator   4.18.2    numaresources-operator.v4.18.1   Succeeded
+----
+
+== Configure NUMA operator
+
+*Create Configuration File*
+
+[source, yaml]
+----
+cat <<EOF >> ~/ocp4.18/operator/numa/2_norc.yaml
+apiVersion: nodetopology.openshift.io/v1
+kind: NUMAResourcesOperator
+metadata:
+  name: numaresourcesoperator
+spec:
+  nodeGroups:
+  - machineConfigPoolSelector:
+      matchLabels:
+        pools.operator.machineconfiguration.openshift.io/master: ""
+EOF
+----
+*aplly the configuration*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/numa/2_norc.yaml
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm numa]$ oc apply -f ~/ocp4.18/operator/numa/2_norc.yaml
+numaresourcesoperator.nodetopology.openshift.io/numaresourcesoperator created
+----
+
+*check the status*
+
+[source, bash]
+----
+oc get pod -n openshift-numaresources
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm numa]$ oc get pod -n openshift-numaresources
+NAME                                               READY   STATUS    RESTARTS   AGE
+numaresources-controller-manager-7f46786d4-xrpfp   1/1     Running   0          2m21s
+numaresourcesoperator-master-9xhkl                 2/2     Running   0          43s
+numaresourcesoperator-master-gfqhs                 2/2     Running   0          43s
+numaresourcesoperator-master-xzn8t                 2/2     Running   0          43s
+----
+
+		
+
+

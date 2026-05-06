@@ -1,0 +1,18 @@
+////
+Purpose
+-------
+In one or two sentences summarize the customer's business - include what
+industry they are in, whether they are local, nationwide or global, include
+some description of their size, scope of impact, or significant achievement.
+In the next one to two sentences focus on how the customer is using technology,
+if possible cite the specific technology Red Hat is
+providing/supporting/augmenting.
+
+Sample
+------
+ACME Financial is a global financial institution operating in over 100 countries.  ACME-F is the leading financier for construction projects in the United States and ranks #2 globally.  ACME-F uses machine learning to rapidly identify fraudulent activity on its personal banking platform, and to evaluate risk in its commercial ventures.
+
+////
+
+Samsung is a multinational conglomerate focused on technology, electronics, and innovation. Samsung is best known for its cutting-edge consumer electronics, including smartphones, televisions, home appliances, and semiconductor technology. +
+The mission of Samsung is to inspire the world with innovative technologies, products, and designs that enrich people’s lives and contribute to a better global society.

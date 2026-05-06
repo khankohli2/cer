@@ -1,0 +1,25 @@
+// --------------------------------
+// Document Information
+// The customer-vars.adoc is meant for customer specific information such as the name,
+// short name, and gss information
+// --------------------------------
+
+:description: vRAN Panjab pbvbsc2c – Implementation of vBSC Cluster on Red Hat OpenShift Platform 4.18 for Vodafone Idea Ltd
+
+// This is where the customer name, customer, and short-name cust are inserted
+:customer: Samsung
+:cust: Samsung
+
+// add name of customer logo here (store in images directory)
+// Leave it "empty" WITHOUT QUOTES if not there.
+:customerlogo: T-Mobile_logo.png
+
+:custprojectmanager: Reena Tyagi
+
+// these are required for the support chapter.
+:custgss: TODO_customer_portal_account_name
+:nogss: TODO_customer_portal_account_number
+:ocpversion: 4.18
+// --------------------------------
+// Other Vars
+// --------------------------------

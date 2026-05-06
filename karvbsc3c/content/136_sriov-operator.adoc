@@ -1,0 +1,382 @@
+////
+Purpose
+-------
+In the "Base" directory, this section is a placeholder which is to be
+overwritten by implementation details specific to the product or products being
+delivered.
+
+If "TODO" appears in your document after the init script has been run, then
+your product directory is missing a corresponding "implementation.adoc" which
+should be created to provide a basic implementation framework for that product.
+////
+
+== Create SRIOV operator folder
+ 
+[source, bash]
+----
+mkdir -p ~/ocp4.18/operator/sriov
+cd ~/ocp4.18/operator/sriov
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc3]$mkdir -p ~/ocp4.18/operator/sriov
+cd ~/ocp4.18/operator/sriov
+----
+
+== Deploy SRIOV operator
+
+*Creaet operator Deployment File*
+[source, yaml]
+----
+cat <<EOF >> ~/ocp4.18/operator/sriov/1_sriov-deployment.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-sriov-network-operator
+
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: sriov-network-operator-group
+  namespace: openshift-sriov-network-operator
+spec:
+  targetNamespaces:
+  - openshift-sriov-network-operator
+	
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: sriov-network-operator-subscription
+  namespace: openshift-sriov-network-operator
+spec:
+  channel: stable
+  name: sriov-network-operator
+  source: cs-redhat-operator-index-2
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: Automatic
+EOF
+----
+*Deploy SRIOV Operator*
+
+[source, bash]
+----
+oc apply -f  ~/ocp4.18/operator/sriov/1_sriov-deployment.yaml
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm sriov]$ oc apply -f  ~/ocp4.18/operator/sriov/1_sriov-deployment.yaml
+namespace/openshift-sriov-network-operator created
+operatorgroup.operators.coreos.com/sriov-network-operator-group created
+subscription.operators.coreos.com/sriov-network-operator-subscription created
+----
+
+*Check operator Deployment Status*
+[Source, bash]
+----
+oc get csv -n openshift-sriov-network-operator
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm sriov]$ oc get csv -n openshift-sriov-network-operator
+NAME                                          DISPLAY                   VERSION               REPLACES               PHASE
+loki-operator.v6.2.6                          Loki Operator             6.2.6                 loki-operator.v6.2.5   Succeeded
+sriov-network-operator.v4.18.0-202511261113   SR-IOV Network Operator   4.18.0-202511261113                          Succeeded
+----
+
+== Label the node
+[source, bash]
+
+----
+oc label node `oc get node | grep master | awk {'print $1'}` feature.node.kubernetes.io/network-sriov.capable=true
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm sriov]$ oc label node `oc get node | grep master | awk {'print $1'}` feature.node.kubernetes.io/network-sriov.capable=true
+node/invipb07moh1bsc21sm labeled
+node/invipb07moh1bsc22sm labeled
+node/invipb07moh1bsc23sm labeled
+[invipb07moh1bast1sm ~ ocpvbsc3]$oc get node --show-labels
+NAME                  STATUS   ROLES                         AGE   VERSION   LABELS
+[ocpvbsc2@invipb07moh1bast1sm sriov]$ oc get node --show-labels
+NAME                  STATUS   ROLES                         AGE   VERSION   LABELS
+invipb07moh1bsc21sm   Ready    control-plane,master,worker   13h   v1.31.9   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,cluster.ocs.openshift.io/openshift-storage=,feature.node.kubernetes.io/network-sriov.capable=true,kubernetes.io/arch=amd64,kubernetes.io/hostname=invipb07moh1bsc21sm,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node-role.kubernetes.io/master=,node-role.kubernetes.io/worker=,node.openshift.io/os_id=rhcos
+invipb07moh1bsc22sm   Ready    control-plane,master,worker   13h   v1.31.9   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,cluster.ocs.openshift.io/openshift-storage=,feature.node.kubernetes.io/network-sriov.capable=true,kubernetes.io/arch=amd64,kubernetes.io/hostname=invipb07moh1bsc22sm,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node-role.kubernetes.io/master=,node-role.kubernetes.io/worker=,node.openshift.io/os_id=rhcos
+invipb07moh1bsc23sm   Ready    control-plane,master,worker   13h   v1.31.9   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,cluster.ocs.openshift.io/openshift-storage=,feature.node.kubernetes.io/network-sriov.capable=true,kubernetes.io/arch=amd64,kubernetes.io/hostname=invipb07moh1bsc23sm,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node-role.kubernetes.io/master=,node-role.kubernetes.io/worker=,node.openshift.io/os_id=rhcos
+----
+
+== Configure SRIOV operator
+
+*Create Configuration File*
+
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/sriov/2_sriov-config.yaml
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovOperatorConfig
+metadata:
+  finalizers:
+  - operatorconfig.finalizers.sriovnetwork.openshift.io
+  name: default
+  namespace: openshift-sriov-network-operator
+spec:
+  enableInjector: true
+  enableOperatorWebhook: true
+  logLevel: 2
+EOF
+----
+
+*Apply the Configuration File*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/sriov/2_sriov-config.yaml
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc2]$oc apply -f ~/ocp4.18/operator/sriov/2_sriov-config.yaml
+Warning: metadata.finalizers: "operatorconfig.finalizers.sriovnetwork.openshift.io": prefer a domain-qualified finalizer name to avoid accidental conflicts with other finalizer writers
+sriovoperatorconfig.sriovnetwork.openshift.io/default created
+----
+*Check the Status*
+[source, bash]
+----
+oc project openshift-sriov-network-operator
+oc get pod,sriovnetworknodepolicy.sriovnetwork.openshift.io
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm sriov]$ oc get pod,sriovnetworknodepolicy.sriovnetwork.openshift.io
+NAME                                          READY   STATUS    RESTARTS   AGE
+pod/network-resources-injector-m6dq2          1/1     Running   0          12m
+pod/network-resources-injector-mxs24          1/1     Running   0          12m
+pod/network-resources-injector-nntqh          1/1     Running   0          12m
+pod/operator-webhook-c5bcz                    1/1     Running   0          12m
+pod/operator-webhook-fx8p4                    1/1     Running   0          12m
+pod/operator-webhook-njg57                    1/1     Running   0          12m
+pod/sriov-network-config-daemon-28fx4         1/1     Running   0          12m
+pod/sriov-network-config-daemon-5d6pr         1/1     Running   0          12m
+pod/sriov-network-config-daemon-gg7dx         1/1     Running   0          12m
+pod/sriov-network-operator-5b69b758cf-4267j   1/1     Running   0          42h
+----
+
+== Create SRIOV vf configuration
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/sriov/3_sriov-vf-config.yaml
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: default
+  namespace: openshift-sriov-network-operator
+spec:
+  deviceType: netdevice
+  nicSelector: {}
+  nodeSelector: {}
+  numVfs: 0
+  resourceName: ""
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: policy-ens1f2-bh0u
+  namespace: openshift-sriov-network-operator
+spec:
+  deviceType: vfio-pci
+  isRdma: false
+  needVhostNet: true
+  nicSelector:
+    deviceID: "1593"
+    pfNames:
+    - ens1f2#0-3
+    vendor: "8086"
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 16
+  priority: 99
+  resourceName: pci_sriov_net_bh0u
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: policy-ens2f2-bh0u-1
+  namespace: openshift-sriov-network-operator
+spec:
+  deviceType: vfio-pci
+  isRdma: false
+  needVhostNet: true
+  nicSelector:
+    deviceID: "1593"
+    pfNames:
+    - ens2f2#0-3
+    vendor: "8086"
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 16
+  priority: 99
+  resourceName: pci_sriov_net_bh0u_1
+---
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: policy-ens1f2-bh0c
+  namespace: openshift-sriov-network-operator
+spec:
+  deviceType: netdevice
+  isRdma: false
+  nicSelector:
+    deviceID: "1593"
+    pfNames:
+    - ens1f2#4-8
+    vendor: "8086"
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 16
+  priority: 99
+  resourceName: pci_sriov_net_bh0c
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: policy-ens2f2-bh0c-1
+  namespace: openshift-sriov-network-operator
+spec:
+  deviceType: netdevice
+  isRdma: false
+  nicSelector:
+    deviceID: "1593"
+    pfNames:
+    - ens2f2#4-8
+    vendor: "8086"
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 16
+  priority: 99
+  resourceName: pci_sriov_net_bh0c_1
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: policy-ens4f2-bh0u-2
+  namespace: openshift-sriov-network-operator
+spec:
+  deviceType: vfio-pci
+  isRdma: false
+  needVhostNet: true
+  nicSelector:
+    deviceID: "1593"
+    pfNames:
+    - ens4f2#0-3
+    vendor: "8086"
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 16
+  priority: 99
+  resourceName: pci_sriov_net_bh0u_2
+---
+apiVersion: sriovnetwork.openshift.io/v1
+kind: SriovNetworkNodePolicy
+metadata:
+  name: policy-ens5f2-bh0u-2-1
+  namespace: openshift-sriov-network-operator
+spec:
+  deviceType: vfio-pci
+  isRdma: false
+  needVhostNet: true
+  nicSelector:
+    deviceID: "1593"
+    pfNames:
+    - ens5f2#0-3
+    vendor: "8086"
+  nodeSelector:
+    feature.node.kubernetes.io/network-sriov.capable: "true"
+  numVfs: 16
+  priority: 99
+  resourceName: pci_sriov_net_bh0u_2_1
+---
+
+EOF
+
+----
+
+*Apply SRIOV VF Configuration*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/sriov/3_sriov-vf-config.yaml
+----
+----
+[invipb07moh1bast1sm ~ ocpvbsc3]$oc apply -f 3_sriov-vf-config.yaml
+sriovnetworknodepolicy.sriovnetwork.openshift.io/default created
+sriovnetworknodepolicy.sriovnetwork.openshift.io/policy-ens1f2-bh0u created
+sriovnetworknodepolicy.sriovnetwork.openshift.io/policy-ens2f2-bh0u-1 created
+sriovnetworknodepolicy.sriovnetwork.openshift.io/policy-ens1f2-bh0c created
+sriovnetworknodepolicy.sriovnetwork.openshift.io/policy-ens2f2-bh0c-1 created
+sriovnetworknodepolicy.sriovnetwork.openshift.io/policy-ens4f2-bh0u-2 created
+sriovnetworknodepolicy.sriovnetwork.openshift.io/policy-ens5f2-bh0u-2-1 created
+----
+
+*Check VF Status*
+[source, bash]
+----
+oc get sriovnetworknodepolicy.sriovnetwork.openshift.io -A
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm sriov]$ oc get sriovnetworknodepolicy.sriovnetwork.openshift.io -A
+NAMESPACE                          NAME                     AGE
+openshift-sriov-network-operator   default                  10h
+openshift-sriov-network-operator   policy-ens1f2-bh0c       10h
+openshift-sriov-network-operator   policy-ens1f2-bh0u       10h
+openshift-sriov-network-operator   policy-ens2f2-bh0c-1     10h
+openshift-sriov-network-operator   policy-ens2f2-bh0u-1     10h
+openshift-sriov-network-operator   policy-ens4f2-bh0u-2     10h
+openshift-sriov-network-operator   policy-ens5f2-bh0u-2-1   10h
+
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get node
+NAME                  STATUS   ROLES                         AGE    VERSION
+invipb07moh1bsc21sm   Ready    control-plane,master,worker   2d8h   v1.31.9
+invipb07moh1bsc22sm   Ready    control-plane,master,worker   2d9h   v1.31.9
+invipb07moh1bsc23sm   Ready    control-plane,master,worker   2d9h   v1.31.9
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get mcp
+NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+master   rendered-master-7cea909c409ad6749db9b62c2d40382d   True      False      False      3              3                   3                     0                      2d9h
+worker   rendered-worker-ba956c5384a795ececd648ab29649f72   True      False      False      0              0                   0                     0                      2d9h
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get co
+NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+authentication                             4.18.17   True        False         False      2d8h
+baremetal                                  4.18.17   True        False         False      2d9h
+cloud-controller-manager                   4.18.17   True        False         False      2d9h
+cloud-credential                           4.18.17   True        False         False      2d9h
+cluster-autoscaler                         4.18.17   True        False         False      2d9h
+config-operator                            4.18.17   True        False         False      2d9h
+console                                    4.18.17   True        False         False      2d9h
+control-plane-machine-set                  4.18.17   True        False         False      2d9h
+csi-snapshot-controller                    4.18.17   True        False         False      2d9h
+dns                                        4.18.17   True        False         False      2d9h
+etcd                                       4.18.17   True        False         False      2d9h
+image-registry                             4.18.17   True        False         False      2d9h
+ingress                                    4.18.17   True        False         False      2d9h
+insights                                   4.18.17   True        False         False      2d9h
+kube-apiserver                             4.18.17   True        False         False      2d9h
+kube-controller-manager                    4.18.17   True        False         False      2d9h
+kube-scheduler                             4.18.17   True        False         False      2d9h
+kube-storage-version-migrator              4.18.17   True        False         False      16m
+machine-api                                4.18.17   True        False         False      2d9h
+machine-approver                           4.18.17   True        False         False      2d9h
+machine-config                             4.18.17   True        False         False      2d9h
+marketplace                                4.18.17   True        False         False      2d9h
+monitoring                                 4.18.17   True        False         False      2d8h
+network                                    4.18.17   True        False         False      2d9h
+node-tuning                                4.18.17   True        False         False      2d8h
+olm                                        4.18.17   True        False         False      15m
+openshift-apiserver                        4.18.17   True        False         False      38h
+openshift-controller-manager               4.18.17   True        False         False      2d9h
+openshift-samples                          4.18.17   True        False         False      2d9h
+operator-lifecycle-manager                 4.18.17   True        False         False      2d9h
+operator-lifecycle-manager-catalog         4.18.17   True        False         False      2d9h
+operator-lifecycle-manager-packageserver   4.18.17   True        False         False      40m
+service-ca                                 4.18.17   True        False         False      2d9h
+storage                                    4.18.17   True        False         False      2d9h
+----

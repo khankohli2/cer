@@ -1,0 +1,198 @@
+////
+Purpose
+-------
+In the "Base" directory, this section is a placeholder which is to be
+overwritten by implementation details specific to the product or products being
+delivered.
+
+If "TODO" appears in your document after the init script has been run, then
+your product directory is missing a corresponding "implementation.adoc" which
+should be created to provide a basic implementation framework for that product.
+////
+
+== Create lso operator folder
+ 
+[source, bash]
+----
+mkdir -p ~/ocp4.18/operator/lso
+cd ~/ocp4.18/operator/lso
+----
+
+== Deploy LSO operator
+
+*Creaet operator Deployment File*
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/lso/1_lso-deployment.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-local-storage
+  annotations:
+    workload.openshift.io/allowed: management
+	
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: local-operator-group
+  namespace: openshift-local-storage
+spec:
+  targetNamespaces:
+    - openshift-local-storage
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: local-storage-operator
+  namespace: openshift-local-storage
+spec:
+  channel: stable
+  name: local-storage-operator
+  source: cs-redhat-operator-index-2
+  sourceNamespace: openshift-marketplace
+
+EOF
+----
+
+*Deploy LSO Operator*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/lso/1_lso-deployment.yaml
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm lso]$ oc apply -f ~/ocp4.18/operator/lso/1_lso-deployment.yaml
+namespace/openshift-local-storage created
+operatorgroup.operators.coreos.com/local-operator-group created
+subscription.operators.coreos.com/local-storage-operator created
+----
+
+*Check LSO operator instalation status*
+[source, bash]
+----
+oc get csv -n openshift-local-storage
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm lso]$ oc get csv -n openshift-local-storage
+NAME                                          DISPLAY         VERSION               REPLACES   PHASE
+local-storage-operator.v4.18.0-202512031242   Local Storage   4.18.0-202512031242              Succeeded
+----
+
+
+*Label Node*
+[source, bash]
+----
+oc label node `oc get node | grep master | awk {'print $1'}` cluster.ocs.openshift.io/openshift-storage=
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm lso]$ oc label node `oc get node | grep master | awk {'print $1'}` cluster.ocs.openshift.io/openshift-storage=
+node/invipb07moh1bsc21sm labeled
+node/invipb07moh1bsc22sm labeled
+node/invipb07moh1bsc23sm labeled
+----
+
+
+*Create LSO Instance file*
+[source, yaml]
+----
+cat <<EOF > ~/ocp4.18/operator/lso/2_LocalVolumeDiscovery.yaml
+apiVersion: local.storage.openshift.io/v1alpha1
+kind: LocalVolumeDiscovery
+metadata:
+  name: auto-discover-devices
+  namespace: openshift-local-storage
+spec:
+  tolerations:
+  - effect: NoSchedule
+    key: node.ocs.openshift.io/storage
+    operator: Equal
+    value: "true"
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: cluster.ocs.openshift.io/openshift-storage
+        operator: Exists
+EOF
+
+cat <<EOF > ~/ocp4.18/operator/lso/3_LocalVolumeSet.yaml
+apiVersion: local.storage.openshift.io/v1alpha1
+kind: LocalVolumeSet
+metadata:
+  name: local-osd-disk
+  namespace: openshift-local-storage
+spec:
+  deviceInclusionSpec:
+    deviceTypes:
+      - disk
+      - part
+    minSize: 1Gi
+  nodeSelector:
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: kubernetes.io/hostname
+        operator: In
+        values:
+          - invipb07moh1bsc21sm
+          - invipb07moh1bsc22sm
+          - invipb07moh1bsc23sm
+  storageClassName: localblockstorage
+  tolerations:
+    - effect: NoSchedule
+      key: node.ocs.openshift.io/storage
+      operator: Equal
+      value: "true"
+  volumeMode: Block
+EOF
+----
+
+*Create LSO Instance*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/lso/2_LocalVolumeDiscovery.yaml
+oc apply -f ~/ocp4.18/operator/lso/3_LocalVolumeSet.yaml
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm lso]$ oc apply -f ~/ocp4.18/operator/lso/2_LocalVolumeDiscovery.yaml
+oc apply -f ~/ocp4.18/operator/lso/3_LocalVolumeSet.yaml
+localvolumediscovery.local.storage.openshift.io/auto-discover-devices created
+localvolumeset.local.storage.openshift.io/local-osd-disk created
+----
+
+*Check the Status*
+
+[source, bash]
+----
+oc get pod,sc,pv -n openshift-local-storage
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm lso]$ oc get pod,sc,pv -n openshift-local-storage
+NAME                                          READY   STATUS    RESTARTS   AGE
+pod/diskmaker-discovery-f7k7g                 2/2     Running   0          66s
+pod/diskmaker-discovery-qv8d4                 2/2     Running   0          66s
+pod/diskmaker-discovery-wwjwh                 2/2     Running   0          66s
+pod/diskmaker-manager-jfvsn                   2/2     Running   0          64s
+pod/diskmaker-manager-nwtr4                   2/2     Running   0          64s
+pod/diskmaker-manager-ssg4d                   2/2     Running   0          64s
+pod/local-storage-operator-758dcb5b77-tdr2s   1/1     Running   0          3m21s
+
+NAME                                            PROVISIONER                    RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+storageclass.storage.k8s.io/localblockstorage   kubernetes.io/no-provisioner   Delete          WaitForFirstConsumer   false                  64s
+
+NAME                                 CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS        VOLUMEATTRIBUTESCLASS   REASON   AGE
+persistentvolume/local-pv-20146399   1788Gi     RWO            Delete           Available           localblockstorage   <unset>                          14s
+persistentvolume/local-pv-a390d03    1788Gi     RWO            Delete           Available           localblockstorage   <unset>                          <invalid>
+persistentvolume/local-pv-a89a92a9   1788Gi     RWO            Delete           Available           localblockstorage   <unset>                          <invalid>
+----
+
+
+
+
+

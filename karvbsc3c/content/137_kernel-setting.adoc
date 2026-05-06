@@ -1,0 +1,860 @@
+////
+Purpose
+-------
+In the "Base" directory, this section is a placeholder which is to be
+overwritten by implementation details specific to the product or products being
+delivered.
+
+If "TODO" appears in your document after the init script has been run, then
+your product directory is missing a corresponding "implementation.adoc" which
+should be created to provide a basic implementation framework for that product.
+////
+
+== Create kernal-setting folder
+ 
+[source, bash]
+----
+mkdir -p ~/ocp4.18/operator/kernal-setting
+mkdir -p ~/ocp4.18/operator/performance-profile
+cd ~/ocp4.18/operator/kernal-setting
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm ~]$ mkdir -p ~/ocp4.18/operator/kernal-setting
+mkdir -p ~/ocp4.18/operator/performance-profile
+cd ~/ocp4.18/operator/kernal-setting
+----
+
+== KDUMP REMOVE ICE
+
+Create configuration file with the name `vi ~/ocp4.18/operator/kernal-setting/01.kdump_remove-ice.yaml`
+
+[source, yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 05-kdump-config-master
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    systemd:
+      units:
+        - enabled: true
+          name: kdump-remove-ice-module.service
+          contents: |
+            [Unit]
+            Description=Remove ice module when doing kdump
+            Before=kdump.service
+            [Service]
+            Type=oneshot
+            RemainAfterExit=true
+            ExecStart=/usr/local/bin/kdump-remove-ice-module.sh
+            [Install]
+            WantedBy=multi-user.target
+    storage:
+      files:
+        - contents:
+            source: data:text/plain;charset=utf-8;base64,IyEvdXNyL2Jpbi9lbnYgYmFzaAoKIyBUaGlzIHNjcmlwdCByZW1vdmVzIHRoZSBpY2UgbW9kdWxlIGZyb20ga2R1bXAgdG8gcHJldmVudCBrZHVtcCBmYWlsdXJlcyBvbiBjZXJ0YWluIHNlcnZlcnMuCiMgVGhpcyBpcyBhIHRlbXBvcmFyeSB3b3JrYXJvdW5kIGZvciBSSEVMUExBTi0xMzgyMzYgYW5kIGNhbiBiZSByZW1vdmVkIHdoZW4gdGhhdCBpc3N1ZSBpcwojIGZpeGVkLgoKc2V0IC14CgpTRUQ9Ii91c3IvYmluL3NlZCIKR1JFUD0iL3Vzci9iaW4vZ3JlcCIKCiMgb3ZlcnJpZGUgZm9yIHRlc3RpbmcgcHVycG9zZXMKS0RVTVBfQ09ORj0iJHsxOi0vZXRjL3N5c2NvbmZpZy9rZHVtcH0iClJFTU9WRV9JQ0VfU1RSPSJtb2R1bGVfYmxhY2tsaXN0PWljZSIKCiMgZXhpdCBpZiBmaWxlIGRvZXNuJ3QgZXhpc3QKWyAhIC1mICR7S0RVTVBfQ09ORn0gXSAmJiBleGl0IDAKCiMgZXhpdCBpZiBmaWxlIGFscmVhZHkgdXBkYXRlZAoke0dSRVB9IC1GcSAke1JFTU9WRV9JQ0VfU1RSfSAke0tEVU1QX0NPTkZ9ICYmIGV4aXQgMAoKIyBUYXJnZXQgbGluZSBsb29rcyBzb21ldGhpbmcgbGlrZSB0aGlzOgojIEtEVU1QX0NPTU1BTkRMSU5FX0FQUEVORD0iaXJxcG9sbCBucl9jcHVzPTEgLi4uIGhlc3RfZGlzYWJsZSIKIyBVc2Ugc2VkIHRvIG1hdGNoIGV2ZXJ5dGhpbmcgYmV0d2VlbiB0aGUgcXVvdGVzIGFuZCBhcHBlbmQgdGhlIFJFTU9WRV9JQ0VfU1RSIHRvIGl0CiR7U0VEfSAtaSAncy9eS0RVTVBfQ09NTUFORExJTkVfQVBQRU5EPSJbXiJdKi8mICcke1JFTU9WRV9JQ0VfU1RSfScvJyAke0tEVU1QX0NPTkZ9IHx8IGV4aXQgMAo=
+          mode: 448
+          path: /usr/local/bin/kdump-remove-ice-module.sh
+----
+*Apply the Configuration file*
+
+[source, bash]
+----
+oc apply -f 01.kdump_remove-ice.yaml
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm kernal-setting]$ oc apply -f 01.kdump_remove-ice.yaml
+machineconfig.machineconfiguration.openshift.io/05-kdump-config-master created
+
+
+----
+
+== KDUMP Enable
+
+Create Configuration file `vi ~/ocp4.18/operator/kernal-setting/02.kdump.yaml`
+
+[source, yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 06-kdump-enable-master
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    systemd:
+      units:
+        - enabled: true
+          name: kdump.service
+  kernelArguments:
+    - crashkernel=512M
+----
+
+
+== Mount NS Machine Config
+
+Create Configuration file `vi ~/ocp4.18/operator/kernal-setting/03.mount-ns-kublet.yaml`
+
+
+[source, yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: container-mount-namespace-and-kubelet-conf-master
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+        - contents:
+            source: data:text/plain;charset=utf-8;base64,IyEvYmluL2Jhc2gKCmRlYnVnKCkgewogIGVjaG8gJEAgPiYyCn0KCnVzYWdlKCkgewogIGVjaG8gVXNhZ2U6ICQoYmFzZW5hbWUgJDApIFVOSVQgW2VudmZpbGUgW3Zhcm5hbWVdXQogIGVjaG8KICBlY2hvIEV4dHJhY3QgdGhlIGNvbnRlbnRzIG9mIHRoZSBmaXJzdCBFeGVjU3RhcnQgc3RhbnphIGZyb20gdGhlIGdpdmVuIHN5c3RlbWQgdW5pdCBhbmQgcmV0dXJuIGl0IHRvIHN0ZG91dAogIGVjaG8KICBlY2hvICJJZiAnZW52ZmlsZScgaXMgcHJvdmlkZWQsIHB1dCBpdCBpbiB0aGVyZSBpbnN0ZWFkLCBhcyBhbiBlbnZpcm9ubWVudCB2YXJpYWJsZSBuYW1lZCAndmFybmFtZSciCiAgZWNobyAiRGVmYXVsdCAndmFybmFtZScgaXMgRVhFQ1NUQVJUIGlmIG5vdCBzcGVjaWZpZWQiCiAgZXhpdCAxCn0KClVOSVQ9JDEKRU5WRklMRT0kMgpWQVJOQU1FPSQzCmlmIFtbIC16ICRVTklUIHx8ICRVTklUID09ICItLWhlbHAiIHx8ICRVTklUID09ICItaCIgXV07IHRoZW4KICB1c2FnZQpmaQpkZWJ1ZyAiRXh0cmFjdGluZyBFeGVjU3RhcnQgZnJvbSAkVU5JVCIKRklMRT0kKHN5c3RlbWN0bCBjYXQgJFVOSVQgfCBoZWFkIC1uIDEpCkZJTEU9JHtGSUxFI1wjIH0KaWYgW1sgISAtZiAkRklMRSBdXTsgdGhlbgogIGRlYnVnICJGYWlsZWQgdG8gZmluZCByb290IGZpbGUgZm9yIHVuaXQgJFVOSVQgKCRGSUxFKSIKICBleGl0CmZpCmRlYnVnICJTZXJ2aWNlIGRlZmluaXRpb24gaXMgaW4gJEZJTEUiCkVYRUNTVEFSVD0kKHNlZCAtbiAtZSAnL15FeGVjU3RhcnQ9LipcXCQvLC9bXlxcXSQvIHsgcy9eRXhlY1N0YXJ0PS8vOyBwIH0nIC1lICcvXkV4ZWNTdGFydD0uKlteXFxdJC8geyBzL15FeGVjU3RhcnQ9Ly87IHAgfScgJEZJTEUpCgppZiBbWyAkRU5WRklMRSBdXTsgdGhlbgogIFZBUk5BTUU9JHtWQVJOQU1FOi1FWEVDU1RBUlR9CiAgZWNobyAiJHtWQVJOQU1FfT0ke0VYRUNTVEFSVH0iID4gJEVOVkZJTEUKZWxzZQogIGVjaG8gJEVYRUNTVEFSVApmaQo=
+          mode: 493
+          path: /usr/local/bin/extractExecStart
+        - contents:
+            source: data:text/plain;charset=utf-8;base64,IyEvYmluL2Jhc2gKbnNlbnRlciAtLW1vdW50PS9ydW4vY29udGFpbmVyLW1vdW50LW5hbWVzcGFjZS9tbnQgIiRAIgo=
+          mode: 493
+          path: /usr/local/bin/nsenterCmns
+    systemd:
+      units:
+        - contents: |
+            [Unit]
+            Description=Manages a mount namespace that both kubelet and crio can use to share their container-specific mounts
+
+            [Service]
+            Type=oneshot
+            RemainAfterExit=yes
+            RuntimeDirectory=container-mount-namespace
+            Environment=RUNTIME_DIRECTORY=%t/container-mount-namespace
+            Environment=BIND_POINT=%t/container-mount-namespace/mnt
+            ExecStartPre=bash -c "findmnt ${RUNTIME_DIRECTORY} || mount --make-unbindable --bind ${RUNTIME_DIRECTORY} ${RUNTIME_DIRECTORY}"
+            ExecStartPre=touch ${BIND_POINT}
+            ExecStart=unshare --mount=${BIND_POINT} --propagation slave mount --make-rshared /
+            ExecStop=umount -R ${RUNTIME_DIRECTORY}
+          name: container-mount-namespace.service
+        - dropins:
+            - contents: |
+                [Unit]
+                Wants=container-mount-namespace.service
+                After=container-mount-namespace.service
+
+                [Service]
+                ExecStartPre=/usr/local/bin/extractExecStart %n /%t/%N-execstart.env ORIG_EXECSTART
+                EnvironmentFile=-/%t/%N-execstart.env
+                ExecStart=
+                ExecStart=bash -c "nsenter --mount=%t/container-mount-namespace/mnt \
+                    ${ORIG_EXECSTART}"
+              name: 90-container-mount-namespace.conf
+          name: crio.service
+        - dropins:
+            - contents: |
+                [Unit]
+                Wants=container-mount-namespace.service
+                After=container-mount-namespace.service
+
+                [Service]
+                ExecStartPre=/usr/local/bin/extractExecStart %n /%t/%N-execstart.env ORIG_EXECSTART
+                EnvironmentFile=-/%t/%N-execstart.env
+                ExecStart=
+                ExecStart=bash -c "nsenter --mount=%t/container-mount-namespace/mnt \
+                    ${ORIG_EXECSTART} --housekeeping-interval=30s"
+              name: 90-container-mount-namespace.conf
+            - contents: |
+                [Service]
+                Environment="OPENSHIFT_MAX_HOUSEKEEPING_INTERVAL_DURATION=60s"
+                Environment="OPENSHIFT_EVICTION_MONITORING_PERIOD_DURATION=30s"
+              name: 30-kubelet-interval-tuning.conf
+          name: kubelet.service
+----
+
+== Disable CRIO WIPE
+
+Create Configuration File `vi ~/ocp4.18/operator/kernal-setting/04.disable-crio-wipe.yaml`
+
+[source, yaml]
+---- 
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master
+  name: 99-crio-disable-wipe-master
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+        - contents:
+            source: data:text/plain;charset=utf-8;base64,W2NyaW9dCmNsZWFuX3NodXRkb3duX2ZpbGUgPSAiIgo=
+          mode: 420
+          path: /etc/crio/crio.conf.d/99-crio-disable-wipe.toml
+----
+
+== ENABLE CRUN
+
+Creae the Configuration file `vi ~/ocp4.18/operator/kernal-setting/05.crun.yaml`
+
+[source, yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: ContainerRuntimeConfig
+metadata:
+  name: enable-crun-master
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      pools.operator.machineconfiguration.openshift.io/master: ""
+  containerRuntimeConfig:
+    defaultRuntime: crun
+----
+----
+[ocpvbsc2@invipb07moh1bast1sm kernal-setting]$ oc apply -f 02.kdump.yaml
+machineconfig.machineconfiguration.openshift.io/06-kdump-enable-master created
+[ocpvbsc2@invipb07moh1bast1sm kernal-setting]$ oc apply -f 03.mount-ns-kublet.yaml
+machineconfig.machineconfiguration.openshift.io/container-mount-namespace-and-kubelet-conf-master created
+[ocpvbsc2@invipb07moh1bast1sm kernal-setting]$ oc apply -f 04.disable-crio-wipe.yaml
+oc machineconfig.machineconfiguration.openshift.io/99-crio-disable-wipe-master created
+[ocpvbsc2@invipb07moh1bast1sm kernal-setting]$ oc apply -f 05.crun.yaml
+containerruntimeconfig.machineconfiguration.openshift.io/enable-crun-master created
+[ocpvbsc2@invipb07moh1bast1sm kernal-setting]$
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get node
+NAME                  STATUS   ROLES                         AGE     VERSION
+invipb07moh1bsc21sm   Ready    control-plane,master,worker   2d11h   v1.31.9
+invipb07moh1bsc22sm   Ready    control-plane,master,worker   2d11h   v1.31.9
+invipb07moh1bsc23sm   Ready    control-plane,master,worker   2d11h   v1.31.9
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get mcp
+NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+master   rendered-master-6eae654a70e8545856257e1de6d70332   True      False      False      3              3                   3                     0                      2d11h
+worker   rendered-worker-ba956c5384a795ececd648ab29649f72   True      False      False      0              0                   0                     0                      2d11h
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get co
+NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+authentication                             4.18.17   True        False         False      2d11h
+baremetal                                  4.18.17   True        False         False      2d11h
+cloud-controller-manager                   4.18.17   True        False         False      2d11h
+cloud-credential                           4.18.17   True        False         False      2d12h
+cluster-autoscaler                         4.18.17   True        False         False      2d11h
+config-operator                            4.18.17   True        False         False      2d11h
+console                                    4.18.17   True        False         False      2d11h
+control-plane-machine-set                  4.18.17   True        False         False      2d11h
+csi-snapshot-controller                    4.18.17   True        False         False      2d11h
+dns                                        4.18.17   True        False         False      2d11h
+etcd                                       4.18.17   True        False         False      2d11h
+image-registry                             4.18.17   True        False         False      2d11h
+ingress                                    4.18.17   True        False         False      2d11h
+insights                                   4.18.17   True        False         False      2d11h
+kube-apiserver                             4.18.17   True        False         False      2d11h
+kube-controller-manager                    4.18.17   True        False         False      2d11h
+kube-scheduler                             4.18.17   True        False         False      2d11h
+kube-storage-version-migrator              4.18.17   True        False         False      14m
+machine-api                                4.18.17   True        False         False      2d11h
+machine-approver                           4.18.17   True        False         False      2d11h
+machine-config                             4.18.17   True        False         False      2d11h
+marketplace                                4.18.17   True        False         False      2d11h
+monitoring                                 4.18.17   True        False         False      2d11h
+network                                    4.18.17   True        False         False      2d11h
+node-tuning                                4.18.17   True        False         False      2d11h
+olm                                        4.18.17   True        False         False      14m
+openshift-apiserver                        4.18.17   True        False         False      41h
+openshift-controller-manager               4.18.17   True        False         False      2d11h
+openshift-samples                          4.18.17   True        False         False      2d11h
+operator-lifecycle-manager                 4.18.17   True        False         False      2d11h
+operator-lifecycle-manager-catalog         4.18.17   True        False         False      2d11h
+operator-lifecycle-manager-packageserver   4.18.17   True        False         False      3h10m
+service-ca                                 4.18.17   True        False         False      2d11h
+storage                                    4.18.17   True        False         False      2d11h
+[ocpvbsc2@invipb07moh1bast1sm ~]$
+
+
+kdump validation kdump.yaml :- 
+
+sh-5.1# cat /proc/cmdline | grep crashkernel
+BOOT_IMAGE=(hd1,gpt3)/boot/ostree/rhcos-b419be30380c865ca8effd3b262f5e222033ff985d5ba4d94b06ffa68b0ed648/vmlinuz-5.14.0-427.72.1.el9_4.x86_64 ignition.platform.id=metal ostree=/ostree/boot.0/rhcos/b419be30380c865ca8effd3b262f5e222033ff985d5ba4d94b06ffa68b0ed648/0 root=UUID=ea311811-7ce1-4cfb-9fc6-8f91bf5cbd3f rw rootflags=prjquota boot=UUID=67d2a95a-f80e-4167-92e0-46851ff3c3b7 iommu=pt intel_iommu=on crashkernel=512M systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all psi=0
+sh-5.1#
+
+validation of 03.mount-ns-kublet.yaml :- 
+
+sh-5.1# ls -l /usr/local/bin/
+cluster-backup.sh           configure-ip-forwarding.sh  disable-etcd.sh             ipsec-connect-wait.sh       kubenswrapper               nm-clean-initrd-state.sh    nsenterCmns                 recover-kubeconfig.sh       wait-for-br-ex-up.sh
+cluster-restore.sh          configure-ovs.sh            extractExecStart            kdump-remove-ice-module.sh  mco-hostname                nmstate-configuration.sh    quorum-restore.sh           resolv-prepender.sh         wait-for-primary-ip.sh
+sh-5.1# ls -l /usr/local/bin/extractExecStart
+-rwxr-xr-x. 1 root root 992 Mar  2 10:25 /usr/local/bin/extractExecStart
+sh-5.1# date
+Mon Mar  2 10:53:18 UTC 2026
+sh-5.1#
+sh-5.1# ls -l /usr/local/bin/nsenterCmns
+-rwxr-xr-x. 1 root root 68 Mar  2 10:25 /usr/local/bin/nsenterCmns
+sh-5.1# systemctl status container-mount-namespace.service
+● container-mount-namespace.service - Manages a mount namespace that both kubelet and crio can use to share their container-specific mounts
+     Loaded: loaded (/etc/systemd/system/container-mount-namespace.service; static)
+     Active: active (exited) since Mon 2026-03-02 10:30:43 UTC; 23min ago
+   Main PID: 3179 (code=exited, status=0/SUCCESS)
+        CPU: 13ms
+
+Mar 02 10:30:43 invipb07moh1bsc21sm systemd[1]: Starting Manages a mount namespace that both kubelet and crio can use to share their container-specific mounts...
+Mar 02 10:30:43 invipb07moh1bsc21sm systemd[1]: Finished Manages a mount namespace that both kubelet and crio can use to share their container-specific mounts.
+sh-5.1# systemctl status kubelet | grep "Drop-In"
+    Drop-In: /etc/systemd/system/kubelet.service.d
+sh-5.1# systemctl status crio | grep "Drop-In"
+    Drop-In: /etc/systemd/system/crio.service.d
+sh-5.1#
+
+validation of 04.disable-crio-wipe.yaml
+
+sh-5.1# cat /etc/crio/crio.conf.d/99-crio-disable-wipe.toml
+[crio]
+clean_shutdown_file = ""
+sh-5.1#
+
+
+validation of 05.crun.yaml :- 
+
+[ocpvbsc2@invipb07moh1bast1sm kernal-setting]$ oc get containerruntimeconfig.machineconfiguration.openshift.io/enable-crun-master
+NAME                 AGE
+enable-crun-master   45m
+[ocpvbsc2@invipb07moh1bast1sm kernal-setting]$
+
+----
+
+
+== Performance Profile
+
+Create The Configuration File `vi ~/ocp4.18/operator/performance-profile/00-performance-profile_rt.yaml`
+
+[source, yaml]
+----
+apiVersion: performance.openshift.io/v2
+kind: PerformanceProfile
+metadata:
+  name: performance-master
+  annotations:
+    kubeletconfig.experimental: |
+      {"systemReserved":{"memory": "17Gi"}}
+spec:
+  cpu:
+    isolated: 3-31,34-63,67-95,98-127
+    reserved: 0-2,32-33,64-66,96-97
+  hugepages:
+    defaultHugepagesSize: 1G
+    pages:
+    - count: 9
+      node: 0
+      size: 1G
+    - count: 9
+      node: 1
+      size: 1G
+  machineConfigPoolSelector:
+    pools.operator.machineconfiguration.openshift.io/master: ""
+  nodeSelector:
+    node-role.kubernetes.io/master: ""
+  numa:
+    topologyPolicy: single-numa-node
+  realTimeKernel:
+    enabled: true
+  workloadHints:
+    highPowerConsumption: false
+    realTime: true
+----
+
+*Apply the Configuration file*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/performance-profile/00-performance-profile_rt.yaml
+----
+
+*Check configuration progrss*
+[source, bash]
+----
+ oc logs $(oc get pod -n openshift-machine-config-operator | grep machine-config-controller | awk {'print $1'}) -n openshift-machine-config-operator -f --since 10m
+----
+
+*Validate the configuration change*
+
+[source, bash]
+----
+oc get profiles -A
+oc get tuned -A
+oc get mcp,no
+oc get no -o wide
+oc describe nodes | grep -i huge
+for i in $(oc get node -o wide | grep Ready | awk {'print $6'}) ; do  ssh core@$i " nslookup $i | grep name; cat /etc/kubernetes/kubelet.conf |grep -i -i manager "; done
+for i in $(oc get node -o wide | grep Ready | awk {'print $6'}) ; do  ssh core@$i " nslookup $i | grep name;cat /etc/kubernetes/kubelet.conf |grep -i reserve"; done
+for i in $(oc get node -o wide | grep Ready | awk {'print $6'}) ; do  ssh core@$i " nslookup $i | grep name; sudo cat /var/lib/kubelet/cpu_manager_state;date; "; done
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc apply -f ~/ocp4.18/operator/performance-profile/00-performance-profile_rt.yaml
+performanceprofile.performance.openshift.io/performance-master created
+
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get profiles -A
+NAMESPACE                                NAME                  TUNED                                           APPLIED   DEGRADED   MESSAGE                  AGE
+openshift-cluster-node-tuning-operator   invipb07moh1bsc21sm   openshift-node-performance-performance-master   True      False      TuneD profile applied.   2d19h
+openshift-cluster-node-tuning-operator   invipb07moh1bsc22sm   openshift-node-performance-performance-master   True      False      TuneD profile applied.   2d19h
+openshift-cluster-node-tuning-operator   invipb07moh1bsc23sm   openshift-node-performance-performance-master   True      False      TuneD profile applied.   2d19h
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get tuned -A
+NAMESPACE                                NAME                                            AGE
+openshift-cluster-node-tuning-operator   default                                         2d19h
+openshift-cluster-node-tuning-operator   openshift-node-performance-performance-master   59s
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get mcp,no
+NAME                                                         CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+machineconfigpool.machineconfiguration.openshift.io/master   rendered-master-ccb17f17320155d9a15507ec4d5b6a66   True      False      False      3              3                   3                     0                      2d20h
+machineconfigpool.machineconfiguration.openshift.io/worker   rendered-worker-ba956c5384a795ececd648ab29649f72   True      False      False      0              0                   0                     0                      2d20h
+
+NAME                       STATUS   ROLES                         AGE     VERSION
+node/invipb07moh1bsc21sm   Ready    control-plane,master,worker   2d20h   v1.31.9
+node/invipb07moh1bsc22sm   Ready    control-plane,master,worker   2d20h   v1.31.9
+node/invipb07moh1bsc23sm   Ready    control-plane,master,worker   2d20h   v1.31.9
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc describe nodes | grep -i huge
+  hugepages-1Gi:                           18Gi
+  hugepages-2Mi:                           0
+  hugepages-1Gi:                           18Gi
+  hugepages-2Mi:                           0
+  hugepages-1Gi                           0 (0%)        0 (0%)
+  hugepages-2Mi                           0 (0%)        0 (0%)
+  hugepages-1Gi:                           18Gi
+  hugepages-2Mi:                           0
+  hugepages-1Gi:                           18Gi
+  hugepages-2Mi:                           0
+  hugepages-1Gi                           0 (0%)         0 (0%)
+  hugepages-2Mi                           0 (0%)         0 (0%)
+  hugepages-1Gi:                           18Gi
+  hugepages-2Mi:                           0
+  hugepages-1Gi:                           18Gi
+  hugepages-2Mi:                           0
+  hugepages-1Gi                           0 (0%)         0 (0%)
+  hugepages-2Mi                           0 (0%)         0 (0%)
+
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ for i in $(oc get node -o wide | grep Ready | awk {'print $6'}) ; do  ssh core@$i " nslookup $i | grep name; cat /etc/kubernetes/kubelet.conf |grep -i -i manager "; done
+cpuManagerPolicy: static
+cpuManagerPolicyOptions:
+cpuManagerReconcilePeriod: 5s
+  IngressControllerDynamicConfigurationManager: false
+memoryManagerPolicy: Static
+topologyManagerPolicy: single-numa-node
+cpuManagerPolicy: static
+cpuManagerPolicyOptions:
+cpuManagerReconcilePeriod: 5s
+  IngressControllerDynamicConfigurationManager: false
+memoryManagerPolicy: Static
+topologyManagerPolicy: single-numa-node
+cpuManagerPolicy: static
+cpuManagerPolicyOptions:
+cpuManagerReconcilePeriod: 5s
+  IngressControllerDynamicConfigurationManager: false
+memoryManagerPolicy: Static
+topologyManagerPolicy: single-numa-node
+
+
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ for i in $(oc get node -o wide | grep Ready | awk {'print $6'}) ; do  ssh core@$i " nslookup $i | grep name;cat /etc/kubernetes/kubelet.conf |grep -i reserve"; done
+kubeReserved:
+reservedMemory:
+reservedSystemCPUs: 0-2,32-33,64-66,96-97
+kubeReserved:
+reservedMemory:
+reservedSystemCPUs: 0-2,32-33,64-66,96-97
+kubeReserved:
+reservedMemory:
+reservedSystemCPUs: 0-2,32-33,64-66,96-97
+
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ for i in $(oc get node -o wide | grep Ready | awk {'print $6'}) ; do  ssh core@$i " nslookup $i | grep name; sudo cat /var/lib/kubelet/cpu_manager_state ;date;"; done
+{"policyName":"static","defaultCpuSet":"3-31,34-63,67-95,98-127","checksum":3298966913}Mon Mar  2 19:51:01 UTC 2026
+{"policyName":"static","defaultCpuSet":"3-31,34-63,67-95,98-127","checksum":3298966913}Mon Mar  2 19:51:02 UTC 2026
+{"policyName":"static","defaultCpuSet":"3-31,34-63,67-95,98-127","checksum":3298966913}Mon Mar  2 19:51:02 UTC 2026
+
+----
+== SCTP Module
+
+Create the configuration file `vi ~/ocp4.18/operator/performance-profile/01-sctp-module.yaml`
+
+[source, yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  name: load-sctp-module
+  labels:
+    machineconfiguration.openshift.io/role: master
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+    storage:
+      files:
+        - path: /etc/modprobe.d/sctp-blacklist.conf
+          mode: 0644
+          overwrite: true
+          contents:
+            source: data:,
+        - path: /etc/modules-load.d/sctp-load.conf
+          mode: 0644
+          overwrite: true
+          contents:
+            source: data:,sctp
+----
+
+*Apply the configuration file*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/performance-profile/01-sctp-module.yaml
+----
+*Check configuration progrss*
+[source, bash]
+----
+ oc logs $(oc get pod -n openshift-machine-config-operator | grep machine-config-controller | awk {'print $1'}) -n openshift-machine-config-operator -f --since 10m
+----
+
+*Validate the configuration change*
+
+[source, bash]
+----
+oc get mc | grep sctp
+oc get mcp,no
+for i in $(oc get node -o wide | grep Ready | awk {'print $6'}); do nslookup $i; ssh core@$i "ls -lrt /etc/modprobe.d/sctp-blacklist.conf" ; done
+for i in $(oc get node -o wide | grep Ready | awk {'print $6'}); do nslookup $i; ssh core@$i "ls -lrt /etc/modules-load.d/sctp-load.conf" ; done
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc apply -f 01-sctp-module.yaml
+machineconfig.machineconfiguration.openshift.io/load-sctp-module created
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get machineconfig.machineconfiguration.openshift.io | grep -i load
+load-sctp-module                                                                               3.2.0             88s
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get mcp
+NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+master   rendered-master-ccb17f17320155d9a15507ec4d5b6a66   False     True       False      3              0                   0                     0                      3d7h
+worker   rendered-worker-ba956c5384a795ececd648ab29649f72   True      False      False      0              0                   0                     0                      3d7h
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get co
+NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+authentication                             4.18.17   True        False         False      3d7h
+baremetal                                  4.18.17   True        False         False      3d7h
+cloud-controller-manager                   4.18.17   True        False         False      3d7h
+cloud-credential                           4.18.17   True        False         False      3d7h
+cluster-autoscaler                         4.18.17   True        False         False      3d7h
+config-operator                            4.18.17   True        False         False      3d7h
+console                                    4.18.17   True        False         False      3d7h
+control-plane-machine-set                  4.18.17   True        False         False      3d7h
+csi-snapshot-controller                    4.18.17   True        False         False      3d7h
+dns                                        4.18.17   True        True          False      3d7h    DNS "default" reports Progressing=True: "Have 2 available node-resolver pods, want 3."
+etcd                                       4.18.17   True        False         True       3d7h    EtcdMembersDegraded: 2 of 3 members are available, invipb07moh1bsc23sm is unhealthy...
+image-registry                             4.18.17   True        True          False      3d7h    Progressing: All registry resources are removed...
+ingress                                    4.18.17   True        False         False      3d7h
+insights                                   4.18.17   True        False         False      3d7h
+kube-apiserver                             4.18.17   True        False         True       3d7h    NodeControllerDegraded: The master nodes not ready: node "invipb07moh1bsc23sm" not ready since 2026-03-03 06:26:53 +0000 UTC because NodeStatusUnknown (Kubelet stopped posting node status.)
+kube-controller-manager                    4.18.17   True        False         True       3d7h    NodeControllerDegraded: The master nodes not ready: node "invipb07moh1bsc23sm" not ready since 2026-03-03 06:26:53 +0000 UTC because NodeStatusUnknown (Kubelet stopped posting node status.)
+kube-scheduler                             4.18.17   True        False         True       3d7h    NodeControllerDegraded: The master nodes not ready: node "invipb07moh1bsc23sm" not ready since 2026-03-03 06:26:53 +0000 UTC because NodeStatusUnknown (Kubelet stopped posting node status.)
+kube-storage-version-migrator              4.18.17   True        False         False      10h
+machine-api                                4.18.17   True        False         False      3d7h
+machine-approver                           4.18.17   True        False         False      3d7h
+machine-config                             4.18.17   True        False         False      3d7h
+marketplace                                4.18.17   True        False         False      3d7h
+monitoring                                 4.18.17   True        False         False      3d7h
+network                                    4.18.17   True        True          False      3d7h    DaemonSet "/openshift-multus/multus" is not available (awaiting 1 nodes)...
+node-tuning                                4.18.17   True        True          False      3d7h    Working towards "4.18.17"
+olm                                        4.18.17   True        False         False      10h
+openshift-apiserver                        4.18.17   True        False         False      2d12h
+openshift-controller-manager               4.18.17   True        False         False      3d7h
+openshift-samples                          4.18.17   True        False         False      3d7h
+operator-lifecycle-manager                 4.18.17   True        False         False      3d7h
+operator-lifecycle-manager-catalog         4.18.17   True        False         False      3d7h
+operator-lifecycle-manager-packageserver   4.18.17   True        False         False      22h
+service-ca                                 4.18.17   True        False         False      3d7h
+storage                                    4.18.17   True        False         False      3d7h
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get node
+NAME                  STATUS                        ROLES                         AGE    VERSION
+invipb07moh1bsc21sm   Ready                         control-plane,master,worker   3d7h   v1.31.9
+invipb07moh1bsc22sm   Ready                         control-plane,master,worker   3d7h   v1.31.9
+invipb07moh1bsc23sm   NotReady,SchedulingDisabled   control-plane,master,worker   3d7h   v1.31.9
+
+Post activity :- 
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get node
+NAME                  STATUS   ROLES                         AGE    VERSION
+invipb07moh1bsc21sm   Ready    control-plane,master,worker   3d7h   v1.31.9
+invipb07moh1bsc22sm   Ready    control-plane,master,worker   3d8h   v1.31.9
+invipb07moh1bsc23sm   Ready    control-plane,master,worker   3d8h   v1.31.9
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get co
+NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+authentication                             4.18.17   True        False         False      3d7h
+baremetal                                  4.18.17   True        False         False      3d7h
+cloud-controller-manager                   4.18.17   True        False         False      3d8h
+cloud-credential                           4.18.17   True        False         False      3d8h
+cluster-autoscaler                         4.18.17   True        False         False      3d7h
+config-operator                            4.18.17   True        False         False      3d8h
+console                                    4.18.17   True        False         False      3d7h
+control-plane-machine-set                  4.18.17   True        False         False      3d7h
+csi-snapshot-controller                    4.18.17   True        False         False      3d7h
+dns                                        4.18.17   True        False         False      3d7h
+etcd                                       4.18.17   True        False         False      3d7h
+image-registry                             4.18.17   True        False         False      3d7h
+ingress                                    4.18.17   True        False         False      3d7h
+insights                                   4.18.17   True        False         False      3d7h
+kube-apiserver                             4.18.17   True        False         False      3d7h
+kube-controller-manager                    4.18.17   True        False         False      3d7h
+kube-scheduler                             4.18.17   True        False         False      3d7h
+kube-storage-version-migrator              4.18.17   True        False         False      17m
+machine-api                                4.18.17   True        False         False      3d7h
+machine-approver                           4.18.17   True        False         False      3d7h
+machine-config                             4.18.17   True        False         False      3d7h
+marketplace                                4.18.17   True        False         False      3d7h
+monitoring                                 4.18.17   True        False         False      3d7h
+network                                    4.18.17   True        False         False      3d8h
+node-tuning                                4.18.17   True        False         False      3d7h
+olm                                        4.18.17   True        False         False      16m
+openshift-apiserver                        4.18.17   True        False         False      2d13h
+openshift-controller-manager               4.18.17   True        False         False      3d7h
+openshift-samples                          4.18.17   True        False         False      3d7h
+operator-lifecycle-manager                 4.18.17   True        False         False      3d7h
+operator-lifecycle-manager-catalog         4.18.17   True        False         False      3d7h
+operator-lifecycle-manager-packageserver   4.18.17   True        False         False      23h
+service-ca                                 4.18.17   True        False         False      3d7h
+storage                                    4.18.17   True        False         False      3d8h
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ oc get mcp
+NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+master   rendered-master-2c3daebbc1970d776173a661e6f409e7   True      False      False      3              3                   3                     0                      3d7h
+worker   rendered-worker-ba956c5384a795ececd648ab29649f72   True      False      False      0              0                   0                     0                      3d7h
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ for i in $(cat /home/ocpvbsc2/ocp4.18/ocpconfig/openshift/performance-profile/ipv4.txt); do ssh core@$i "ls -larth /etc/modprobe.d/sctp-blacklist.conf"; done
+-rw-r--r--. 1 root root 0 Mar  3 06:35 /etc/modprobe.d/sctp-blacklist.conf
+-rw-r--r--. 1 root root 0 Mar  3 06:45 /etc/modprobe.d/sctp-blacklist.conf
+-rw-r--r--. 1 root root 0 Mar  3 06:25 /etc/modprobe.d/sctp-blacklist.conf
+
+[ocpvbsc2@invipb07moh1bast1sm ~]$ for i in $(cat /home/ocpvbsc2/ocp4.18/ocpconfig/openshift/performance-profile/ipv4.txt) ; do ssh core@$i ls -larth /etc/modules-load.d/sctp-load.conf ; done
+-rw-r--r--. 1 root root 4 Mar  3 06:35 /etc/modules-load.d/sctp-load.conf
+-rw-r--r--. 1 root root 4 Mar  3 06:45 /etc/modules-load.d/sctp-load.conf
+-rw-r--r--. 1 root root 4 Mar  3 06:25 /etc/modules-load.d/sctp-load.conf
+[ocpvbsc2@invipb07moh1bast1sm ~]$
+----
+
+== Node Status
+
+Create the Configuration file `vi  ~/ocp4.18/operator/performance-profile/02-performance-patch.yaml`
+
+[source, yaml]
+----
+apiVersion: tuned.openshift.io/v1
+kind: Tuned
+metadata:
+  name: performance-patch
+  namespace: openshift-cluster-node-tuning-operator
+spec:
+  profile:
+  - data: |
+      [main]
+      summary=Configuration changes profile inherited from performance created tuned
+      include=openshift-control-plane
+      [sysctl]
+      kernel.timer_migration="1"
+      [scheduler]
+      group.ice-ptp=0:f:10:*:ice-ptp.*
+      group.ice-gnss=0:f:10:*:ice-gnss.*
+      group.ice-dplls=0:f:10:*:ice-dplls.*
+      [service]
+      service.stalld=start,enable
+      service.chronyd=stop,disable
+    name: performance-patch
+  recommend:
+  - match:
+    - label: node-role.kubernetes.io/master
+    priority: 1
+    profile: performance-patch
+    type: node
+----
+ 
+*Apply the configuration file*
+ 
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/performance-profile/02-performance-patch.yaml
+----
+*Validate the configuration change*
+ 
+[source, bash]
+----
+oc get profiles
+oc get tuned
+----
+
+----
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc apply -f 02-performance-patch.yaml
+tuned.tuned.openshift.io/performance-patch created
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get tuned -A
+NAMESPACE                                NAME                                            AGE
+openshift-cluster-node-tuning-operator   default                                         3d8h
+openshift-cluster-node-tuning-operator   openshift-node-performance-performance-master   13h
+openshift-cluster-node-tuning-operator   performance-patch                               25s
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+
+
+
+validation :- sh-5.1# ps -eTo pid,cls,rtprio,comm | grep -E 'ice-ptp|ice-gnss|ice-dplls'
+   2752  FF     10 ice-ptp-0000:13
+   2753  FF     10 ice-gnss-0000:1
+   2839  FF     10 ice-dplls-0000:
+   2844  FF     10 ice-ptp-0000:13
+   2849  FF     10 ice-ptp-0000:13
+   2854  FF     10 ice-ptp-0000:13
+   2859  FF     10 ice-ptp-0000:26
+   2860  FF     10 ice-gnss-0000:2
+   2861  FF     10 ice-dplls-0000:
+   2866  FF     10 ice-ptp-0000:26
+   2871  FF     10 ice-ptp-0000:26
+   2876  FF     10 ice-ptp-0000:26
+   2881  FF     10 ice-ptp-0000:8a
+   2882  FF     10 ice-gnss-0000:8
+   2883  FF     10 ice-dplls-0000:
+   2889  FF     10 ice-ptp-0000:8a
+   2895  FF     10 ice-ptp-0000:8a
+   2900  FF     10 ice-ptp-0000:8a
+   2906  FF     10 ice-ptp-0000:a0
+   2907  FF     10 ice-gnss-0000:a
+   2909  FF     10 ice-dplls-0000:
+   2915  FF     10 ice-ptp-0000:a0
+   2920  FF     10 ice-ptp-0000:a0
+   2925  FF     10 ice-ptp-0000:a0
+sh-5.1# systemctl is-active chronyd
+inactive
+sh-5.1#
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get profile -n openshift-cluster-node-tuning-operator
+NAME                  TUNED               APPLIED   DEGRADED   MESSAGE                  AGE
+invipb07moh1bsc21sm   performance-patch   True      False      TuneD profile applied.   3d8h
+invipb07moh1bsc22sm   performance-patch   True      False      TuneD profile applied.   3d8h
+invipb07moh1bsc23sm   performance-patch   True      False      TuneD profile applied.   3d8h
+----
+
+== SCTP Module Files
+
+Create the Configuration file `vi ~/ocp4.18/operator/performance-profile/03-tuned_sysctl_socket_buffer_profile_sys.yaml`
+
+[source, yaml]
+----
+apiVersion: tuned.openshift.io/v1
+kind: Tuned
+metadata:
+  name: openshift-sysctl-sys
+  namespace: openshift-cluster-node-tuning-operator
+spec:
+  profile:
+  - data: |
+      [main]
+      summary=Set sctp.sndbuf_policy,sctp.rcvbuf_policy,rmem_max,wmem_max
+      include=openshift-control-plane,performance-patch
+      [sysctl]
+      net.sctp.sndbuf_policy=1
+      net.sctp.rcvbuf_policy=1
+      net.core.rmem_max=10485760
+      net.core.wmem_max=10485760
+    name: openshift-sysctl-sys
+  recommend:
+  - match:
+    - label: node-role.kubernetes.io/master
+    priority: 1
+    profile: openshift-sysctl-sys
+    type: node
+----
+
+*Apply the Configuration file*
+
+[source, bash]
+----
+oc apply -f ~/ocp4.18/operator/performance-profile/03-tuned_sysctl_socket_buffer_profile_sys.yaml
+----
+
+*validate the configuration change*
+
+[source, bash]
+----
+sysctl -a|egrep -i "net.sctp.sndbuf_policy|net.sctp.rcvbuf_policy|net.core.rmem_max|net.core.wmem_max"
+ps axfwo pid,ppid,tid,class,pri,nice,rtprio,psr,%cpu,rss:8,state,wchan:16,args |grep ice-gnss
+----
+
+----
+Before 
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ for i in $(cat /home/ocpvbsc2/ocp4.18/ocpconfig/openshift/performance-profile/ipv4.txt); do      echo "--- Node: $i ---";     ssh core@$i "sudo sysctl -a | egrep -i 'net.sctp.sndbuf_policy|net.sctp.rcvbuf_policy|net.core.rmem_max|net.core.wmem_max'"; done
+--- Node: 100.109.182.72 ---
+net.core.rmem_max = 212992
+net.core.wmem_max = 212992
+net.sctp.rcvbuf_policy = 0
+net.sctp.sndbuf_policy = 0
+--- Node: 100.109.182.73 ---
+net.core.rmem_max = 212992
+net.core.wmem_max = 212992
+net.sctp.rcvbuf_policy = 0
+net.sctp.sndbuf_policy = 0
+--- Node: 100.109.182.74 ---
+net.core.rmem_max = 212992
+net.core.wmem_max = 212992
+net.sctp.rcvbuf_policy = 0
+net.sctp.sndbuf_policy = 0
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc apply -f 03-performance-sysctl.yaml
+tuned.tuned.openshift.io/openshift-sysctl-sys created
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+
+
+post activity :- 
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get tuned -A
+NAMESPACE                                NAME                                            AGE
+openshift-cluster-node-tuning-operator   default                                         3d8h
+openshift-cluster-node-tuning-operator   openshift-node-performance-performance-master   13h
+openshift-cluster-node-tuning-operator   openshift-sysctl-sys                            12s
+openshift-cluster-node-tuning-operator   performance-patch                               7m24s
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ oc get profile -A
+NAMESPACE                                NAME                  TUNED                  APPLIED   DEGRADED   MESSAGE                  AGE
+openshift-cluster-node-tuning-operator   invipb07moh1bsc21sm   openshift-sysctl-sys   True      False      TuneD profile applied.   3d8h
+openshift-cluster-node-tuning-operator   invipb07moh1bsc22sm   openshift-sysctl-sys   True      False      TuneD profile applied.   3d8h
+openshift-cluster-node-tuning-operator   invipb07moh1bsc23sm   openshift-sysctl-sys   True      False      TuneD profile applied.   3d8h
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$ for i in $(cat /home/ocpvbsc2/ocp4.18/ocpconfig/openshift/performance-profile/ipv4.txt); do      echo "--- Node: $i ---";     ssh core@$i "sudo sysctl -a | egrep -i 'net.sctp.sndbuf_policy|net.sctp.rcvbuf_policy|net.core.rmem_max|net.core.wmem_max'"; done
+--- Node: 100.109.182.72 ---
+net.core.rmem_max = 10485760
+net.core.wmem_max = 10485760
+net.sctp.rcvbuf_policy = 1
+net.sctp.sndbuf_policy = 1
+--- Node: 100.109.182.73 ---
+net.core.rmem_max = 10485760
+net.core.wmem_max = 10485760
+net.sctp.rcvbuf_policy = 1
+net.sctp.sndbuf_policy = 1
+--- Node: 100.109.182.74 ---
+net.core.rmem_max = 10485760
+net.core.wmem_max = 10485760
+net.sctp.rcvbuf_policy = 1
+net.sctp.sndbuf_policy = 1
+[ocpvbsc2@invipb07moh1bast1sm performance-profile]$
+----

@@ -1,0 +1,47 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Introduction to Microsoft Azure Red Hat OpenShift (DO121)
+
+[.big]#*Course description*#
+
+*Learn how to deploy, access, and perform basic customizations to an Microsoft Azure Red Hat OpenShift cluster.*
+
+DO121 teaches Platform Operators how to provision managed clusters by using Microsoft Azure Red Hat OpenShift and how to perform basic day-2 customizations on these clusters to onboard application developers and applications.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is self paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Introduction to Managed OpenShift
+* Identify prerequisites to create a Microsoft Azure Red Hat OpenShift cluster
+* Access a Microsoft Azure Red Hat OpenShift cluster as an administrator and as a developer self-service user
+* Connect a Microsoft Azure Red Hat OpenShift cluster to Red Hat Services
+* Configure additional storage classes and configure log forwarding to Azure Monitor
+* Create dedicated node pools and configure node autoscaling
+
+[.big]#*Audience for this course*#
+
+* IT Operations professionals such as System Administrators, Platform Operators, Cloud Engineers.
+* Application and development infrastructure professionals such as Site Reliability Engineers and DevOps Engineers.
+
+[.big]#*Recommended training*#
+
+* All students must be knowledgeable of Microsoft Azure, including operating and managing Azure compute, storage, and network resources.
+* For students that are new to Red Hat OpenShift it is recommended that you learn the fundamental skills of managing Red Hat OpenShift clusters, before taking DO121, from the following courses:
+** https://www.redhat.com/en/services/training/red-hat-openshift-i-containers-kubernetes-exam[Red Hat OpenShift I: Containers & Kubernetes (DO180)]
+** https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster[Red Hat OpenShift Administration II: Operating a Production Kubernetes Cluster (DO280)]
+* Students with previous experience managing Kubernetes clusters are advised to take DO180 and DO280 before taking DO121 or at least acquire foundational skills operating Red Hat OpenShift clusters by using the following free resources from Red Hat:
+** https://developers.redhat.com/developer-sandbox[Red Hat Developer Sandbox for OpenShift]
+** https://developers.redhat.com/learn/openshift[OpenShift and Kubernetes learning from Red Hat Developer]
+** https://www.redhat.com/en/services/training/do080-deploying-containerized-applications-technical-overview[Containers, Kubernetes and Red Hat OpenShift Technical Overview (DO080)]
+
+[.big]#*Technology considerations*#
+
+* Internet access is required to access Azure cloud services using the Azure Portal and the Azure CLI. It is also required to access the Red Hat Hybrid Cloud Console and associated Red Hat cloud services.
+* Students must possess an active Azure account with an associated payment method for the Azure resources consumed by Microsoft Azure Red Hat OpenShift clusters.
+* Students must possess an active Red Hat customer portal account or a free https://developers.redhat.com/about[Red Hat Developer program membership.]
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do121-introduction-microsoft-azure-red-hat-openshift

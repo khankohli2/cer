@@ -1,0 +1,44 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Ceph Storage for OpenStack (CL260)
+
+[.big]#*Course description*#
+
+*Build, expand and maintain cloud-scale, clustered storage for your applications with Red Hat Ceph Storage*
+
+Cloud Storage with Red Hat Ceph Storage (CL260) is designed for storage administrators and cloud operators who deploy Red Hat Ceph Storage in a production data center environment or as a component of a Red Hat OpenStack Platform or OpenShift Container Platform infrastructure.  Learn how to deploy, manage, and scale a Ceph storage cluster to provide hybrid storage resources, including  Amazon S3 and OpenStack Swift-compatible object storage, Ceph-native and iSCSI-based block storage, and shared file storage. This course is based on Red Hat Ceph Storage 5.0.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course summary*#
+
+* Deploy and manage a Red Hat Ceph Storage cluster on commodity servers.
+* Perform common management operations using the web-based management interface.
+* Create, expand, and control access to storage pools provided by the Ceph cluster.
+* Access Red Hat Ceph Storage from clients using object, block, and file-based methods.
+* Analyze and tune Red Hat Ceph Storage performance.
+* Integrate Red Hat OpenStack Platform image, object, block, and file storage with a Red Hat Ceph Storage cluster.
+* Integrate OpenShift Container Platform with a Red Hat Ceph Storage cluster.
+
+[.big]#*Target Audience*#
+
+* This course is intended for storage administrators and cloud operators who want to learn how to deploy and manage Red Hat Ceph Storage on servers in an enterprise data center or within a Red Hat OpenStack Platform or OpenShift Container Platform environment.
+* Developers writing applications that use cloud-based storage will learn the distinctions of various storage types and client access methods.
+
+[.big]#*Recommended training*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* https://www.redhat.com/en/services/certification/rhcsa[Red Hat Certified System Administrator (RHCSA)] certification, or equivalent experience.
+* For candidates that have not earned an RHCSA or equivalent, confirmation of the correct skill set knowledge can be obtained by taking the https://skills.ole.redhat.com/[online skills assessment.]
+* Some experience with storage administration is recommended but not required.
+
+[.big]#*Technology considerations*#
+
+* This course does not have any special technical requirements.
+* This course is not intended for BYOD.
+* Internet access is recommended.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/cloud-storage-red-hat-ceph-storage-cl260

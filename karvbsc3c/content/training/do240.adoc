@@ -1,0 +1,44 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Cloud-native API Administration with Red Hat 3scale API Management (DO240)
+
+[.big]#*Course description*#
+
+*Manage, monetize, and secure APIs with Red Hat 3scale API Management*
+
+Build and Administer APIs with Red Hat 3scale API Management (DO240) is a hands-on, lab-based course that gives SREs and administrators an introduction to managing cloud-native APIs with Red Hat® 3scale API Management.  This course enables developers and administrators to install, administer, monetize, secure and document your cloud-native APIs.
+
+This course is based on Red Hat 3scale API Management 2.11.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is self paced.Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Understand 3scale API Management architecture and primary features.
+* Learn typical API use cases and strategies.
+* Install 3scale API Management on OpenShift.
+* Establish and configure subscription plans and rate limits.
+* Configure and customize the API gateway using policies.
+* Monitor and analyze API traffic.
+* Configure and test API service discovery.
+* Configure a developer portal and monetize your APIs.
+* Configure API security using tokens, API key-pairs, and OAuth/OIDC using Red Hat Single Sign-on (SSO).
+
+[.big]#*Audience for this course*#
+
+* Site Reliability Engineers and OpenShift Administrators interested in using 3scale API Management to manage, monitor, secure, and monetize their cloud-native APIs.
+
+[.big]#*Prerequisites for this course*#
+
+* Take our https://skills.ole.redhat.com/[free assessment] to gauge whether this offering is the best fit for your skills.
+* Complete https://www.redhat.com/en/services/training/red-hat-openshift-administration-ii-configuring-a-production-cluster[Red Hat OpenShift Administration II: Operating a Production Kubernetes Cluster (DO280)] or demonstrate equivalent knowledge.
+* Familiarity with testing REST APIs and security concepts like API keys, tokens and OAuth/OIDC.
+
+[.big]#*Technology considerations*#
+
+* Internet access is required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do240-cloud-native-api-admin-red-hat-3scale-api-management

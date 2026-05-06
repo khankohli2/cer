@@ -1,0 +1,50 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Developing and Deploying AI/ML Applications on Red Hat OpenShift AI (AI267)
+
+[.big]#**#*Course Description*
+
+*An introduction to developing and deploying AI/ML applications on Red Hat OpenShift AI.*
+
+Developing and Deploying AI/ML Applications on Red Hat OpenShift AI (AI267) provides students with the fundamental knowledge about using Red Hat OpenShift for developing and deploying AI/ML applications. This course helps students build core skills for using Red Hat OpenShift AI to train, develop and deploy machine learning models through hands-on experience.
+
+This course is based on Red Hat OpenShift ® 4.14, and Red Hat OpenShift AI 2.8.
+
+*Note:* This course is offered as a 3 day in person class, a 4 day virtual class or is self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#**#*Course Content Summary*
+
+* Introduction to Red Hat OpenShift AI
+* Data Science Projects
+* Jupyter Notebooks
+* Installing Red Hat OpenShift AI
+* Managing Users and Resources
+* Custom Notebook Images
+* Introduction to Machine Learning
+* Training Models
+* Enhancing Model Training with RHOAI
+* Introduction to Model Serving
+* Model Serving  in Red Hat OpenShift AI
+* Introduction to Workflow Automation
+* Elyra Pipelines
+* KubeFlow Pipelines
+
+[.big]#**#*Target Audience*
+
+* Data scientists and AI practitioners who want to use Red Hat OpenShift AI to build and train ML models
+* Developers who want to build and integrate AI/ML enabled applications
+* MLOps engineers responsible for installing, configuring, deploying, and monitoring AI/ML applications on Red Hat OpenShift AI
+
+[.big]#**#*Recommended training*
+
+* Experience with Git is required
+* Experience in Python development is required, or completion of the https://www.redhat.com/en/services/training/ad141-red-hat-training-presents-introduction-to-python-programming[Python Programming with Red Hat (AD141)] course
+* Experience in Red Hat OpenShift is required, or completion of the https://www.redhat.com/en/services/training/red-hat-openshift-developer-ii-building-and-deploying-cloud-native-applications[Red Hat OpenShift Developer II: Building and Deploying Cloud-native Applications (DO288)] course
+* Basic experience in the AI, data science, and machine learning fields is recommended
+
+[.big]#**#*Technology considerations*
+
+* No ILT classroom will be available
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/developing-and-deploying-aiml-applications-red-hat-openshift-ai-ai267

@@ -1,0 +1,37 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Red Hat Training: DevOps Culture and Practice Enablement (TL500)
+
+[.big]#*Experience the possibilities of DevOps through proven open culture and practices used by Red Hat to support customer innovation*#
+
+Red Hat Training: DevOps Culture and Practice Enablement (TL500) is a five-day, immersive class offering students an opportunity to experience and implement cultural shifts that are utilized in many successful DevOps adoption journeys. Many agile training offerings focus on a particular framework, delivery mechanism, or technology. Instead, DevOps Culture & Practice combines the best tools from many leading frameworks to blend continuous discovery and continuous delivery with cultural and technical practices into a unique, highly-engaging experience simulating real-world scenarios and applications.
+
+To achieve the learning objectives, participants should include multiple roles from an organization. Business product owners, architects, developers, and site reliability engineers will gain the experience of working outside of their traditional silos. The daily routine simulates a real-world delivery team, where cross-functional teams learn how collaboration breeds innovation. Armed with shared experiences and best practices, the team can apply what it has learned to help the organization's culture and mission succeed in the pursuit of new projects and improved processes.
+
+This course includes a copy of the Red Hat Training: Open Practices for your DevOps Journey course book, which can be used as a resource as students take the learnings from this course and apply them to other real world scenarios.
+
+*Note:* This course is five days. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*How is this course different from any other agile or DevOps technical training?*#
+
+* Most agile training focuses on a particular framework, or only on delivery or technology, but this course combines the best tools from many leading frameworks.
+* This course blends continuous discovery and continuous delivery with cultural and technical practices into a unique, highly-engaging experience, packed with real-world applications. You will learn both the individual practices and how each builds upon the next to improve alignment and delivery efficiency.
+* Some DevOps technical training focuses solely on implementation of technology to perform specific tasks, not on how that technology integrates and enables delivery of the many features and bug fixes that customers need. This class encourages a systems thinking approach to delivery.
+
+[.big]#*Who should attend?*#
+
+This experience demonstrates how individuals across different roles must learn to share, collaborate, and work toward a common goal to achieve positive outcomes and drive innovation. Business product owners, developers, site reliability engineers, and engineers will especially benefit from experiencing this scenario, which includes some technical aspects that rely on working with software systems. You will know how to deliver continuous value to customers through an enhanced understanding of changing customer needs and the ability to more rapidly get new ideas to market. Our instructors will share experiences and best practices learned from engaging directly with customers during Red Hat services engagements.
+
+[.big]#*What are the prerequisites?*#
+
+* Knowledge of agile practices is helpful
+* Experience using agile practices and methodologies such as scrum is beneficial
+
+[.big]#*Technology requirements*#
+
+* This class will require internet access to certain sites (AWS, youtube, google drive, online chat tools)
+* This course requires you to "bring your own developer workstation” (https://www.redhat.com/en/resources/red-hat-training-and-certification-classroom-requirements[BYDW]). so you will be expected to bring your own device
+* Chrome browser suggested
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/tl500-devops-culture-and-practice-enablement

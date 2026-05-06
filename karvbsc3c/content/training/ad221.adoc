@@ -1,0 +1,51 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Cloud-native Integration with Red Hat Fuse and Apache Camel (AD221)
+
+*Integrate applications and services with Red Hat Fuse and Camel*
+
+[.big]#*Course description*#
+
+*Red Hat Fuse, based on the Apache Camel project, is a lightweight, flexible integration platform that enables rapid integration of cloud-native applications, both on-premise and in the cloud.*
+
+Camel development is organized around:
+
+* Routes that define a sequence or flow of processing.
+* Processors that transform, interpret, and modify messages within a Camel route.
+* Components that enable the creation of endpoints that interact with the outside world for acquiring and transmitting data.
+
+Cloud-native Integration with Red Hat Fuse (AD221) emphasizes learning architectural patterns and implementing integration services based on Apache Camel and OpenShift. Camel and Red Hat Fuse enable developers to create complex integrations in a simple and maintainable format. You will learn how to use the most common integration components in Camel and develop, test, and deploy integration focused applications on OpenShift. This course is based on Red Hat Fuse 7.10 and OpenShift 4.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a four day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Deploy Fuse applications on Red Hat OpenShift Container Platform
+* Implement REST APIs with the Camel REST DSL
+* Implement unit tests, error handling, and mocks for Camel routes
+* Implement Enterprise Integration Patterns (EIP) using Camel components
+* Integrate Camel applications with a database
+* Integrate Camel applications with Apache Kafka
+* Integrate Cloud-native services using Camel K
+* Consume REST services using the Camel HTTP component
+
+[.big]#*Audience for this course*#
+
+* This course is designed for Java developers focused on implementing integration solutions in an enterprise.
+
+[.big]#*Prerequisites for this course*#
+
+* Experience with Java application development or https://www.redhat.com/en/services/training/ad183-red-hat-application-development-i-programming-java-ee[Red Hat Application Development I: Programming in Java EE (AD183)].
+* Be proficient in using an IDE such as Visual Studio Code.
+* Experience with Maven and version control is recommended, but not required.
+* Experience with Red Hat OpenShift or https://www.redhat.com/en/services/training/do101-introduction-openshift-applications[Introduction to OpenShift Applications (DO101)] is recommended, but not required.
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+
+[.big]#*Technology considerations*#
+
+* Internet access required.
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/ad221-cloud-native-integration-with-red-hat-fuse

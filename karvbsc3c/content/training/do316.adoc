@@ -1,0 +1,56 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Managing Virtual Machines with Red Hat OpenShift Virtualization (DO316)
+
+[.big]#*Related offer*#
+
+This course is part of the https://www.redhat.com/en/services/training/managing-virtual-machines-red-hat-openshift-virtualization-exam[Managing Virtual Machines with Red Hat OpenShift Virtualization with Exam (DO317)] bundle. This bundle is available at 70% off local MSRP, now through August 31,2024. Click get started to checkout from the bundle page and select the self-paced version of the course plus the exam to receive this offer. Discount will be applied to the local MSRP of eligible offerings at checkout. This offer may not be combined with other offers or discounts.
+
+[.big]#*Course description*#
+
+*Create and manage virtual machines on OpenShift using the Red Hat OpenShift Virtualization operator*
+
+Managing Virtual Machines with OpenShift Virtualization teaches the essential skills required to create and manage virtual machines (VM) on OpenShift using the Red Hat OpenShift Virtualization operator. This course does not require previous knowledge of containers and Kubernetes.
+
+This course provides:
+
+* Skills required to create, access, and manage VMs on OpenShift clusters.
+* Skills required to control usage and access of cpu, memory, storage, and networking resources from VMs using the same Kubernetes features that would also control usage and access to these resources for containers.
+* Sample architectures to manage High Availability (HA) of VMs using standard Kubernetes features and extensions from OpenShift Virtualization.
+* Strategies to connect VMs on OpenShift to data center services outside of their OpenShift cluster, such as storage and databases.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a four day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Create VMs from installation media and disk images
+* Access text and graphical consoles of a VM
+* Connect to VMs using Kubernetes networking (services, ingress, and routes)
+* Provision storage to VMs using Kubernetes storage (PVC, PV, and storage classes)
+* Start, pause, and stop VMs
+* Clone and snapshot VMs
+* Connect VMs to external and extra networks (outside of the Kubernetes pod and service networks)
+* Provision load balancer services for VMs and then use the services to enable SSH access to VMs
+* Connect VMs to host storage and external storage
+* Create VMs from VM Templates
+* Migrate VMs from compatible hypervisors
+
+[.big]#*Audience for this course*#
+
+* Virtual Machine Administrators interested in moving virtualized workloads from traditional Hypervisors to OpenShift Virtualization
+* Kubernetes Administrators (Cluster Administrators, Clusters Engineers) interested in supporting containerized and virtualized workloads in the same OpenShift cluster
+* Site Reliability Engineers interested in using GitOps and Ansible Automation to manage Virtual Machines on OpenShift
+
+[.big]#*Prerequisites for this course*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills
+* https://www.redhat.com/en/services/training/red-hat-openshift-administration-i-operating-a-production-cluster[Red Hat OpenShift I: Containers & Kubernetes (DO180)] and is recommended but not required
+
+[.big]#*Technology considerations*#
+
+* All deliveries require access to ROLE for the remote classroom environment. There is no local ILT version of the DO316 classroom
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do316-managing-virtual-machines-red-hat-openshift-virtualization

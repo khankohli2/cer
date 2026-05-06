@@ -1,0 +1,45 @@
+// This file is maintained by running scripts/refresh-training.py script
+
+= Developing Advanced Automation with Red Hat Ansible Automation Platform (DO374)
+
+[.big]#*Course description*#
+
+*Advance your Ansible skills and develop automation that scales by applying recommended practices with the new, container focused tools from Red Hat Ansible Automation Platform*
+
+Developing Advanced Automation with Red Hat Ansible Automation Platform (DO374) is designed for automation content developers to leverage the new, container focused tools from Red Hat® Ansible Automation Platform to efficiently develop automation that can be managed by the automation controller. Learn recommended practices for automation development using reusable code, advanced playbook techniques, shared execution environments, and preparing for scalable automation with the automation content navigator.
+
+This course is based on Red Hat Ansible Automation Platform 2.2.
+
+Following course completion, you will receive a 45-day extended access to hands-on labs for any course that includes a virtual environment.
+
+*Note:* This course is offered as a five day virtual class or self-paced. Durations may vary based on the delivery. For full course details, scheduling, and pricing, select your location then “get started” on the right hand menu.
+
+[.big]#*Course content summary*#
+
+* Leverage capabilities of the automation content navigator to develop Ansible Playbooks.
+* Apply recommended practices for effective and efficient automation with Ansible.
+* Use advanced features of Red Hat Ansible Automation Platform to work with data, including filters and plugins.
+* Perform automation operations as rolling updates.
+* Create automation execution environments to bundle and distribute the dependencies needed to run automation code.
+
+[.big]#*Target Audience*#
+
+This course is designed for users who create automation content, including these roles:
+
+* Developers
+* DevOps engineers
+* Linux system administrators
+* Other IT professionals with basic expertise using Red Hat Ansible Automation Platform to automate, provision, configure, and deploy applications and services in a Linux environment
+
+[.big]#*Recommended training*#
+
+* https://skills.ole.redhat.com/[Take our free assessment] to gauge whether this offering is the best fit for your skills.
+* https://www.redhat.com/en/services/training/rh294-red-hat-linux-automation-with-ansible[Red Hat Enterprise Linux Automation with Ansible (RH294)]
+* Be ahttps://www.redhat.com/en/services/certification/rhce[ Red Hat Certified Engineer (RHCE®)] on Red Hat Enterprise Linux 8 or later, or demonstrate equivalent Ansible experience
+
+[.big]#*Technology considerations*#
+
+* No BYOD/BYDW or internet required.  (Implementation of SSH access for VT/ROLE will require internet for that purpose.)
+
+For full details, or to enroll:
+https://www.redhat.com/en/services/training/do374-developing-advanced-automation-red-hat-ansible-automation-platform
